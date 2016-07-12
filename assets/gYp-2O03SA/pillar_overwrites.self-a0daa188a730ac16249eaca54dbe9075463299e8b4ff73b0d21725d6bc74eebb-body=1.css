@@ -13,3 +13,22 @@ footer {
 footer .footer__navigation {
   margin-bottom: 0;
 }
+
+/* line 17, /Users/holden/Code/paid-projects/festcamp/app/assets/stylesheets/gYp-2O03SA/pillar_overwrites.scss */
+footer .footer__navigation li a{
+  text-decoration:none;
+  color:#000000;
+}
+
+/* line 23, /Users/holden/Code/paid-projects/festcamp/app/assets/stylesheets/gYp-2O03SA/pillar_overwrites.scss */
+footer .footer__navigation li a:hover{
+  text-decoration:underline;
+  color:#00ffff;
+}
+
+/* line 29, /Users/holden/Code/paid-projects/festcamp/app/assets/stylesheets/gYp-2O03SA/pillar_overwrites.scss */
+
+footer .footer__navigation li a.active{
+  text-decoration:underline;
+  color:#00ffff;
+}
