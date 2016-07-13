@@ -196,7 +196,7 @@ hr {
 a:hover,
 a:focus,
 a:active {
-  text-decoration: none;
+  text-decoration: underline;
   outline: none;
 }
 /*! Typography -- Helpers */
@@ -1226,7 +1226,7 @@ nav {
   top: 0;
 }
 .nav-bar.nav--fixed:not(.bg--dark):not(.bg--primary):not(.bg--white) {
-  background: #f8f8f8;
+  background: #000;
 }
 .nav-bar.nav--fixed + .nav-mobile-toggle {
   position: fixed;
@@ -1471,7 +1471,7 @@ nav {
   position: absolute;
 }
 .nav--transparent:not(.nav--fixed) {
-  background: none !important;
+  background-color:#000000;
 }
 nav:not(.nav--fixed):not(.nav--absolute) {
   position: relative;
@@ -3525,10 +3525,15 @@ span.label {
   -moz-transition: 0.3s linear;
 }
 .menu > li:hover > a {
-  opacity: .6;
+  opacity: 1;
+  text-decoration:underline;
+}
+.menu > li.active > a {
+  opacity: 1;
+  text-decoration:underline;
 }
 .menu > li a {
-  color: #232323;
+  color: #fff;
   text-transform: uppercase;
   letter-spacing: 1px;
   font-weight: 500;
@@ -3596,7 +3601,7 @@ span.label {
   transition: 0.2s linear;
   -webkit-transition: 0.2s linear;
   -moz-transition: 0.2s linear;
-  opacity: .5;
+  opacity: 1;
 }
 .menu > li > ul a:hover {
   opacity: 1;
