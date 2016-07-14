@@ -8,7 +8,19 @@
   line-height: 62px;
   font-family: "Montserrat", "Helvetica", "Arial", sans-serif;
   font-weight: 500;
-  font-size: 10px;
+  font-size: 12px;
   letter-spacing: 1px;
   text-transform: uppercase;
+}
+
+/* line 16, /Users/holden/Code/paid-projects/festcamp/app/assets/stylesheets/gYp-2O03SA/simple_menu.scss */
+.simple-menu li a:hover{
+  text-decoration:underline;
+  color:#00ffff;
+}
+
+/* line 23, /Users/holden/Code/paid-projects/festcamp/app/assets/stylesheets/gYp-2O03SA/simple_menu.scss */
+.simple-menu li a.active{
+  text-decoration:underline;
+  color:#00ffff;
 }
