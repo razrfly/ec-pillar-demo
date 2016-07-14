@@ -12,14 +12,25 @@ footer {
 /* line 10, /Users/holden/Code/paid-projects/festcamp/app/assets/stylesheets/gYp-2O03SA/pillar_overwrites.scss */
 footer .footer__navigation {
   margin-bottom: 0;
+  opacity:1;
 }
 
-/* line 15, /Users/holden/Code/paid-projects/festcamp/app/assets/stylesheets/gYp-2O03SA/pillar_overwrites.scss */
-.slider.height-40 .slides li {
-  min-height: 300px;
+/* line 17, /Users/holden/Code/paid-projects/festcamp/app/assets/stylesheets/gYp-2O03SA/pillar_overwrites.scss */
+footer .footer__navigation li a{
+  text-decoration:none;
+  color:#000000;
+  
 }
 
-/* line 19, /Users/holden/Code/paid-projects/festcamp/app/assets/stylesheets/gYp-2O03SA/pillar_overwrites.scss */
-.imagebg {
-  min-height: 300px;
+/* line 23, /Users/holden/Code/paid-projects/festcamp/app/assets/stylesheets/gYp-2O03SA/pillar_overwrites.scss */
+footer .footer__navigation li a:hover{
+  text-decoration:underline;
+  color:#00ffff;
+}
+
+/* line 29, /Users/holden/Code/paid-projects/festcamp/app/assets/stylesheets/gYp-2O03SA/pillar_overwrites.scss */
+
+footer .footer__navigation li a.active{
+  text-decoration:underline;
+  color:#00ffff;
 }
