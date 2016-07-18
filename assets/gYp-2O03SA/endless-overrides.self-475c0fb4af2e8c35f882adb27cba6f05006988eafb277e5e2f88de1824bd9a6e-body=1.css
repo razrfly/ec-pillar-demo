@@ -5,7 +5,7 @@ a:active {
 
 /* line 5, /Users/holden/Code/paid-projects/festcamp/app/assets/stylesheets/gYp-2O03SA/endless-overrides.scss */
 .nav-bar.nav--fixed:not(.bg--dark):not(.bg--primary):not(.bg--white) {
-  background: #000;
+  background: #000 !important;
 }
 /* line 7, /Users/holden/Code/paid-projects/festcamp/app/assets/stylesheets/gYp-2O03SA/endless-overrides.scss */
 .nav-bar.nav--fixed:not(.bg--dark):not(.bg--primary):not(.bg--white) .logo-dark {
@@ -35,49 +35,48 @@ a:active {
 }
 
 /* line 29, /Users/holden/Code/paid-projects/festcamp/app/assets/stylesheets/gYp-2O03SA/endless-overrides.scss */
+.menu > li {
+  color: #fff !important;
+  opacity: 1;
+}
+
+/* line 34, /Users/holden/Code/paid-projects/festcamp/app/assets/stylesheets/gYp-2O03SA/endless-overrides.scss */
 .menu > li:hover > a {
   opacity: 1;
   text-decoration: underline;
 }
 
-/* line 34, /Users/holden/Code/paid-projects/festcamp/app/assets/stylesheets/gYp-2O03SA/endless-overrides.scss */
+/* line 39, /Users/holden/Code/paid-projects/festcamp/app/assets/stylesheets/gYp-2O03SA/endless-overrides.scss */
 .menu > li.active > a {
   opacity: 1;
   text-decoration: underline;
 }
 
-/* line 39, /Users/holden/Code/paid-projects/festcamp/app/assets/stylesheets/gYp-2O03SA/endless-overrides.scss */
-.menu > li a {
-  color: #fff;
+/* line 45, /Users/holden/Code/paid-projects/festcamp/app/assets/stylesheets/gYp-2O03SA/endless-overrides.scss */
+footer .footer__navigation {
   opacity: 1;
 }
 
-/* line 44, /Users/holden/Code/paid-projects/festcamp/app/assets/stylesheets/gYp-2O03SA/endless-overrides.scss */
+/* line 49, /Users/holden/Code/paid-projects/festcamp/app/assets/stylesheets/gYp-2O03SA/endless-overrides.scss */
 footer .footer__navigation li a {
   text-decoration: none;
   color: #000000;
 }
 
-/* line 49, /Users/holden/Code/paid-projects/festcamp/app/assets/stylesheets/gYp-2O03SA/endless-overrides.scss */
+/* line 54, /Users/holden/Code/paid-projects/festcamp/app/assets/stylesheets/gYp-2O03SA/endless-overrides.scss */
 footer .footer__navigation li a:hover {
   text-decoration: underline;
   color: #00ffff;
 }
 
-/* line 54, /Users/holden/Code/paid-projects/festcamp/app/assets/stylesheets/gYp-2O03SA/endless-overrides.scss */
+/* line 59, /Users/holden/Code/paid-projects/festcamp/app/assets/stylesheets/gYp-2O03SA/endless-overrides.scss */
 footer .footer__navigation li a.active {
   text-decoration: underline;
   color: #00ffff;
 }
 
-/* line 59, /Users/holden/Code/paid-projects/festcamp/app/assets/stylesheets/gYp-2O03SA/endless-overrides.scss */
-.simple-menu li a:hover {
-  text-decoration: underline;
-  color: #00ffff;
-}
-
 /* line 64, /Users/holden/Code/paid-projects/festcamp/app/assets/stylesheets/gYp-2O03SA/endless-overrides.scss */
-.simple-menu li a.active {
-  text-decoration: underline;
-  color: #00ffff;
+.btn-link:hover,
+.btn-link:focus {
+  text-decoration: none;
 }

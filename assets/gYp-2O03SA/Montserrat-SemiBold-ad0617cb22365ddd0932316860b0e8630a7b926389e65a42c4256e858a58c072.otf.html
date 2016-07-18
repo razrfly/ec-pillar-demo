@@ -1,0 +1,5348 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Action Controller: Exception caught</title>
+  <style>
+    body {
+      background-color: #FAFAFA;
+      color: #333;
+      margin: 0px;
+    }
+
+    body, p, ol, ul, td {
+      font-family: helvetica, verdana, arial, sans-serif;
+      font-size:   13px;
+      line-height: 18px;
+    }
+
+    pre {
+      font-size: 11px;
+      white-space: pre-wrap;
+    }
+
+    pre.box {
+      border: 1px solid #EEE;
+      padding: 10px;
+      margin: 0px;
+      width: 958px;
+    }
+
+    header {
+      color: #F0F0F0;
+      background: #C52F24;
+      padding: 0.5em 1.5em;
+    }
+
+    h1 {
+      margin: 0.2em 0;
+      line-height: 1.1em;
+      font-size: 2em;
+    }
+
+    h2 {
+      color: #C52F24;
+      line-height: 25px;
+    }
+
+    .details {
+      border: 1px solid #D0D0D0;
+      border-radius: 4px;
+      margin: 1em 0px;
+      display: block;
+      width: 978px;
+    }
+
+    .summary {
+      padding: 8px 15px;
+      border-bottom: 1px solid #D0D0D0;
+      display: block;
+    }
+
+    .details pre {
+      margin: 5px;
+      border: none;
+    }
+
+    #container {
+      box-sizing: border-box;
+      width: 100%;
+      padding: 0 1.5em;
+    }
+
+    .source * {
+      margin: 0px;
+      padding: 0px;
+    }
+
+    .source {
+      border: 1px solid #D9D9D9;
+      background: #ECECEC;
+      width: 978px;
+    }
+
+    .source pre {
+      padding: 10px 0px;
+      border: none;
+    }
+
+    .source .data {
+      font-size: 80%;
+      overflow: auto;
+      background-color: #FFF;
+    }
+
+    .info {
+      padding: 0.5em;
+    }
+
+    .source .data .line_numbers {
+      background-color: #ECECEC;
+      color: #AAA;
+      padding: 1em .5em;
+      border-right: 1px solid #DDD;
+      text-align: right;
+    }
+
+    .line {
+      padding-left: 10px;
+    }
+
+    .line:hover {
+      background-color: #F6F6F6;
+    }
+
+    .line.active {
+      background-color: #FFCCCC;
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    a { color: #980905; }
+    a:visited { color: #666; }
+    a.trace-frames { color: #666; }
+    a:hover { color: #C52F24; }
+    a.trace-frames.selected { color: #C52F24 }
+
+      #route_table {
+    margin: 0;
+    border-collapse: collapse;
+  }
+
+  #route_table thead tr {
+    border-bottom: 2px solid #ddd;
+  }
+
+  #route_table thead tr.bottom {
+    border-bottom: none;
+  }
+
+  #route_table thead tr.bottom th {
+    padding: 10px 0;
+    line-height: 15px;
+  }
+
+  #route_table tbody tr {
+    border-bottom: 1px solid #ddd;
+  }
+
+  #route_table tbody tr:nth-child(odd) {
+    background: #f2f2f2;
+  }
+
+  #route_table tbody.exact_matches,
+  #route_table tbody.fuzzy_matches {
+    background-color: LightGoldenRodYellow;
+    border-bottom: solid 2px SlateGrey;
+  }
+
+  #route_table tbody.exact_matches tr,
+  #route_table tbody.fuzzy_matches tr {
+    background: none;
+    border-bottom: none;
+  }
+
+  #route_table td {
+    padding: 4px 30px;
+  }
+
+  #path_search {
+    width: 80%;
+    font-size: inherit;
+  }
+
+  </style>
+
+  <script>
+    var toggle = function(id) {
+      var s = document.getElementById(id).style;
+      s.display = s.display == 'none' ? 'block' : 'none';
+      return false;
+    }
+    var show = function(id) {
+      document.getElementById(id).style.display = 'block';
+    }
+    var hide = function(id) {
+      document.getElementById(id).style.display = 'none';
+    }
+    var toggleTrace = function() {
+      return toggle('blame_trace');
+    }
+    var toggleSessionDump = function() {
+      return toggle('session_dump');
+    }
+    var toggleEnvDump = function() {
+      return toggle('env_dump');
+    }
+  </script>
+</head>
+<body>
+
+<header>
+  <h1>Routing Error</h1>
+</header>
+<div id="container">
+  <h2>No route matches [GET] &quot;/assets/gYp-2O03SA/Montserrat-SemiBold-ad0617cb22365ddd0932316860b0e8630a7b926389e65a42c4256e858a58c072.otf&quot;</h2>
+
+  
+<p><code>Rails.root: /Users/holden/Code/paid-projects/festcamp</code></p>
+
+<div id="traces">
+    <a href="#" onclick="hide(&#39;Framework-Trace&#39;);hide(&#39;Full-Trace&#39;);show(&#39;Application-Trace&#39;);; return false;">Application Trace</a> |
+    <a href="#" onclick="hide(&#39;Application-Trace&#39;);hide(&#39;Full-Trace&#39;);show(&#39;Framework-Trace&#39;);; return false;">Framework Trace</a> |
+    <a href="#" onclick="hide(&#39;Application-Trace&#39;);hide(&#39;Framework-Trace&#39;);show(&#39;Full-Trace&#39;);; return false;">Full Trace</a> 
+
+    <div id="Application-Trace" style="display: block;">
+      <pre><code></code></pre>
+    </div>
+    <div id="Framework-Trace" style="display: none;">
+      <pre><code><a class="trace-frames" data-frame-id="0" href="#">actionpack (4.2.4) lib/action_dispatch/middleware/debug_exceptions.rb:21:in `call&#39;</a><br><a class="trace-frames" data-frame-id="1" href="#">web-console (2.2.1) lib/web_console/middleware.rb:39:in `call&#39;</a><br><a class="trace-frames" data-frame-id="2" href="#">actionpack (4.2.4) lib/action_dispatch/middleware/show_exceptions.rb:30:in `call&#39;</a><br><a class="trace-frames" data-frame-id="3" href="#">railties (4.2.4) lib/rails/rack/logger.rb:38:in `call_app&#39;</a><br><a class="trace-frames" data-frame-id="4" href="#">railties (4.2.4) lib/rails/rack/logger.rb:20:in `block in call&#39;</a><br><a class="trace-frames" data-frame-id="5" href="#">activesupport (4.2.4) lib/active_support/tagged_logging.rb:68:in `block in tagged&#39;</a><br><a class="trace-frames" data-frame-id="6" href="#">activesupport (4.2.4) lib/active_support/tagged_logging.rb:26:in `tagged&#39;</a><br><a class="trace-frames" data-frame-id="7" href="#">activesupport (4.2.4) lib/active_support/tagged_logging.rb:68:in `tagged&#39;</a><br><a class="trace-frames" data-frame-id="8" href="#">railties (4.2.4) lib/rails/rack/logger.rb:20:in `call&#39;</a><br><a class="trace-frames" data-frame-id="9" href="#">ahoy_matey (1.2.1) lib/ahoy/engine.rb:18:in `call_with_quiet_ahoy&#39;</a><br><a class="trace-frames" data-frame-id="10" href="#">request_store (1.3.0) lib/request_store/middleware.rb:9:in `call&#39;</a><br><a class="trace-frames" data-frame-id="11" href="#">actionpack (4.2.4) lib/action_dispatch/middleware/request_id.rb:21:in `call&#39;</a><br><a class="trace-frames" data-frame-id="12" href="#">rack (1.6.4) lib/rack/methodoverride.rb:22:in `call&#39;</a><br><a class="trace-frames" data-frame-id="13" href="#">rack (1.6.4) lib/rack/runtime.rb:18:in `call&#39;</a><br><a class="trace-frames" data-frame-id="14" href="#">activesupport (4.2.4) lib/active_support/cache/strategy/local_cache_middleware.rb:28:in `call&#39;</a><br><a class="trace-frames" data-frame-id="15" href="#">rack (1.6.4) lib/rack/lock.rb:17:in `call&#39;</a><br><a class="trace-frames" data-frame-id="16" href="#">actionpack (4.2.4) lib/action_dispatch/middleware/static.rb:116:in `call&#39;</a><br><a class="trace-frames" data-frame-id="17" href="#">rack (1.6.4) lib/rack/sendfile.rb:113:in `call&#39;</a><br><a class="trace-frames" data-frame-id="18" href="#">hirefire-resource (0.3.9) lib/hirefire/middleware.rb:38:in `call&#39;</a><br><a class="trace-frames" data-frame-id="19" href="#">rack-mini-profiler (0.9.8) lib/mini_profiler/profiler.rb:170:in `call&#39;</a><br><a class="trace-frames" data-frame-id="20" href="#">railties (4.2.4) lib/rails/engine.rb:518:in `call&#39;</a><br><a class="trace-frames" data-frame-id="21" href="#">railties (4.2.4) lib/rails/application.rb:165:in `call&#39;</a><br><a class="trace-frames" data-frame-id="22" href="#">/Users/holden/Library/Application Support/Pow/Versions/0.5.0/node_modules/nack/lib/nack/server.rb:155:in `handle&#39;</a><br><a class="trace-frames" data-frame-id="23" href="#">/Users/holden/Library/Application Support/Pow/Versions/0.5.0/node_modules/nack/lib/nack/server.rb:109:in `rescue in block (2 levels) in start&#39;</a><br><a class="trace-frames" data-frame-id="24" href="#">/Users/holden/Library/Application Support/Pow/Versions/0.5.0/node_modules/nack/lib/nack/server.rb:106:in `block (2 levels) in start&#39;</a><br><a class="trace-frames" data-frame-id="25" href="#">/Users/holden/Library/Application Support/Pow/Versions/0.5.0/node_modules/nack/lib/nack/server.rb:96:in `each&#39;</a><br><a class="trace-frames" data-frame-id="26" href="#">/Users/holden/Library/Application Support/Pow/Versions/0.5.0/node_modules/nack/lib/nack/server.rb:96:in `block in start&#39;</a><br><a class="trace-frames" data-frame-id="27" href="#">/Users/holden/Library/Application Support/Pow/Versions/0.5.0/node_modules/nack/lib/nack/server.rb:76:in `loop&#39;</a><br><a class="trace-frames" data-frame-id="28" href="#">/Users/holden/Library/Application Support/Pow/Versions/0.5.0/node_modules/nack/lib/nack/server.rb:76:in `start&#39;</a><br><a class="trace-frames" data-frame-id="29" href="#">/Users/holden/Library/Application Support/Pow/Versions/0.5.0/node_modules/nack/lib/nack/server.rb:12:in `run&#39;</a><br><a class="trace-frames" data-frame-id="30" href="#">/Users/holden/Library/Application Support/Pow/Versions/0.5.0/node_modules/nack/bin/nack_worker:4:in `&lt;main&gt;&#39;</a><br></code></pre>
+    </div>
+    <div id="Full-Trace" style="display: none;">
+      <pre><code><a class="trace-frames" data-frame-id="0" href="#">actionpack (4.2.4) lib/action_dispatch/middleware/debug_exceptions.rb:21:in `call&#39;</a><br><a class="trace-frames" data-frame-id="1" href="#">web-console (2.2.1) lib/web_console/middleware.rb:39:in `call&#39;</a><br><a class="trace-frames" data-frame-id="2" href="#">actionpack (4.2.4) lib/action_dispatch/middleware/show_exceptions.rb:30:in `call&#39;</a><br><a class="trace-frames" data-frame-id="3" href="#">railties (4.2.4) lib/rails/rack/logger.rb:38:in `call_app&#39;</a><br><a class="trace-frames" data-frame-id="4" href="#">railties (4.2.4) lib/rails/rack/logger.rb:20:in `block in call&#39;</a><br><a class="trace-frames" data-frame-id="5" href="#">activesupport (4.2.4) lib/active_support/tagged_logging.rb:68:in `block in tagged&#39;</a><br><a class="trace-frames" data-frame-id="6" href="#">activesupport (4.2.4) lib/active_support/tagged_logging.rb:26:in `tagged&#39;</a><br><a class="trace-frames" data-frame-id="7" href="#">activesupport (4.2.4) lib/active_support/tagged_logging.rb:68:in `tagged&#39;</a><br><a class="trace-frames" data-frame-id="8" href="#">railties (4.2.4) lib/rails/rack/logger.rb:20:in `call&#39;</a><br><a class="trace-frames" data-frame-id="9" href="#">ahoy_matey (1.2.1) lib/ahoy/engine.rb:18:in `call_with_quiet_ahoy&#39;</a><br><a class="trace-frames" data-frame-id="10" href="#">request_store (1.3.0) lib/request_store/middleware.rb:9:in `call&#39;</a><br><a class="trace-frames" data-frame-id="11" href="#">actionpack (4.2.4) lib/action_dispatch/middleware/request_id.rb:21:in `call&#39;</a><br><a class="trace-frames" data-frame-id="12" href="#">rack (1.6.4) lib/rack/methodoverride.rb:22:in `call&#39;</a><br><a class="trace-frames" data-frame-id="13" href="#">rack (1.6.4) lib/rack/runtime.rb:18:in `call&#39;</a><br><a class="trace-frames" data-frame-id="14" href="#">activesupport (4.2.4) lib/active_support/cache/strategy/local_cache_middleware.rb:28:in `call&#39;</a><br><a class="trace-frames" data-frame-id="15" href="#">rack (1.6.4) lib/rack/lock.rb:17:in `call&#39;</a><br><a class="trace-frames" data-frame-id="16" href="#">actionpack (4.2.4) lib/action_dispatch/middleware/static.rb:116:in `call&#39;</a><br><a class="trace-frames" data-frame-id="17" href="#">rack (1.6.4) lib/rack/sendfile.rb:113:in `call&#39;</a><br><a class="trace-frames" data-frame-id="18" href="#">hirefire-resource (0.3.9) lib/hirefire/middleware.rb:38:in `call&#39;</a><br><a class="trace-frames" data-frame-id="19" href="#">rack-mini-profiler (0.9.8) lib/mini_profiler/profiler.rb:170:in `call&#39;</a><br><a class="trace-frames" data-frame-id="20" href="#">railties (4.2.4) lib/rails/engine.rb:518:in `call&#39;</a><br><a class="trace-frames" data-frame-id="21" href="#">railties (4.2.4) lib/rails/application.rb:165:in `call&#39;</a><br><a class="trace-frames" data-frame-id="22" href="#">/Users/holden/Library/Application Support/Pow/Versions/0.5.0/node_modules/nack/lib/nack/server.rb:155:in `handle&#39;</a><br><a class="trace-frames" data-frame-id="23" href="#">/Users/holden/Library/Application Support/Pow/Versions/0.5.0/node_modules/nack/lib/nack/server.rb:109:in `rescue in block (2 levels) in start&#39;</a><br><a class="trace-frames" data-frame-id="24" href="#">/Users/holden/Library/Application Support/Pow/Versions/0.5.0/node_modules/nack/lib/nack/server.rb:106:in `block (2 levels) in start&#39;</a><br><a class="trace-frames" data-frame-id="25" href="#">/Users/holden/Library/Application Support/Pow/Versions/0.5.0/node_modules/nack/lib/nack/server.rb:96:in `each&#39;</a><br><a class="trace-frames" data-frame-id="26" href="#">/Users/holden/Library/Application Support/Pow/Versions/0.5.0/node_modules/nack/lib/nack/server.rb:96:in `block in start&#39;</a><br><a class="trace-frames" data-frame-id="27" href="#">/Users/holden/Library/Application Support/Pow/Versions/0.5.0/node_modules/nack/lib/nack/server.rb:76:in `loop&#39;</a><br><a class="trace-frames" data-frame-id="28" href="#">/Users/holden/Library/Application Support/Pow/Versions/0.5.0/node_modules/nack/lib/nack/server.rb:76:in `start&#39;</a><br><a class="trace-frames" data-frame-id="29" href="#">/Users/holden/Library/Application Support/Pow/Versions/0.5.0/node_modules/nack/lib/nack/server.rb:12:in `run&#39;</a><br><a class="trace-frames" data-frame-id="30" href="#">/Users/holden/Library/Application Support/Pow/Versions/0.5.0/node_modules/nack/bin/nack_worker:4:in `&lt;main&gt;&#39;</a><br></code></pre>
+    </div>
+
+  <script type="text/javascript">
+    var traceFrames = document.getElementsByClassName('trace-frames');
+    var selectedFrame, currentSource = document.getElementById('frame-source-0');
+
+    // Add click listeners for all stack frames
+    for (var i = 0; i < traceFrames.length; i++) {
+      traceFrames[i].addEventListener('click', function(e) {
+        e.preventDefault();
+        var target = e.target;
+        var frame_id = target.dataset.frameId;
+
+        if (selectedFrame) {
+          selectedFrame.className = selectedFrame.className.replace("selected", "");
+        }
+
+        target.className += " selected";
+        selectedFrame = target;
+
+        // Change the extracted source code
+        changeSourceExtract(frame_id);
+      });
+
+      function changeSourceExtract(frame_id) {
+        var el = document.getElementById('frame-source-' + frame_id);
+        if (currentSource && el) {
+          currentSource.className += " hidden";
+          el.className = el.className.replace(" hidden", "");
+          currentSource = el;
+        }
+      }
+    }
+  </script>
+</div>
+
+
+    <h2>
+      Routes
+    </h2>
+
+    <p>
+      Routes match in priority from top to bottom
+    </p>
+
+    
+<table id='route_table' class='route_table'>
+  <thead>
+    <tr>
+      <th>Helper</th>
+      <th>HTTP Verb</th>
+      <th>Path</th>
+      <th>Controller#Action</th>
+    </tr>
+    <tr class='bottom'>
+      <th>
+        <a data-route-helper="_path" title="Returns a relative path (without the http or domain)" href="#">Path</a> /
+        <a data-route-helper="_url" title="Returns an absolute url (with the http and domain)" href="#">Url</a>
+      </th>
+      <th>
+      </th>
+      <th>
+        <input id="search" placeholder="Path Match" type="search" name="path[]" />
+      </th>
+      <th>
+      </th>
+    </tr>
+  </thead>
+  <tbody class='exact_matches' id='exact_matches'>
+  </tbody>
+  <tbody class='fuzzy_matches' id='fuzzy_matches'>
+  </tbody>
+  <tbody>
+    <tr class='route_row' data-helper='path'>
+  <td data-route-name=''>
+  </td>
+  <td data-route-verb='GET'>
+    GET
+  </td>
+  <td data-route-path='/' data-regexp='^\/$'>
+    /
+  </td>
+  <td data-route-reqs='redirect(301, http://www.festiment.com)'>
+    redirect(301, http://www.festiment.com)
+  </td>
+</tr>
+<tr class='route_row' data-helper='path'>
+  <td data-route-name=''>
+  </td>
+  <td data-route-verb='GET'>
+    GET
+  </td>
+  <td data-route-path='/' data-regexp='^\/$'>
+    /
+  </td>
+  <td data-route-reqs='redirect(301, http://www.festiment.com)'>
+    redirect(301, http://www.festiment.com)
+  </td>
+</tr>
+<tr class='route_row' data-helper='path'>
+  <td data-route-name='new_user_session'>
+      new_user_session<span class='helper'>_path</span>
+  </td>
+  <td data-route-verb='GET'>
+    GET
+  </td>
+  <td data-route-path='/users/sign_in(.:format)' data-regexp='^\/users\/sign_in(?:\.([^\/.?]+))?$'>
+    /users/sign_in(.:format)
+  </td>
+  <td data-route-reqs='users/sessions#new'>
+    users/sessions#new
+  </td>
+</tr>
+<tr class='route_row' data-helper='path'>
+  <td data-route-name='user_session'>
+      user_session<span class='helper'>_path</span>
+  </td>
+  <td data-route-verb='POST'>
+    POST
+  </td>
+  <td data-route-path='/users/sign_in(.:format)' data-regexp='^\/users\/sign_in(?:\.([^\/.?]+))?$'>
+    /users/sign_in(.:format)
+  </td>
+  <td data-route-reqs='users/sessions#create'>
+    users/sessions#create
+  </td>
+</tr>
+<tr class='route_row' data-helper='path'>
+  <td data-route-name='destroy_user_session'>
+      destroy_user_session<span class='helper'>_path</span>
+  </td>
+  <td data-route-verb='DELETE'>
+    DELETE
+  </td>
+  <td data-route-path='/users/sign_out(.:format)' data-regexp='^\/users\/sign_out(?:\.([^\/.?]+))?$'>
+    /users/sign_out(.:format)
+  </td>
+  <td data-route-reqs='users/sessions#destroy'>
+    users/sessions#destroy
+  </td>
+</tr>
+<tr class='route_row' data-helper='path'>
+  <td data-route-name='user_password'>
+      user_password<span class='helper'>_path</span>
+  </td>
+  <td data-route-verb='POST'>
+    POST
+  </td>
+  <td data-route-path='/users/password(.:format)' data-regexp='^\/users\/password(?:\.([^\/.?]+))?$'>
+    /users/password(.:format)
+  </td>
+  <td data-route-reqs='devise/passwords#create'>
+    devise/passwords#create
+  </td>
+</tr>
+<tr class='route_row' data-helper='path'>
+  <td data-route-name='new_user_password'>
+      new_user_password<span class='helper'>_path</span>
+  </td>
+  <td data-route-verb='GET'>
+    GET
+  </td>
+  <td data-route-path='/users/password/new(.:format)' data-regexp='^\/users\/password\/new(?:\.([^\/.?]+))?$'>
+    /users/password/new(.:format)
+  </td>
+  <td data-route-reqs='devise/passwords#new'>
+    devise/passwords#new
+  </td>
+</tr>
+<tr class='route_row' data-helper='path'>
+  <td data-route-name='edit_user_password'>
+      edit_user_password<span class='helper'>_path</span>
+  </td>
+  <td data-route-verb='GET'>
+    GET
+  </td>
+  <td data-route-path='/users/password/edit(.:format)' data-regexp='^\/users\/password\/edit(?:\.([^\/.?]+))?$'>
+    /users/password/edit(.:format)
+  </td>
+  <td data-route-reqs='devise/passwords#edit'>
+    devise/passwords#edit
+  </td>
+</tr>
+<tr class='route_row' data-helper='path'>
+  <td data-route-name=''>
+  </td>
+  <td data-route-verb='PATCH'>
+    PATCH
+  </td>
+  <td data-route-path='/users/password(.:format)' data-regexp='^\/users\/password(?:\.([^\/.?]+))?$'>
+    /users/password(.:format)
+  </td>
+  <td data-route-reqs='devise/passwords#update'>
+    devise/passwords#update
+  </td>
+</tr>
+<tr class='route_row' data-helper='path'>
+  <td data-route-name=''>
+  </td>
+  <td data-route-verb='PUT'>
+    PUT
+  </td>
+  <td data-route-path='/users/password(.:format)' data-regexp='^\/users\/password(?:\.([^\/.?]+))?$'>
+    /users/password(.:format)
+  </td>
+  <td data-route-reqs='devise/passwords#update'>
+    devise/passwords#update
+  </td>
+</tr>
+<tr class='route_row' data-helper='path'>
+  <td data-route-name='user_confirmation'>
+      user_confirmation<span class='helper'>_path</span>
+  </td>
+  <td data-route-verb='POST'>
+    POST
+  </td>
+  <td data-route-path='/users/confirmation(.:format)' data-regexp='^\/users\/confirmation(?:\.([^\/.?]+))?$'>
+    /users/confirmation(.:format)
+  </td>
+  <td data-route-reqs='devise/confirmations#create'>
+    devise/confirmations#create
+  </td>
+</tr>
+<tr class='route_row' data-helper='path'>
+  <td data-route-name='new_user_confirmation'>
+      new_user_confirmation<span class='helper'>_path</span>
+  </td>
+  <td data-route-verb='GET'>
+    GET
+  </td>
+  <td data-route-path='/users/confirmation/new(.:format)' data-regexp='^\/users\/confirmation\/new(?:\.([^\/.?]+))?$'>
+    /users/confirmation/new(.:format)
+  </td>
+  <td data-route-reqs='devise/confirmations#new'>
+    devise/confirmations#new
+  </td>
+</tr>
+<tr class='route_row' data-helper='path'>
+  <td data-route-name=''>
+  </td>
+  <td data-route-verb='GET'>
+    GET
+  </td>
+  <td data-route-path='/users/confirmation(.:format)' data-regexp='^\/users\/confirmation(?:\.([^\/.?]+))?$'>
+    /users/confirmation(.:format)
+  </td>
+  <td data-route-reqs='devise/confirmations#show'>
+    devise/confirmations#show
+  </td>
+</tr>
+<tr class='route_row' data-helper='path'>
+  <td data-route-name='accept_user_invitation'>
+      accept_user_invitation<span class='helper'>_path</span>
+  </td>
+  <td data-route-verb='GET'>
+    GET
+  </td>
+  <td data-route-path='/users/invitation/accept(.:format)' data-regexp='^\/users\/invitation\/accept(?:\.([^\/.?]+))?$'>
+    /users/invitation/accept(.:format)
+  </td>
+  <td data-route-reqs='users/invitations#edit'>
+    users/invitations#edit
+  </td>
+</tr>
+<tr class='route_row' data-helper='path'>
+  <td data-route-name='remove_user_invitation'>
+      remove_user_invitation<span class='helper'>_path</span>
+  </td>
+  <td data-route-verb='GET'>
+    GET
+  </td>
+  <td data-route-path='/users/invitation/remove(.:format)' data-regexp='^\/users\/invitation\/remove(?:\.([^\/.?]+))?$'>
+    /users/invitation/remove(.:format)
+  </td>
+  <td data-route-reqs='users/invitations#destroy'>
+    users/invitations#destroy
+  </td>
+</tr>
+<tr class='route_row' data-helper='path'>
+  <td data-route-name='user_invitation'>
+      user_invitation<span class='helper'>_path</span>
+  </td>
+  <td data-route-verb='POST'>
+    POST
+  </td>
+  <td data-route-path='/users/invitation(.:format)' data-regexp='^\/users\/invitation(?:\.([^\/.?]+))?$'>
+    /users/invitation(.:format)
+  </td>
+  <td data-route-reqs='users/invitations#create'>
+    users/invitations#create
+  </td>
+</tr>
+<tr class='route_row' data-helper='path'>
+  <td data-route-name='new_user_invitation'>
+      new_user_invitation<span class='helper'>_path</span>
+  </td>
+  <td data-route-verb='GET'>
+    GET
+  </td>
+  <td data-route-path='/users/invitation/new(.:format)' data-regexp='^\/users\/invitation\/new(?:\.([^\/.?]+))?$'>
+    /users/invitation/new(.:format)
+  </td>
+  <td data-route-reqs='users/invitations#new'>
+    users/invitations#new
+  </td>
+</tr>
+<tr class='route_row' data-helper='path'>
+  <td data-route-name=''>
+  </td>
+  <td data-route-verb='PATCH'>
+    PATCH
+  </td>
+  <td data-route-path='/users/invitation(.:format)' data-regexp='^\/users\/invitation(?:\.([^\/.?]+))?$'>
+    /users/invitation(.:format)
+  </td>
+  <td data-route-reqs='users/invitations#update'>
+    users/invitations#update
+  </td>
+</tr>
+<tr class='route_row' data-helper='path'>
+  <td data-route-name=''>
+  </td>
+  <td data-route-verb='PUT'>
+    PUT
+  </td>
+  <td data-route-path='/users/invitation(.:format)' data-regexp='^\/users\/invitation(?:\.([^\/.?]+))?$'>
+    /users/invitation(.:format)
+  </td>
+  <td data-route-reqs='users/invitations#update'>
+    users/invitations#update
+  </td>
+</tr>
+<tr class='route_row' data-helper='path'>
+  <td data-route-name='login'>
+      login<span class='helper'>_path</span>
+  </td>
+  <td data-route-verb='GET'>
+    GET
+  </td>
+  <td data-route-path='/login(.:format)' data-regexp='^\/login(?:\.([^\/.?]+))?$'>
+    /login(.:format)
+  </td>
+  <td data-route-reqs='devise/sessions#new'>
+    devise/sessions#new
+  </td>
+</tr>
+<tr class='route_row' data-helper='path'>
+  <td data-route-name='root'>
+      root<span class='helper'>_path</span>
+  </td>
+  <td data-route-verb='GET'>
+    GET
+  </td>
+  <td data-route-path='/' data-regexp='^\/$'>
+    /
+  </td>
+  <td data-route-reqs='home#index'>
+    home#index
+  </td>
+</tr>
+<tr class='route_row' data-helper='path'>
+  <td data-route-name='articles'>
+      articles<span class='helper'>_path</span>
+  </td>
+  <td data-route-verb='GET'>
+    GET
+  </td>
+  <td data-route-path='/articles(.:format)' data-regexp='^\/articles(?:\.([^\/.?]+))?$'>
+    /articles(.:format)
+  </td>
+  <td data-route-reqs='articles#index'>
+    articles#index
+  </td>
+</tr>
+<tr class='route_row' data-helper='path'>
+  <td data-route-name='article'>
+      article<span class='helper'>_path</span>
+  </td>
+  <td data-route-verb='GET'>
+    GET
+  </td>
+  <td data-route-path='/articles/:id(.:format)' data-regexp='^\/articles\/([^\/.?]+)(?:\.([^\/.?]+))?$'>
+    /articles/:id(.:format)
+  </td>
+  <td data-route-reqs='articles#show'>
+    articles#show
+  </td>
+</tr>
+<tr class='route_row' data-helper='path'>
+  <td data-route-name='films'>
+      films<span class='helper'>_path</span>
+  </td>
+  <td data-route-verb='GET'>
+    GET
+  </td>
+  <td data-route-path='/films(.:format)' data-regexp='^\/films(?:\.([^\/.?]+))?$'>
+    /films(.:format)
+  </td>
+  <td data-route-reqs='films#index'>
+    films#index
+  </td>
+</tr>
+<tr class='route_row' data-helper='path'>
+  <td data-route-name='film'>
+      film<span class='helper'>_path</span>
+  </td>
+  <td data-route-verb='GET'>
+    GET
+  </td>
+  <td data-route-path='/films/:id(.:format)' data-regexp='^\/films\/([^\/.?]+)(?:\.([^\/.?]+))?$'>
+    /films/:id(.:format)
+  </td>
+  <td data-route-reqs='films#show'>
+    films#show
+  </td>
+</tr>
+<tr class='route_row' data-helper='path'>
+  <td data-route-name='people'>
+      people<span class='helper'>_path</span>
+  </td>
+  <td data-route-verb='GET'>
+    GET
+  </td>
+  <td data-route-path='/people(.:format)' data-regexp='^\/people(?:\.([^\/.?]+))?$'>
+    /people(.:format)
+  </td>
+  <td data-route-reqs='people#index'>
+    people#index
+  </td>
+</tr>
+<tr class='route_row' data-helper='path'>
+  <td data-route-name='person'>
+      person<span class='helper'>_path</span>
+  </td>
+  <td data-route-verb='GET'>
+    GET
+  </td>
+  <td data-route-path='/people/:id(.:format)' data-regexp='^\/people\/([^\/.?]+)(?:\.([^\/.?]+))?$'>
+    /people/:id(.:format)
+  </td>
+  <td data-route-reqs='people#show'>
+    people#show
+  </td>
+</tr>
+<tr class='route_row' data-helper='path'>
+  <td data-route-name='schedule'>
+      schedule<span class='helper'>_path</span>
+  </td>
+  <td data-route-verb='GET'>
+    GET
+  </td>
+  <td data-route-path='/schedule(.:format)' data-regexp='^\/schedule(?:\.([^\/.?]+))?$'>
+    /schedule(.:format)
+  </td>
+  <td data-route-reqs='schedules#show'>
+    schedules#show
+  </td>
+</tr>
+<tr class='route_row' data-helper='path'>
+  <td data-route-name='assets'>
+      assets<span class='helper'>_path</span>
+  </td>
+  <td data-route-verb='GET'>
+    GET
+  </td>
+  <td data-route-path='/assets(.:format)' data-regexp='^\/assets(?:\.([^\/.?]+))?$'>
+    /assets(.:format)
+  </td>
+  <td data-route-reqs='assets#index'>
+    assets#index
+  </td>
+</tr>
+<tr class='route_row' data-helper='path'>
+  <td data-route-name='archive'>
+      archive<span class='helper'>_path</span>
+  </td>
+  <td data-route-verb='GET'>
+    GET
+  </td>
+  <td data-route-path='/archive(.:format)' data-regexp='^\/archive(?:\.([^\/.?]+))?$'>
+    /archive(.:format)
+  </td>
+  <td data-route-reqs='pages#archive'>
+    pages#archive
+  </td>
+</tr>
+<tr class='route_row' data-helper='path'>
+  <td data-route-name='contact'>
+      contact<span class='helper'>_path</span>
+  </td>
+  <td data-route-verb='GET'>
+    GET
+  </td>
+  <td data-route-path='/contact(.:format)' data-regexp='^\/contact(?:\.([^\/.?]+))?$'>
+    /contact(.:format)
+  </td>
+  <td data-route-reqs='pages#show {:id=&gt;&quot;contact-us&quot;}'>
+    pages#show {:id=&gt;&quot;contact-us&quot;}
+  </td>
+</tr>
+<tr class='route_row' data-helper='path'>
+  <td data-route-name='homepage'>
+      homepage<span class='helper'>_path</span>
+  </td>
+  <td data-route-verb='GET'>
+    GET
+  </td>
+  <td data-route-path='/homepage(.:format)' data-regexp='^\/homepage(?:\.([^\/.?]+))?$'>
+    /homepage(.:format)
+  </td>
+  <td data-route-reqs='homepages#index'>
+    homepages#index
+  </td>
+</tr>
+<tr class='route_row' data-helper='path'>
+  <td data-route-name='invitations_new'>
+      invitations_new<span class='helper'>_path</span>
+  </td>
+  <td data-route-verb='GET'>
+    GET
+  </td>
+  <td data-route-path='/invitations/new(.:format)' data-regexp='^\/invitations\/new(?:\.([^\/.?]+))?$'>
+    /invitations/new(.:format)
+  </td>
+  <td data-route-reqs='invitations#new'>
+    invitations#new
+  </td>
+</tr>
+<tr class='route_row' data-helper='path'>
+  <td data-route-name='locale'>
+      locale<span class='helper'>_path</span>
+  </td>
+  <td data-route-verb='GET'>
+    GET
+  </td>
+  <td data-route-path='/locale/:id(.:format)' data-regexp='^\/locale\/([^\/.?]+)(?:\.([^\/.?]+))?$'>
+    /locale/:id(.:format)
+  </td>
+  <td data-route-reqs='organization#locale'>
+    organization#locale
+  </td>
+</tr>
+<tr class='route_row' data-helper='path'>
+  <td data-route-name='news'>
+      news<span class='helper'>_path</span>
+  </td>
+  <td data-route-verb='GET'>
+    GET
+  </td>
+  <td data-route-path='/news(.:format)' data-regexp='^\/news(?:\.([^\/.?]+))?$'>
+    /news(.:format)
+  </td>
+  <td data-route-reqs='redirect(301, /articles)'>
+    redirect(301, /articles)
+  </td>
+</tr>
+<tr class='route_row' data-helper='path'>
+  <td data-route-name=''>
+  </td>
+  <td data-route-verb='GET'>
+    GET
+  </td>
+  <td data-route-path='/news/:id(.:format)' data-regexp='^\/news\/([^\/.?]+)(?:\.([^\/.?]+))?$'>
+    /news/:id(.:format)
+  </td>
+  <td data-route-reqs='redirect(301, /articles/%{id})'>
+    redirect(301, /articles/%{id})
+  </td>
+</tr>
+<tr class='route_row' data-helper='path'>
+  <td data-route-name='page'>
+      page<span class='helper'>_path</span>
+  </td>
+  <td data-route-verb='GET'>
+    GET
+  </td>
+  <td data-route-path='/pages/:id(.:format)' data-regexp='^\/pages\/([^\/.?]+)(?:\.([^\/.?]+))?$'>
+    /pages/:id(.:format)
+  </td>
+  <td data-route-reqs='pages#show'>
+    pages#show
+  </td>
+</tr>
+<tr class='route_row' data-helper='path'>
+  <td data-route-name='search'>
+      search<span class='helper'>_path</span>
+  </td>
+  <td data-route-verb='GET'>
+    GET
+  </td>
+  <td data-route-path='/search(.:format)' data-regexp='^\/search(?:\.([^\/.?]+))?$'>
+    /search(.:format)
+  </td>
+  <td data-route-reqs='searches#new'>
+    searches#new
+  </td>
+</tr>
+<tr class='route_row' data-helper='path'>
+  <td data-route-name='schedules'>
+      schedules<span class='helper'>_path</span>
+  </td>
+  <td data-route-verb='GET'>
+    GET
+  </td>
+  <td data-route-path='/schedules(/:id)(.:format)' data-regexp='^\/schedules(?:\/([^\/.?]+))?(?:\.([^\/.?]+))?$'>
+    /schedules(/:id)(.:format)
+  </td>
+  <td data-route-reqs='schedules#show'>
+    schedules#show
+  </td>
+</tr>
+<tr class='route_row' data-helper='path'>
+  <td data-route-name='schedule_items'>
+      schedule_items<span class='helper'>_path</span>
+  </td>
+  <td data-route-verb='POST'>
+    POST
+  </td>
+  <td data-route-path='/schedule/items/:event_id(.:format)' data-regexp='^\/schedule\/items\/([^\/.?]+)(?:\.([^\/.?]+))?$'>
+    /schedule/items/:event_id(.:format)
+  </td>
+  <td data-route-reqs='schedules#create'>
+    schedules#create
+  </td>
+</tr>
+<tr class='route_row' data-helper='path'>
+  <td data-route-name='schedule_item'>
+      schedule_item<span class='helper'>_path</span>
+  </td>
+  <td data-route-verb='DELETE'>
+    DELETE
+  </td>
+  <td data-route-path='/schedule/items/:event_id(.:format)' data-regexp='^\/schedule\/items\/([^\/.?]+)(?:\.([^\/.?]+))?$'>
+    /schedule/items/:event_id(.:format)
+  </td>
+  <td data-route-reqs='schedules#destroy'>
+    schedules#destroy
+  </td>
+</tr>
+<tr class='route_row' data-helper='path'>
+  <td data-route-name='sitemap'>
+      sitemap<span class='helper'>_path</span>
+  </td>
+  <td data-route-verb='GET'>
+    GET
+  </td>
+  <td data-route-path='/sitemaps/:filename.xml.gz(.:format)' data-regexp='^\/sitemaps\/([^\/.?]+)\.xml\.gz(?:\.([^\/.?]+))?$'>
+    /sitemaps/:filename.xml.gz(.:format)
+  </td>
+  <td data-route-reqs='organization#sitemap'>
+    organization#sitemap
+  </td>
+</tr>
+<tr class='route_row' data-helper='path'>
+  <td data-route-name=''>
+  </td>
+  <td data-route-verb='GET'>
+    GET
+  </td>
+  <td data-route-path='/:edition_id(.:format)' data-regexp='^\/((amadora-bd-2015))(?:\.([^\/.?]+))?$'>
+    /:edition_id(.:format)
+  </td>
+  <td data-route-reqs='home#index {:edition_id=&gt;/amadora-bd-2015/}'>
+    home#index {:edition_id=&gt;/amadora-bd-2015/}
+  </td>
+</tr>
+<tr class='route_row' data-helper='path'>
+  <td data-route-name='edition'>
+      edition<span class='helper'>_path</span>
+  </td>
+  <td data-route-verb='GET'>
+    GET
+  </td>
+  <td data-route-path='/:edition_id(.:format)' data-regexp='^\/((fmf-tour-edition|surprise|2015|amadora-bd-2015|london-2013|new-york-2014|superfestival|the-end|interference|the-dream|cu|surprises|forms|dislocation))(?:\.([^\/.?]+))?$'>
+    /:edition_id(.:format)
+  </td>
+  <td data-route-reqs='editions#show {:edition_id=&gt;/fmf-tour-edition|surprise|2015|amadora-bd-2015|london-2013|new-york-2014|superfestival|the-end|interference|the-dream|cu|surprises|forms|dislocation/}'>
+    editions#show {:edition_id=&gt;/fmf-tour-edition|surprise|2015|amadora-bd-2015|london-2013|new-york-2014|superfestival|the-end|interference|the-dream|cu|surprises|forms|dislocation/}
+  </td>
+</tr>
+<tr class='route_row' data-helper='path'>
+  <td data-route-name='edition_articles'>
+      edition_articles<span class='helper'>_path</span>
+  </td>
+  <td data-route-verb='GET'>
+    GET
+  </td>
+  <td data-route-path='/:edition_id/articles(.:format)' data-regexp='^\/((fmf-tour-edition|surprise|2015|amadora-bd-2015|london-2013|new-york-2014|superfestival|the-end|interference|the-dream|cu|surprises|forms|dislocation))\/articles(?:\.([^\/.?]+))?$'>
+    /:edition_id/articles(.:format)
+  </td>
+  <td data-route-reqs='articles#index {:edition_id=&gt;/fmf-tour-edition|surprise|2015|amadora-bd-2015|london-2013|new-york-2014|superfestival|the-end|interference|the-dream|cu|surprises|forms|dislocation/}'>
+    articles#index {:edition_id=&gt;/fmf-tour-edition|surprise|2015|amadora-bd-2015|london-2013|new-york-2014|superfestival|the-end|interference|the-dream|cu|surprises|forms|dislocation/}
+  </td>
+</tr>
+<tr class='route_row' data-helper='path'>
+  <td data-route-name='edition_article'>
+      edition_article<span class='helper'>_path</span>
+  </td>
+  <td data-route-verb='GET'>
+    GET
+  </td>
+  <td data-route-path='/:edition_id/articles/:id(.:format)' data-regexp='^\/((fmf-tour-edition|surprise|2015|amadora-bd-2015|london-2013|new-york-2014|superfestival|the-end|interference|the-dream|cu|surprises|forms|dislocation))\/articles\/([^\/.?]+)(?:\.([^\/.?]+))?$'>
+    /:edition_id/articles/:id(.:format)
+  </td>
+  <td data-route-reqs='articles#show {:edition_id=&gt;/fmf-tour-edition|surprise|2015|amadora-bd-2015|london-2013|new-york-2014|superfestival|the-end|interference|the-dream|cu|surprises|forms|dislocation/}'>
+    articles#show {:edition_id=&gt;/fmf-tour-edition|surprise|2015|amadora-bd-2015|london-2013|new-york-2014|superfestival|the-end|interference|the-dream|cu|surprises|forms|dislocation/}
+  </td>
+</tr>
+<tr class='route_row' data-helper='path'>
+  <td data-route-name='edition_artists'>
+      edition_artists<span class='helper'>_path</span>
+  </td>
+  <td data-route-verb='GET'>
+    GET
+  </td>
+  <td data-route-path='/:edition_id/artists(.:format)' data-regexp='^\/((fmf-tour-edition|surprise|2015|amadora-bd-2015|london-2013|new-york-2014|superfestival|the-end|interference|the-dream|cu|surprises|forms|dislocation))\/artists(?:\.([^\/.?]+))?$'>
+    /:edition_id/artists(.:format)
+  </td>
+  <td data-route-reqs='artists#index {:edition_id=&gt;/fmf-tour-edition|surprise|2015|amadora-bd-2015|london-2013|new-york-2014|superfestival|the-end|interference|the-dream|cu|surprises|forms|dislocation/}'>
+    artists#index {:edition_id=&gt;/fmf-tour-edition|surprise|2015|amadora-bd-2015|london-2013|new-york-2014|superfestival|the-end|interference|the-dream|cu|surprises|forms|dislocation/}
+  </td>
+</tr>
+<tr class='route_row' data-helper='path'>
+  <td data-route-name='edition_artist'>
+      edition_artist<span class='helper'>_path</span>
+  </td>
+  <td data-route-verb='GET'>
+    GET
+  </td>
+  <td data-route-path='/:edition_id/artists/:id(.:format)' data-regexp='^\/((fmf-tour-edition|surprise|2015|amadora-bd-2015|london-2013|new-york-2014|superfestival|the-end|interference|the-dream|cu|surprises|forms|dislocation))\/artists\/([^\/.?]+)(?:\.([^\/.?]+))?$'>
+    /:edition_id/artists/:id(.:format)
+  </td>
+  <td data-route-reqs='artists#show {:edition_id=&gt;/fmf-tour-edition|surprise|2015|amadora-bd-2015|london-2013|new-york-2014|superfestival|the-end|interference|the-dream|cu|surprises|forms|dislocation/}'>
+    artists#show {:edition_id=&gt;/fmf-tour-edition|surprise|2015|amadora-bd-2015|london-2013|new-york-2014|superfestival|the-end|interference|the-dream|cu|surprises|forms|dislocation/}
+  </td>
+</tr>
+<tr class='route_row' data-helper='path'>
+  <td data-route-name='edition_events'>
+      edition_events<span class='helper'>_path</span>
+  </td>
+  <td data-route-verb='GET'>
+    GET
+  </td>
+  <td data-route-path='/:edition_id/events(.:format)' data-regexp='^\/((fmf-tour-edition|surprise|2015|amadora-bd-2015|london-2013|new-york-2014|superfestival|the-end|interference|the-dream|cu|surprises|forms|dislocation))\/events(?:\.([^\/.?]+))?$'>
+    /:edition_id/events(.:format)
+  </td>
+  <td data-route-reqs='events#index {:edition_id=&gt;/fmf-tour-edition|surprise|2015|amadora-bd-2015|london-2013|new-york-2014|superfestival|the-end|interference|the-dream|cu|surprises|forms|dislocation/}'>
+    events#index {:edition_id=&gt;/fmf-tour-edition|surprise|2015|amadora-bd-2015|london-2013|new-york-2014|superfestival|the-end|interference|the-dream|cu|surprises|forms|dislocation/}
+  </td>
+</tr>
+<tr class='route_row' data-helper='path'>
+  <td data-route-name='edition_event'>
+      edition_event<span class='helper'>_path</span>
+  </td>
+  <td data-route-verb='GET'>
+    GET
+  </td>
+  <td data-route-path='/:edition_id/events/:id(.:format)' data-regexp='^\/((fmf-tour-edition|surprise|2015|amadora-bd-2015|london-2013|new-york-2014|superfestival|the-end|interference|the-dream|cu|surprises|forms|dislocation))\/events\/([^\/.?]+)(?:\.([^\/.?]+))?$'>
+    /:edition_id/events/:id(.:format)
+  </td>
+  <td data-route-reqs='events#show {:edition_id=&gt;/fmf-tour-edition|surprise|2015|amadora-bd-2015|london-2013|new-york-2014|superfestival|the-end|interference|the-dream|cu|surprises|forms|dislocation/}'>
+    events#show {:edition_id=&gt;/fmf-tour-edition|surprise|2015|amadora-bd-2015|london-2013|new-york-2014|superfestival|the-end|interference|the-dream|cu|surprises|forms|dislocation/}
+  </td>
+</tr>
+<tr class='route_row' data-helper='path'>
+  <td data-route-name='edition_exhibition'>
+      edition_exhibition<span class='helper'>_path</span>
+  </td>
+  <td data-route-verb='GET'>
+    GET
+  </td>
+  <td data-route-path='/:edition_id/exhibitions/:id(.:format)' data-regexp='^\/((fmf-tour-edition|surprise|2015|amadora-bd-2015|london-2013|new-york-2014|superfestival|the-end|interference|the-dream|cu|surprises|forms|dislocation))\/exhibitions\/([^\/.?]+)(?:\.([^\/.?]+))?$'>
+    /:edition_id/exhibitions/:id(.:format)
+  </td>
+  <td data-route-reqs='exhibitions#show {:edition_id=&gt;/fmf-tour-edition|surprise|2015|amadora-bd-2015|london-2013|new-york-2014|superfestival|the-end|interference|the-dream|cu|surprises|forms|dislocation/}'>
+    exhibitions#show {:edition_id=&gt;/fmf-tour-edition|surprise|2015|amadora-bd-2015|london-2013|new-york-2014|superfestival|the-end|interference|the-dream|cu|surprises|forms|dislocation/}
+  </td>
+</tr>
+<tr class='route_row' data-helper='path'>
+  <td data-route-name='edition_films'>
+      edition_films<span class='helper'>_path</span>
+  </td>
+  <td data-route-verb='GET'>
+    GET
+  </td>
+  <td data-route-path='/:edition_id/films(.:format)' data-regexp='^\/((fmf-tour-edition|surprise|2015|amadora-bd-2015|london-2013|new-york-2014|superfestival|the-end|interference|the-dream|cu|surprises|forms|dislocation))\/films(?:\.([^\/.?]+))?$'>
+    /:edition_id/films(.:format)
+  </td>
+  <td data-route-reqs='films#index {:edition_id=&gt;/fmf-tour-edition|surprise|2015|amadora-bd-2015|london-2013|new-york-2014|superfestival|the-end|interference|the-dream|cu|surprises|forms|dislocation/}'>
+    films#index {:edition_id=&gt;/fmf-tour-edition|surprise|2015|amadora-bd-2015|london-2013|new-york-2014|superfestival|the-end|interference|the-dream|cu|surprises|forms|dislocation/}
+  </td>
+</tr>
+<tr class='route_row' data-helper='path'>
+  <td data-route-name='edition_film'>
+      edition_film<span class='helper'>_path</span>
+  </td>
+  <td data-route-verb='GET'>
+    GET
+  </td>
+  <td data-route-path='/:edition_id/films/:id(.:format)' data-regexp='^\/((fmf-tour-edition|surprise|2015|amadora-bd-2015|london-2013|new-york-2014|superfestival|the-end|interference|the-dream|cu|surprises|forms|dislocation))\/films\/([^\/.?]+)(?:\.([^\/.?]+))?$'>
+    /:edition_id/films/:id(.:format)
+  </td>
+  <td data-route-reqs='films#show {:edition_id=&gt;/fmf-tour-edition|surprise|2015|amadora-bd-2015|london-2013|new-york-2014|superfestival|the-end|interference|the-dream|cu|surprises|forms|dislocation/}'>
+    films#show {:edition_id=&gt;/fmf-tour-edition|surprise|2015|amadora-bd-2015|london-2013|new-york-2014|superfestival|the-end|interference|the-dream|cu|surprises|forms|dislocation/}
+  </td>
+</tr>
+<tr class='route_row' data-helper='path'>
+  <td data-route-name='edition_pages'>
+      edition_pages<span class='helper'>_path</span>
+  </td>
+  <td data-route-verb='GET'>
+    GET
+  </td>
+  <td data-route-path='/:edition_id/pages(.:format)' data-regexp='^\/((fmf-tour-edition|surprise|2015|amadora-bd-2015|london-2013|new-york-2014|superfestival|the-end|interference|the-dream|cu|surprises|forms|dislocation))\/pages(?:\.([^\/.?]+))?$'>
+    /:edition_id/pages(.:format)
+  </td>
+  <td data-route-reqs='pages#index {:edition_id=&gt;/fmf-tour-edition|surprise|2015|amadora-bd-2015|london-2013|new-york-2014|superfestival|the-end|interference|the-dream|cu|surprises|forms|dislocation/}'>
+    pages#index {:edition_id=&gt;/fmf-tour-edition|surprise|2015|amadora-bd-2015|london-2013|new-york-2014|superfestival|the-end|interference|the-dream|cu|surprises|forms|dislocation/}
+  </td>
+</tr>
+<tr class='route_row' data-helper='path'>
+  <td data-route-name='edition_partners'>
+      edition_partners<span class='helper'>_path</span>
+  </td>
+  <td data-route-verb='GET'>
+    GET
+  </td>
+  <td data-route-path='/:edition_id/partners(.:format)' data-regexp='^\/((fmf-tour-edition|surprise|2015|amadora-bd-2015|london-2013|new-york-2014|superfestival|the-end|interference|the-dream|cu|surprises|forms|dislocation))\/partners(?:\.([^\/.?]+))?$'>
+    /:edition_id/partners(.:format)
+  </td>
+  <td data-route-reqs='partners#index {:edition_id=&gt;/fmf-tour-edition|surprise|2015|amadora-bd-2015|london-2013|new-york-2014|superfestival|the-end|interference|the-dream|cu|surprises|forms|dislocation/}'>
+    partners#index {:edition_id=&gt;/fmf-tour-edition|surprise|2015|amadora-bd-2015|london-2013|new-york-2014|superfestival|the-end|interference|the-dream|cu|surprises|forms|dislocation/}
+  </td>
+</tr>
+<tr class='route_row' data-helper='path'>
+  <td data-route-name='edition_partner'>
+      edition_partner<span class='helper'>_path</span>
+  </td>
+  <td data-route-verb='GET'>
+    GET
+  </td>
+  <td data-route-path='/:edition_id/partners/:id(.:format)' data-regexp='^\/((fmf-tour-edition|surprise|2015|amadora-bd-2015|london-2013|new-york-2014|superfestival|the-end|interference|the-dream|cu|surprises|forms|dislocation))\/partners\/([^\/.?]+)(?:\.([^\/.?]+))?$'>
+    /:edition_id/partners/:id(.:format)
+  </td>
+  <td data-route-reqs='partners#show {:edition_id=&gt;/fmf-tour-edition|surprise|2015|amadora-bd-2015|london-2013|new-york-2014|superfestival|the-end|interference|the-dream|cu|surprises|forms|dislocation/}'>
+    partners#show {:edition_id=&gt;/fmf-tour-edition|surprise|2015|amadora-bd-2015|london-2013|new-york-2014|superfestival|the-end|interference|the-dream|cu|surprises|forms|dislocation/}
+  </td>
+</tr>
+<tr class='route_row' data-helper='path'>
+  <td data-route-name='edition_people'>
+      edition_people<span class='helper'>_path</span>
+  </td>
+  <td data-route-verb='GET'>
+    GET
+  </td>
+  <td data-route-path='/:edition_id/people(.:format)' data-regexp='^\/((fmf-tour-edition|surprise|2015|amadora-bd-2015|london-2013|new-york-2014|superfestival|the-end|interference|the-dream|cu|surprises|forms|dislocation))\/people(?:\.([^\/.?]+))?$'>
+    /:edition_id/people(.:format)
+  </td>
+  <td data-route-reqs='people#index {:edition_id=&gt;/fmf-tour-edition|surprise|2015|amadora-bd-2015|london-2013|new-york-2014|superfestival|the-end|interference|the-dream|cu|surprises|forms|dislocation/}'>
+    people#index {:edition_id=&gt;/fmf-tour-edition|surprise|2015|amadora-bd-2015|london-2013|new-york-2014|superfestival|the-end|interference|the-dream|cu|surprises|forms|dislocation/}
+  </td>
+</tr>
+<tr class='route_row' data-helper='path'>
+  <td data-route-name='edition_person'>
+      edition_person<span class='helper'>_path</span>
+  </td>
+  <td data-route-verb='GET'>
+    GET
+  </td>
+  <td data-route-path='/:edition_id/people/:id(.:format)' data-regexp='^\/((fmf-tour-edition|surprise|2015|amadora-bd-2015|london-2013|new-york-2014|superfestival|the-end|interference|the-dream|cu|surprises|forms|dislocation))\/people\/([^\/.?]+)(?:\.([^\/.?]+))?$'>
+    /:edition_id/people/:id(.:format)
+  </td>
+  <td data-route-reqs='people#show {:edition_id=&gt;/fmf-tour-edition|surprise|2015|amadora-bd-2015|london-2013|new-york-2014|superfestival|the-end|interference|the-dream|cu|surprises|forms|dislocation/}'>
+    people#show {:edition_id=&gt;/fmf-tour-edition|surprise|2015|amadora-bd-2015|london-2013|new-york-2014|superfestival|the-end|interference|the-dream|cu|surprises|forms|dislocation/}
+  </td>
+</tr>
+<tr class='route_row' data-helper='path'>
+  <td data-route-name='edition_venue_exhibitions'>
+      edition_venue_exhibitions<span class='helper'>_path</span>
+  </td>
+  <td data-route-verb='GET'>
+    GET
+  </td>
+  <td data-route-path='/:edition_id/venues/:venue_id/exhibitions(.:format)' data-regexp='^\/((fmf-tour-edition|surprise|2015|amadora-bd-2015|london-2013|new-york-2014|superfestival|the-end|interference|the-dream|cu|surprises|forms|dislocation))\/venues\/([^\/.?]+)\/exhibitions(?:\.([^\/.?]+))?$'>
+    /:edition_id/venues/:venue_id/exhibitions(.:format)
+  </td>
+  <td data-route-reqs='exhibitions#index {:edition_id=&gt;/fmf-tour-edition|surprise|2015|amadora-bd-2015|london-2013|new-york-2014|superfestival|the-end|interference|the-dream|cu|surprises|forms|dislocation/}'>
+    exhibitions#index {:edition_id=&gt;/fmf-tour-edition|surprise|2015|amadora-bd-2015|london-2013|new-york-2014|superfestival|the-end|interference|the-dream|cu|surprises|forms|dislocation/}
+  </td>
+</tr>
+<tr class='route_row' data-helper='path'>
+  <td data-route-name='edition_venues'>
+      edition_venues<span class='helper'>_path</span>
+  </td>
+  <td data-route-verb='GET'>
+    GET
+  </td>
+  <td data-route-path='/:edition_id/venues(.:format)' data-regexp='^\/((fmf-tour-edition|surprise|2015|amadora-bd-2015|london-2013|new-york-2014|superfestival|the-end|interference|the-dream|cu|surprises|forms|dislocation))\/venues(?:\.([^\/.?]+))?$'>
+    /:edition_id/venues(.:format)
+  </td>
+  <td data-route-reqs='venues#index {:edition_id=&gt;/fmf-tour-edition|surprise|2015|amadora-bd-2015|london-2013|new-york-2014|superfestival|the-end|interference|the-dream|cu|surprises|forms|dislocation/}'>
+    venues#index {:edition_id=&gt;/fmf-tour-edition|surprise|2015|amadora-bd-2015|london-2013|new-york-2014|superfestival|the-end|interference|the-dream|cu|surprises|forms|dislocation/}
+  </td>
+</tr>
+<tr class='route_row' data-helper='path'>
+  <td data-route-name='edition_venue'>
+      edition_venue<span class='helper'>_path</span>
+  </td>
+  <td data-route-verb='GET'>
+    GET
+  </td>
+  <td data-route-path='/:edition_id/venues/:id(.:format)' data-regexp='^\/((fmf-tour-edition|surprise|2015|amadora-bd-2015|london-2013|new-york-2014|superfestival|the-end|interference|the-dream|cu|surprises|forms|dislocation))\/venues\/([^\/.?]+)(?:\.([^\/.?]+))?$'>
+    /:edition_id/venues/:id(.:format)
+  </td>
+  <td data-route-reqs='venues#show {:edition_id=&gt;/fmf-tour-edition|surprise|2015|amadora-bd-2015|london-2013|new-york-2014|superfestival|the-end|interference|the-dream|cu|surprises|forms|dislocation/}'>
+    venues#show {:edition_id=&gt;/fmf-tour-edition|surprise|2015|amadora-bd-2015|london-2013|new-york-2014|superfestival|the-end|interference|the-dream|cu|surprises|forms|dislocation/}
+  </td>
+</tr>
+<tr class='route_row' data-helper='path'>
+  <td data-route-name='edition_page'>
+      edition_page<span class='helper'>_path</span>
+  </td>
+  <td data-route-verb='GET'>
+    GET
+  </td>
+  <td data-route-path='/:edition_id/:id(.:format)' data-regexp='^\/((fmf-tour-edition|surprise|2015|amadora-bd-2015|london-2013|new-york-2014|superfestival|the-end|interference|the-dream|cu|surprises|forms|dislocation))\/([^\/.?]+)(?:\.([^\/.?]+))?$'>
+    /:edition_id/:id(.:format)
+  </td>
+  <td data-route-reqs='pages#show {:edition_id=&gt;/fmf-tour-edition|surprise|2015|amadora-bd-2015|london-2013|new-york-2014|superfestival|the-end|interference|the-dream|cu|surprises|forms|dislocation/}'>
+    pages#show {:edition_id=&gt;/fmf-tour-edition|surprise|2015|amadora-bd-2015|london-2013|new-york-2014|superfestival|the-end|interference|the-dream|cu|surprises|forms|dislocation/}
+  </td>
+</tr>
+<tr class='route_row' data-helper='path'>
+  <td data-route-name='admin_root'>
+      admin_root<span class='helper'>_path</span>
+  </td>
+  <td data-route-verb='GET'>
+    GET
+  </td>
+  <td data-route-path='/admin(.:format)' data-regexp='^\/admin(?:\.([^\/.?]+))?$'>
+    /admin(.:format)
+  </td>
+  <td data-route-reqs='admin/home#index'>
+    admin/home#index
+  </td>
+</tr>
+<tr class='route_row' data-helper='path'>
+  <td data-route-name='admin_blazer'>
+      admin_blazer<span class='helper'>_path</span>
+  </td>
+  <td data-route-verb=''>
+    
+  </td>
+  <td data-route-path='/admin/blazer' data-regexp='^\/admin\/blazer'>
+    /admin/blazer
+  </td>
+  <td data-route-reqs='Blazer::Engine'>
+    Blazer::Engine
+  </td>
+</tr>
+<tr class='route_row' data-helper='path'>
+  <td data-route-name='admin_sidekiq_web'>
+      admin_sidekiq_web<span class='helper'>_path</span>
+  </td>
+  <td data-route-verb=''>
+    
+  </td>
+  <td data-route-path='/admin/sidekiq' data-regexp='^\/admin\/sidekiq'>
+    /admin/sidekiq
+  </td>
+  <td data-route-reqs='Sidekiq::Web'>
+    Sidekiq::Web
+  </td>
+</tr>
+<tr class='route_row' data-helper='path'>
+  <td data-route-name='admin_session'>
+      admin_session<span class='helper'>_path</span>
+  </td>
+  <td data-route-verb='PATCH'>
+    PATCH
+  </td>
+  <td data-route-path='/admin/session(.:format)' data-regexp='^\/admin\/session(?:\.([^\/.?]+))?$'>
+    /admin/session(.:format)
+  </td>
+  <td data-route-reqs='admin/sessions#update'>
+    admin/sessions#update
+  </td>
+</tr>
+<tr class='route_row' data-helper='path'>
+  <td data-route-name=''>
+  </td>
+  <td data-route-verb='PUT'>
+    PUT
+  </td>
+  <td data-route-path='/admin/session(.:format)' data-regexp='^\/admin\/session(?:\.([^\/.?]+))?$'>
+    /admin/session(.:format)
+  </td>
+  <td data-route-reqs='admin/sessions#update'>
+    admin/sessions#update
+  </td>
+</tr>
+<tr class='route_row' data-helper='path'>
+  <td data-route-name='admin_activities'>
+      admin_activities<span class='helper'>_path</span>
+  </td>
+  <td data-route-verb='GET'>
+    GET
+  </td>
+  <td data-route-path='/admin/activities(.:format)' data-regexp='^\/admin\/activities(?:\.([^\/.?]+))?$'>
+    /admin/activities(.:format)
+  </td>
+  <td data-route-reqs='admin/activities#index'>
+    admin/activities#index
+  </td>
+</tr>
+<tr class='route_row' data-helper='path'>
+  <td data-route-name='admin_article_assets'>
+      admin_article_assets<span class='helper'>_path</span>
+  </td>
+  <td data-route-verb='POST'>
+    POST
+  </td>
+  <td data-route-path='/admin/articles/:article_id/assets(.:format)' data-regexp='^\/admin\/articles\/([^\/.?]+)\/assets(?:\.([^\/.?]+))?$'>
+    /admin/articles/:article_id/assets(.:format)
+  </td>
+  <td data-route-reqs='admin/assets#create'>
+    admin/assets#create
+  </td>
+</tr>
+<tr class='route_row' data-helper='path'>
+  <td data-route-name='edit_admin_article_asset'>
+      edit_admin_article_asset<span class='helper'>_path</span>
+  </td>
+  <td data-route-verb='GET'>
+    GET
+  </td>
+  <td data-route-path='/admin/articles/:article_id/assets/:id/edit(.:format)' data-regexp='^\/admin\/articles\/([^\/.?]+)\/assets\/([^\/.?]+)\/edit(?:\.([^\/.?]+))?$'>
+    /admin/articles/:article_id/assets/:id/edit(.:format)
+  </td>
+  <td data-route-reqs='admin/assets#edit'>
+    admin/assets#edit
+  </td>
+</tr>
+<tr class='route_row' data-helper='path'>
+  <td data-route-name='admin_article_asset'>
+      admin_article_asset<span class='helper'>_path</span>
+  </td>
+  <td data-route-verb='PATCH'>
+    PATCH
+  </td>
+  <td data-route-path='/admin/articles/:article_id/assets/:id(.:format)' data-regexp='^\/admin\/articles\/([^\/.?]+)\/assets\/([^\/.?]+)(?:\.([^\/.?]+))?$'>
+    /admin/articles/:article_id/assets/:id(.:format)
+  </td>
+  <td data-route-reqs='admin/assets#update'>
+    admin/assets#update
+  </td>
+</tr>
+<tr class='route_row' data-helper='path'>
+  <td data-route-name=''>
+  </td>
+  <td data-route-verb='PUT'>
+    PUT
+  </td>
+  <td data-route-path='/admin/articles/:article_id/assets/:id(.:format)' data-regexp='^\/admin\/articles\/([^\/.?]+)\/assets\/([^\/.?]+)(?:\.([^\/.?]+))?$'>
+    /admin/articles/:article_id/assets/:id(.:format)
+  </td>
+  <td data-route-reqs='admin/assets#update'>
+    admin/assets#update
+  </td>
+</tr>
+<tr class='route_row' data-helper='path'>
+  <td data-route-name=''>
+  </td>
+  <td data-route-verb='DELETE'>
+    DELETE
+  </td>
+  <td data-route-path='/admin/articles/:article_id/assets/:id(.:format)' data-regexp='^\/admin\/articles\/([^\/.?]+)\/assets\/([^\/.?]+)(?:\.([^\/.?]+))?$'>
+    /admin/articles/:article_id/assets/:id(.:format)
+  </td>
+  <td data-route-reqs='admin/assets#destroy'>
+    admin/assets#destroy
+  </td>
+</tr>
+<tr class='route_row' data-helper='path'>
+  <td data-route-name='admin_articles'>
+      admin_articles<span class='helper'>_path</span>
+  </td>
+  <td data-route-verb='GET'>
+    GET
+  </td>
+  <td data-route-path='/admin/articles(.:format)' data-regexp='^\/admin\/articles(?:\.([^\/.?]+))?$'>
+    /admin/articles(.:format)
+  </td>
+  <td data-route-reqs='admin/articles#index'>
+    admin/articles#index
+  </td>
+</tr>
+<tr class='route_row' data-helper='path'>
+  <td data-route-name=''>
+  </td>
+  <td data-route-verb='POST'>
+    POST
+  </td>
+  <td data-route-path='/admin/articles(.:format)' data-regexp='^\/admin\/articles(?:\.([^\/.?]+))?$'>
+    /admin/articles(.:format)
+  </td>
+  <td data-route-reqs='admin/articles#create'>
+    admin/articles#create
+  </td>
+</tr>
+<tr class='route_row' data-helper='path'>
+  <td data-route-name='new_admin_article'>
+      new_admin_article<span class='helper'>_path</span>
+  </td>
+  <td data-route-verb='GET'>
+    GET
+  </td>
+  <td data-route-path='/admin/articles/new(.:format)' data-regexp='^\/admin\/articles\/new(?:\.([^\/.?]+))?$'>
+    /admin/articles/new(.:format)
+  </td>
+  <td data-route-reqs='admin/articles#new'>
+    admin/articles#new
+  </td>
+</tr>
+<tr class='route_row' data-helper='path'>
+  <td data-route-name='edit_admin_article'>
+      edit_admin_article<span class='helper'>_path</span>
+  </td>
+  <td data-route-verb='GET'>
+    GET
+  </td>
+  <td data-route-path='/admin/articles/:id/edit(.:format)' data-regexp='^\/admin\/articles\/([^\/.?]+)\/edit(?:\.([^\/.?]+))?$'>
+    /admin/articles/:id/edit(.:format)
+  </td>
+  <td data-route-reqs='admin/articles#edit'>
+    admin/articles#edit
+  </td>
+</tr>
+<tr class='route_row' data-helper='path'>
+  <td data-route-name='admin_article'>
+      admin_article<span class='helper'>_path</span>
+  </td>
+  <td data-route-verb='PATCH'>
+    PATCH
+  </td>
+  <td data-route-path='/admin/articles/:id(.:format)' data-regexp='^\/admin\/articles\/([^\/.?]+)(?:\.([^\/.?]+))?$'>
+    /admin/articles/:id(.:format)
+  </td>
+  <td data-route-reqs='admin/articles#update'>
+    admin/articles#update
+  </td>
+</tr>
+<tr class='route_row' data-helper='path'>
+  <td data-route-name=''>
+  </td>
+  <td data-route-verb='PUT'>
+    PUT
+  </td>
+  <td data-route-path='/admin/articles/:id(.:format)' data-regexp='^\/admin\/articles\/([^\/.?]+)(?:\.([^\/.?]+))?$'>
+    /admin/articles/:id(.:format)
+  </td>
+  <td data-route-reqs='admin/articles#update'>
+    admin/articles#update
+  </td>
+</tr>
+<tr class='route_row' data-helper='path'>
+  <td data-route-name=''>
+  </td>
+  <td data-route-verb='DELETE'>
+    DELETE
+  </td>
+  <td data-route-path='/admin/articles/:id(.:format)' data-regexp='^\/admin\/articles\/([^\/.?]+)(?:\.([^\/.?]+))?$'>
+    /admin/articles/:id(.:format)
+  </td>
+  <td data-route-reqs='admin/articles#destroy'>
+    admin/articles#destroy
+  </td>
+</tr>
+<tr class='route_row' data-helper='path'>
+  <td data-route-name='admin_venues'>
+      admin_venues<span class='helper'>_path</span>
+  </td>
+  <td data-route-verb='POST'>
+    POST
+  </td>
+  <td data-route-path='/admin/venues(.:format)' data-regexp='^\/admin\/venues(?:\.([^\/.?]+))?$'>
+    /admin/venues(.:format)
+  </td>
+  <td data-route-reqs='admin/venues#create'>
+    admin/venues#create
+  </td>
+</tr>
+<tr class='route_row' data-helper='path'>
+  <td data-route-name='new_admin_venue'>
+      new_admin_venue<span class='helper'>_path</span>
+  </td>
+  <td data-route-verb='GET'>
+    GET
+  </td>
+  <td data-route-path='/admin/venues/new(.:format)' data-regexp='^\/admin\/venues\/new(?:\.([^\/.?]+))?$'>
+    /admin/venues/new(.:format)
+  </td>
+  <td data-route-reqs='admin/venues#new'>
+    admin/venues#new
+  </td>
+</tr>
+<tr class='route_row' data-helper='path'>
+  <td data-route-name='edit_admin_venue'>
+      edit_admin_venue<span class='helper'>_path</span>
+  </td>
+  <td data-route-verb='GET'>
+    GET
+  </td>
+  <td data-route-path='/admin/venues/:id/edit(.:format)' data-regexp='^\/admin\/venues\/([^\/.?]+)\/edit(?:\.([^\/.?]+))?$'>
+    /admin/venues/:id/edit(.:format)
+  </td>
+  <td data-route-reqs='admin/venues#edit'>
+    admin/venues#edit
+  </td>
+</tr>
+<tr class='route_row' data-helper='path'>
+  <td data-route-name='admin_venue'>
+      admin_venue<span class='helper'>_path</span>
+  </td>
+  <td data-route-verb='GET'>
+    GET
+  </td>
+  <td data-route-path='/admin/venues/:id(.:format)' data-regexp='^\/admin\/venues\/([^\/.?]+)(?:\.([^\/.?]+))?$'>
+    /admin/venues/:id(.:format)
+  </td>
+  <td data-route-reqs='admin/venues#show'>
+    admin/venues#show
+  </td>
+</tr>
+<tr class='route_row' data-helper='path'>
+  <td data-route-name=''>
+  </td>
+  <td data-route-verb='PATCH'>
+    PATCH
+  </td>
+  <td data-route-path='/admin/venues/:id(.:format)' data-regexp='^\/admin\/venues\/([^\/.?]+)(?:\.([^\/.?]+))?$'>
+    /admin/venues/:id(.:format)
+  </td>
+  <td data-route-reqs='admin/venues#update'>
+    admin/venues#update
+  </td>
+</tr>
+<tr class='route_row' data-helper='path'>
+  <td data-route-name=''>
+  </td>
+  <td data-route-verb='PUT'>
+    PUT
+  </td>
+  <td data-route-path='/admin/venues/:id(.:format)' data-regexp='^\/admin\/venues\/([^\/.?]+)(?:\.([^\/.?]+))?$'>
+    /admin/venues/:id(.:format)
+  </td>
+  <td data-route-reqs='admin/venues#update'>
+    admin/venues#update
+  </td>
+</tr>
+<tr class='route_row' data-helper='path'>
+  <td data-route-name=''>
+  </td>
+  <td data-route-verb='DELETE'>
+    DELETE
+  </td>
+  <td data-route-path='/admin/venues/:id(.:format)' data-regexp='^\/admin\/venues\/([^\/.?]+)(?:\.([^\/.?]+))?$'>
+    /admin/venues/:id(.:format)
+  </td>
+  <td data-route-reqs='admin/venues#destroy'>
+    admin/venues#destroy
+  </td>
+</tr>
+<tr class='route_row' data-helper='path'>
+  <td data-route-name='admin_search'>
+      admin_search<span class='helper'>_path</span>
+  </td>
+  <td data-route-verb='GET'>
+    GET
+  </td>
+  <td data-route-path='/admin/search(.:format)' data-regexp='^\/admin\/search(?:\.([^\/.?]+))?$'>
+    /admin/search(.:format)
+  </td>
+  <td data-route-reqs='admin/searches#new'>
+    admin/searches#new
+  </td>
+</tr>
+<tr class='route_row' data-helper='path'>
+  <td data-route-name='admin_edition_appearance_assets'>
+      admin_edition_appearance_assets<span class='helper'>_path</span>
+  </td>
+  <td data-route-verb='POST'>
+    POST
+  </td>
+  <td data-route-path='/admin/editions/:edition_id/appearances/:appearance_id/assets(.:format)' data-regexp='^\/admin\/editions\/([^\/.?]+)\/appearances\/([^\/.?]+)\/assets(?:\.([^\/.?]+))?$'>
+    /admin/editions/:edition_id/appearances/:appearance_id/assets(.:format)
+  </td>
+  <td data-route-reqs='admin/assets#create'>
+    admin/assets#create
+  </td>
+</tr>
+<tr class='route_row' data-helper='path'>
+  <td data-route-name='edit_admin_edition_appearance_asset'>
+      edit_admin_edition_appearance_asset<span class='helper'>_path</span>
+  </td>
+  <td data-route-verb='GET'>
+    GET
+  </td>
+  <td data-route-path='/admin/editions/:edition_id/appearances/:appearance_id/assets/:id/edit(.:format)' data-regexp='^\/admin\/editions\/([^\/.?]+)\/appearances\/([^\/.?]+)\/assets\/([^\/.?]+)\/edit(?:\.([^\/.?]+))?$'>
+    /admin/editions/:edition_id/appearances/:appearance_id/assets/:id/edit(.:format)
+  </td>
+  <td data-route-reqs='admin/assets#edit'>
+    admin/assets#edit
+  </td>
+</tr>
+<tr class='route_row' data-helper='path'>
+  <td data-route-name='admin_edition_appearance_asset'>
+      admin_edition_appearance_asset<span class='helper'>_path</span>
+  </td>
+  <td data-route-verb='PATCH'>
+    PATCH
+  </td>
+  <td data-route-path='/admin/editions/:edition_id/appearances/:appearance_id/assets/:id(.:format)' data-regexp='^\/admin\/editions\/([^\/.?]+)\/appearances\/([^\/.?]+)\/assets\/([^\/.?]+)(?:\.([^\/.?]+))?$'>
+    /admin/editions/:edition_id/appearances/:appearance_id/assets/:id(.:format)
+  </td>
+  <td data-route-reqs='admin/assets#update'>
+    admin/assets#update
+  </td>
+</tr>
+<tr class='route_row' data-helper='path'>
+  <td data-route-name=''>
+  </td>
+  <td data-route-verb='PUT'>
+    PUT
+  </td>
+  <td data-route-path='/admin/editions/:edition_id/appearances/:appearance_id/assets/:id(.:format)' data-regexp='^\/admin\/editions\/([^\/.?]+)\/appearances\/([^\/.?]+)\/assets\/([^\/.?]+)(?:\.([^\/.?]+))?$'>
+    /admin/editions/:edition_id/appearances/:appearance_id/assets/:id(.:format)
+  </td>
+  <td data-route-reqs='admin/assets#update'>
+    admin/assets#update
+  </td>
+</tr>
+<tr class='route_row' data-helper='path'>
+  <td data-route-name=''>
+  </td>
+  <td data-route-verb='DELETE'>
+    DELETE
+  </td>
+  <td data-route-path='/admin/editions/:edition_id/appearances/:appearance_id/assets/:id(.:format)' data-regexp='^\/admin\/editions\/([^\/.?]+)\/appearances\/([^\/.?]+)\/assets\/([^\/.?]+)(?:\.([^\/.?]+))?$'>
+    /admin/editions/:edition_id/appearances/:appearance_id/assets/:id(.:format)
+  </td>
+  <td data-route-reqs='admin/assets#destroy'>
+    admin/assets#destroy
+  </td>
+</tr>
+<tr class='route_row' data-helper='path'>
+  <td data-route-name='admin_edition_appearance_external_asset'>
+      admin_edition_appearance_external_asset<span class='helper'>_path</span>
+  </td>
+  <td data-route-verb='DELETE'>
+    DELETE
+  </td>
+  <td data-route-path='/admin/editions/:edition_id/appearances/:appearance_id/external_assets/:id(.:format)' data-regexp='^\/admin\/editions\/([^\/.?]+)\/appearances\/([^\/.?]+)\/external_assets\/([^\/.?]+)(?:\.([^\/.?]+))?$'>
+    /admin/editions/:edition_id/appearances/:appearance_id/external_assets/:id(.:format)
+  </td>
+  <td data-route-reqs='admin/external_assets#destroy'>
+    admin/external_assets#destroy
+  </td>
+</tr>
+<tr class='route_row' data-helper='path'>
+  <td data-route-name='admin_edition_appearances'>
+      admin_edition_appearances<span class='helper'>_path</span>
+  </td>
+  <td data-route-verb='GET'>
+    GET
+  </td>
+  <td data-route-path='/admin/editions/:edition_id/appearances(.:format)' data-regexp='^\/admin\/editions\/([^\/.?]+)\/appearances(?:\.([^\/.?]+))?$'>
+    /admin/editions/:edition_id/appearances(.:format)
+  </td>
+  <td data-route-reqs='admin/appearances#index'>
+    admin/appearances#index
+  </td>
+</tr>
+<tr class='route_row' data-helper='path'>
+  <td data-route-name=''>
+  </td>
+  <td data-route-verb='POST'>
+    POST
+  </td>
+  <td data-route-path='/admin/editions/:edition_id/appearances(.:format)' data-regexp='^\/admin\/editions\/([^\/.?]+)\/appearances(?:\.([^\/.?]+))?$'>
+    /admin/editions/:edition_id/appearances(.:format)
+  </td>
+  <td data-route-reqs='admin/appearances#create'>
+    admin/appearances#create
+  </td>
+</tr>
+<tr class='route_row' data-helper='path'>
+  <td data-route-name='new_admin_edition_appearance'>
+      new_admin_edition_appearance<span class='helper'>_path</span>
+  </td>
+  <td data-route-verb='GET'>
+    GET
+  </td>
+  <td data-route-path='/admin/editions/:edition_id/appearances/new(.:format)' data-regexp='^\/admin\/editions\/([^\/.?]+)\/appearances\/new(?:\.([^\/.?]+))?$'>
+    /admin/editions/:edition_id/appearances/new(.:format)
+  </td>
+  <td data-route-reqs='admin/appearances#new'>
+    admin/appearances#new
+  </td>
+</tr>
+<tr class='route_row' data-helper='path'>
+  <td data-route-name='edit_admin_edition_appearance'>
+      edit_admin_edition_appearance<span class='helper'>_path</span>
+  </td>
+  <td data-route-verb='GET'>
+    GET
+  </td>
+  <td data-route-path='/admin/editions/:edition_id/appearances/:id/edit(.:format)' data-regexp='^\/admin\/editions\/([^\/.?]+)\/appearances\/([^\/.?]+)\/edit(?:\.([^\/.?]+))?$'>
+    /admin/editions/:edition_id/appearances/:id/edit(.:format)
+  </td>
+  <td data-route-reqs='admin/appearances#edit'>
+    admin/appearances#edit
+  </td>
+</tr>
+<tr class='route_row' data-helper='path'>
+  <td data-route-name='admin_edition_appearance'>
+      admin_edition_appearance<span class='helper'>_path</span>
+  </td>
+  <td data-route-verb='PATCH'>
+    PATCH
+  </td>
+  <td data-route-path='/admin/editions/:edition_id/appearances/:id(.:format)' data-regexp='^\/admin\/editions\/([^\/.?]+)\/appearances\/([^\/.?]+)(?:\.([^\/.?]+))?$'>
+    /admin/editions/:edition_id/appearances/:id(.:format)
+  </td>
+  <td data-route-reqs='admin/appearances#update'>
+    admin/appearances#update
+  </td>
+</tr>
+<tr class='route_row' data-helper='path'>
+  <td data-route-name=''>
+  </td>
+  <td data-route-verb='PUT'>
+    PUT
+  </td>
+  <td data-route-path='/admin/editions/:edition_id/appearances/:id(.:format)' data-regexp='^\/admin\/editions\/([^\/.?]+)\/appearances\/([^\/.?]+)(?:\.([^\/.?]+))?$'>
+    /admin/editions/:edition_id/appearances/:id(.:format)
+  </td>
+  <td data-route-reqs='admin/appearances#update'>
+    admin/appearances#update
+  </td>
+</tr>
+<tr class='route_row' data-helper='path'>
+  <td data-route-name=''>
+  </td>
+  <td data-route-verb='DELETE'>
+    DELETE
+  </td>
+  <td data-route-path='/admin/editions/:edition_id/appearances/:id(.:format)' data-regexp='^\/admin\/editions\/([^\/.?]+)\/appearances\/([^\/.?]+)(?:\.([^\/.?]+))?$'>
+    /admin/editions/:edition_id/appearances/:id(.:format)
+  </td>
+  <td data-route-reqs='admin/appearances#destroy'>
+    admin/appearances#destroy
+  </td>
+</tr>
+<tr class='route_row' data-helper='path'>
+  <td data-route-name='admin_edition_artist'>
+      admin_edition_artist<span class='helper'>_path</span>
+  </td>
+  <td data-route-verb='GET'>
+    GET
+  </td>
+  <td data-route-path='/admin/editions/:edition_id/artists/:id(.:format)' data-regexp='^\/admin\/editions\/([^\/.?]+)\/artists\/([^\/.?]+)(?:\.([^\/.?]+))?$'>
+    /admin/editions/:edition_id/artists/:id(.:format)
+  </td>
+  <td data-route-reqs='admin/artists#show'>
+    admin/artists#show
+  </td>
+</tr>
+<tr class='route_row' data-helper='path'>
+  <td data-route-name='admin_edition_event_assets'>
+      admin_edition_event_assets<span class='helper'>_path</span>
+  </td>
+  <td data-route-verb='POST'>
+    POST
+  </td>
+  <td data-route-path='/admin/editions/:edition_id/events/:event_id/assets(.:format)' data-regexp='^\/admin\/editions\/([^\/.?]+)\/events\/([^\/.?]+)\/assets(?:\.([^\/.?]+))?$'>
+    /admin/editions/:edition_id/events/:event_id/assets(.:format)
+  </td>
+  <td data-route-reqs='admin/assets#create'>
+    admin/assets#create
+  </td>
+</tr>
+<tr class='route_row' data-helper='path'>
+  <td data-route-name='edit_admin_edition_event_asset'>
+      edit_admin_edition_event_asset<span class='helper'>_path</span>
+  </td>
+  <td data-route-verb='GET'>
+    GET
+  </td>
+  <td data-route-path='/admin/editions/:edition_id/events/:event_id/assets/:id/edit(.:format)' data-regexp='^\/admin\/editions\/([^\/.?]+)\/events\/([^\/.?]+)\/assets\/([^\/.?]+)\/edit(?:\.([^\/.?]+))?$'>
+    /admin/editions/:edition_id/events/:event_id/assets/:id/edit(.:format)
+  </td>
+  <td data-route-reqs='admin/assets#edit'>
+    admin/assets#edit
+  </td>
+</tr>
+<tr class='route_row' data-helper='path'>
+  <td data-route-name='admin_edition_event_asset'>
+      admin_edition_event_asset<span class='helper'>_path</span>
+  </td>
+  <td data-route-verb='PATCH'>
+    PATCH
+  </td>
+  <td data-route-path='/admin/editions/:edition_id/events/:event_id/assets/:id(.:format)' data-regexp='^\/admin\/editions\/([^\/.?]+)\/events\/([^\/.?]+)\/assets\/([^\/.?]+)(?:\.([^\/.?]+))?$'>
+    /admin/editions/:edition_id/events/:event_id/assets/:id(.:format)
+  </td>
+  <td data-route-reqs='admin/assets#update'>
+    admin/assets#update
+  </td>
+</tr>
+<tr class='route_row' data-helper='path'>
+  <td data-route-name=''>
+  </td>
+  <td data-route-verb='PUT'>
+    PUT
+  </td>
+  <td data-route-path='/admin/editions/:edition_id/events/:event_id/assets/:id(.:format)' data-regexp='^\/admin\/editions\/([^\/.?]+)\/events\/([^\/.?]+)\/assets\/([^\/.?]+)(?:\.([^\/.?]+))?$'>
+    /admin/editions/:edition_id/events/:event_id/assets/:id(.:format)
+  </td>
+  <td data-route-reqs='admin/assets#update'>
+    admin/assets#update
+  </td>
+</tr>
+<tr class='route_row' data-helper='path'>
+  <td data-route-name=''>
+  </td>
+  <td data-route-verb='DELETE'>
+    DELETE
+  </td>
+  <td data-route-path='/admin/editions/:edition_id/events/:event_id/assets/:id(.:format)' data-regexp='^\/admin\/editions\/([^\/.?]+)\/events\/([^\/.?]+)\/assets\/([^\/.?]+)(?:\.([^\/.?]+))?$'>
+    /admin/editions/:edition_id/events/:event_id/assets/:id(.:format)
+  </td>
+  <td data-route-reqs='admin/assets#destroy'>
+    admin/assets#destroy
+  </td>
+</tr>
+<tr class='route_row' data-helper='path'>
+  <td data-route-name='publish_admin_edition_events'>
+      publish_admin_edition_events<span class='helper'>_path</span>
+  </td>
+  <td data-route-verb='PUT'>
+    PUT
+  </td>
+  <td data-route-path='/admin/editions/:edition_id/events/publish(.:format)' data-regexp='^\/admin\/editions\/([^\/.?]+)\/events\/publish(?:\.([^\/.?]+))?$'>
+    /admin/editions/:edition_id/events/publish(.:format)
+  </td>
+  <td data-route-reqs='admin/events#publish'>
+    admin/events#publish
+  </td>
+</tr>
+<tr class='route_row' data-helper='path'>
+  <td data-route-name='admin_edition_events'>
+      admin_edition_events<span class='helper'>_path</span>
+  </td>
+  <td data-route-verb='GET'>
+    GET
+  </td>
+  <td data-route-path='/admin/editions/:edition_id/events(.:format)' data-regexp='^\/admin\/editions\/([^\/.?]+)\/events(?:\.([^\/.?]+))?$'>
+    /admin/editions/:edition_id/events(.:format)
+  </td>
+  <td data-route-reqs='admin/events#index'>
+    admin/events#index
+  </td>
+</tr>
+<tr class='route_row' data-helper='path'>
+  <td data-route-name=''>
+  </td>
+  <td data-route-verb='POST'>
+    POST
+  </td>
+  <td data-route-path='/admin/editions/:edition_id/events(.:format)' data-regexp='^\/admin\/editions\/([^\/.?]+)\/events(?:\.([^\/.?]+))?$'>
+    /admin/editions/:edition_id/events(.:format)
+  </td>
+  <td data-route-reqs='admin/events#create'>
+    admin/events#create
+  </td>
+</tr>
+<tr class='route_row' data-helper='path'>
+  <td data-route-name='new_admin_edition_event'>
+      new_admin_edition_event<span class='helper'>_path</span>
+  </td>
+  <td data-route-verb='GET'>
+    GET
+  </td>
+  <td data-route-path='/admin/editions/:edition_id/events/new(.:format)' data-regexp='^\/admin\/editions\/([^\/.?]+)\/events\/new(?:\.([^\/.?]+))?$'>
+    /admin/editions/:edition_id/events/new(.:format)
+  </td>
+  <td data-route-reqs='admin/events#new'>
+    admin/events#new
+  </td>
+</tr>
+<tr class='route_row' data-helper='path'>
+  <td data-route-name='edit_admin_edition_event'>
+      edit_admin_edition_event<span class='helper'>_path</span>
+  </td>
+  <td data-route-verb='GET'>
+    GET
+  </td>
+  <td data-route-path='/admin/editions/:edition_id/events/:id/edit(.:format)' data-regexp='^\/admin\/editions\/([^\/.?]+)\/events\/([^\/.?]+)\/edit(?:\.([^\/.?]+))?$'>
+    /admin/editions/:edition_id/events/:id/edit(.:format)
+  </td>
+  <td data-route-reqs='admin/events#edit'>
+    admin/events#edit
+  </td>
+</tr>
+<tr class='route_row' data-helper='path'>
+  <td data-route-name='admin_edition_event'>
+      admin_edition_event<span class='helper'>_path</span>
+  </td>
+  <td data-route-verb='GET'>
+    GET
+  </td>
+  <td data-route-path='/admin/editions/:edition_id/events/:id(.:format)' data-regexp='^\/admin\/editions\/([^\/.?]+)\/events\/([^\/.?]+)(?:\.([^\/.?]+))?$'>
+    /admin/editions/:edition_id/events/:id(.:format)
+  </td>
+  <td data-route-reqs='admin/events#show'>
+    admin/events#show
+  </td>
+</tr>
+<tr class='route_row' data-helper='path'>
+  <td data-route-name=''>
+  </td>
+  <td data-route-verb='PATCH'>
+    PATCH
+  </td>
+  <td data-route-path='/admin/editions/:edition_id/events/:id(.:format)' data-regexp='^\/admin\/editions\/([^\/.?]+)\/events\/([^\/.?]+)(?:\.([^\/.?]+))?$'>
+    /admin/editions/:edition_id/events/:id(.:format)
+  </td>
+  <td data-route-reqs='admin/events#update'>
+    admin/events#update
+  </td>
+</tr>
+<tr class='route_row' data-helper='path'>
+  <td data-route-name=''>
+  </td>
+  <td data-route-verb='PUT'>
+    PUT
+  </td>
+  <td data-route-path='/admin/editions/:edition_id/events/:id(.:format)' data-regexp='^\/admin\/editions\/([^\/.?]+)\/events\/([^\/.?]+)(?:\.([^\/.?]+))?$'>
+    /admin/editions/:edition_id/events/:id(.:format)
+  </td>
+  <td data-route-reqs='admin/events#update'>
+    admin/events#update
+  </td>
+</tr>
+<tr class='route_row' data-helper='path'>
+  <td data-route-name=''>
+  </td>
+  <td data-route-verb='DELETE'>
+    DELETE
+  </td>
+  <td data-route-path='/admin/editions/:edition_id/events/:id(.:format)' data-regexp='^\/admin\/editions\/([^\/.?]+)\/events\/([^\/.?]+)(?:\.([^\/.?]+))?$'>
+    /admin/editions/:edition_id/events/:id(.:format)
+  </td>
+  <td data-route-reqs='admin/events#destroy'>
+    admin/events#destroy
+  </td>
+</tr>
+<tr class='route_row' data-helper='path'>
+  <td data-route-name='admin_edition_exhibition_sort'>
+      admin_edition_exhibition_sort<span class='helper'>_path</span>
+  </td>
+  <td data-route-verb='POST'>
+    POST
+  </td>
+  <td data-route-path='/admin/editions/:edition_id/exhibitions/:exhibition_id/sort(.:format)' data-regexp='^\/admin\/editions\/([^\/.?]+)\/exhibitions\/([^\/.?]+)\/sort(?:\.([^\/.?]+))?$'>
+    /admin/editions/:edition_id/exhibitions/:exhibition_id/sort(.:format)
+  </td>
+  <td data-route-reqs='admin/exhibitions#sort'>
+    admin/exhibitions#sort
+  </td>
+</tr>
+<tr class='route_row' data-helper='path'>
+  <td data-route-name='admin_edition_exhibitions'>
+      admin_edition_exhibitions<span class='helper'>_path</span>
+  </td>
+  <td data-route-verb='GET'>
+    GET
+  </td>
+  <td data-route-path='/admin/editions/:edition_id/exhibitions(.:format)' data-regexp='^\/admin\/editions\/([^\/.?]+)\/exhibitions(?:\.([^\/.?]+))?$'>
+    /admin/editions/:edition_id/exhibitions(.:format)
+  </td>
+  <td data-route-reqs='admin/exhibitions#index'>
+    admin/exhibitions#index
+  </td>
+</tr>
+<tr class='route_row' data-helper='path'>
+  <td data-route-name=''>
+  </td>
+  <td data-route-verb='POST'>
+    POST
+  </td>
+  <td data-route-path='/admin/editions/:edition_id/exhibitions(.:format)' data-regexp='^\/admin\/editions\/([^\/.?]+)\/exhibitions(?:\.([^\/.?]+))?$'>
+    /admin/editions/:edition_id/exhibitions(.:format)
+  </td>
+  <td data-route-reqs='admin/exhibitions#create'>
+    admin/exhibitions#create
+  </td>
+</tr>
+<tr class='route_row' data-helper='path'>
+  <td data-route-name='new_admin_edition_exhibition'>
+      new_admin_edition_exhibition<span class='helper'>_path</span>
+  </td>
+  <td data-route-verb='GET'>
+    GET
+  </td>
+  <td data-route-path='/admin/editions/:edition_id/exhibitions/new(.:format)' data-regexp='^\/admin\/editions\/([^\/.?]+)\/exhibitions\/new(?:\.([^\/.?]+))?$'>
+    /admin/editions/:edition_id/exhibitions/new(.:format)
+  </td>
+  <td data-route-reqs='admin/exhibitions#new'>
+    admin/exhibitions#new
+  </td>
+</tr>
+<tr class='route_row' data-helper='path'>
+  <td data-route-name='edit_admin_edition_exhibition'>
+      edit_admin_edition_exhibition<span class='helper'>_path</span>
+  </td>
+  <td data-route-verb='GET'>
+    GET
+  </td>
+  <td data-route-path='/admin/editions/:edition_id/exhibitions/:id/edit(.:format)' data-regexp='^\/admin\/editions\/([^\/.?]+)\/exhibitions\/([^\/.?]+)\/edit(?:\.([^\/.?]+))?$'>
+    /admin/editions/:edition_id/exhibitions/:id/edit(.:format)
+  </td>
+  <td data-route-reqs='admin/exhibitions#edit'>
+    admin/exhibitions#edit
+  </td>
+</tr>
+<tr class='route_row' data-helper='path'>
+  <td data-route-name='admin_edition_exhibition'>
+      admin_edition_exhibition<span class='helper'>_path</span>
+  </td>
+  <td data-route-verb='GET'>
+    GET
+  </td>
+  <td data-route-path='/admin/editions/:edition_id/exhibitions/:id(.:format)' data-regexp='^\/admin\/editions\/([^\/.?]+)\/exhibitions\/([^\/.?]+)(?:\.([^\/.?]+))?$'>
+    /admin/editions/:edition_id/exhibitions/:id(.:format)
+  </td>
+  <td data-route-reqs='admin/exhibitions#show'>
+    admin/exhibitions#show
+  </td>
+</tr>
+<tr class='route_row' data-helper='path'>
+  <td data-route-name=''>
+  </td>
+  <td data-route-verb='PATCH'>
+    PATCH
+  </td>
+  <td data-route-path='/admin/editions/:edition_id/exhibitions/:id(.:format)' data-regexp='^\/admin\/editions\/([^\/.?]+)\/exhibitions\/([^\/.?]+)(?:\.([^\/.?]+))?$'>
+    /admin/editions/:edition_id/exhibitions/:id(.:format)
+  </td>
+  <td data-route-reqs='admin/exhibitions#update'>
+    admin/exhibitions#update
+  </td>
+</tr>
+<tr class='route_row' data-helper='path'>
+  <td data-route-name=''>
+  </td>
+  <td data-route-verb='PUT'>
+    PUT
+  </td>
+  <td data-route-path='/admin/editions/:edition_id/exhibitions/:id(.:format)' data-regexp='^\/admin\/editions\/([^\/.?]+)\/exhibitions\/([^\/.?]+)(?:\.([^\/.?]+))?$'>
+    /admin/editions/:edition_id/exhibitions/:id(.:format)
+  </td>
+  <td data-route-reqs='admin/exhibitions#update'>
+    admin/exhibitions#update
+  </td>
+</tr>
+<tr class='route_row' data-helper='path'>
+  <td data-route-name=''>
+  </td>
+  <td data-route-verb='DELETE'>
+    DELETE
+  </td>
+  <td data-route-path='/admin/editions/:edition_id/exhibitions/:id(.:format)' data-regexp='^\/admin\/editions\/([^\/.?]+)\/exhibitions\/([^\/.?]+)(?:\.([^\/.?]+))?$'>
+    /admin/editions/:edition_id/exhibitions/:id(.:format)
+  </td>
+  <td data-route-reqs='admin/exhibitions#destroy'>
+    admin/exhibitions#destroy
+  </td>
+</tr>
+<tr class='route_row' data-helper='path'>
+  <td data-route-name='admin_edition_page_assets'>
+      admin_edition_page_assets<span class='helper'>_path</span>
+  </td>
+  <td data-route-verb='POST'>
+    POST
+  </td>
+  <td data-route-path='/admin/editions/:edition_id/pages/:page_id/assets(.:format)' data-regexp='^\/admin\/editions\/([^\/.?]+)\/pages\/([^\/.?]+)\/assets(?:\.([^\/.?]+))?$'>
+    /admin/editions/:edition_id/pages/:page_id/assets(.:format)
+  </td>
+  <td data-route-reqs='admin/assets#create'>
+    admin/assets#create
+  </td>
+</tr>
+<tr class='route_row' data-helper='path'>
+  <td data-route-name='edit_admin_edition_page_asset'>
+      edit_admin_edition_page_asset<span class='helper'>_path</span>
+  </td>
+  <td data-route-verb='GET'>
+    GET
+  </td>
+  <td data-route-path='/admin/editions/:edition_id/pages/:page_id/assets/:id/edit(.:format)' data-regexp='^\/admin\/editions\/([^\/.?]+)\/pages\/([^\/.?]+)\/assets\/([^\/.?]+)\/edit(?:\.([^\/.?]+))?$'>
+    /admin/editions/:edition_id/pages/:page_id/assets/:id/edit(.:format)
+  </td>
+  <td data-route-reqs='admin/assets#edit'>
+    admin/assets#edit
+  </td>
+</tr>
+<tr class='route_row' data-helper='path'>
+  <td data-route-name='admin_edition_page_asset'>
+      admin_edition_page_asset<span class='helper'>_path</span>
+  </td>
+  <td data-route-verb='PATCH'>
+    PATCH
+  </td>
+  <td data-route-path='/admin/editions/:edition_id/pages/:page_id/assets/:id(.:format)' data-regexp='^\/admin\/editions\/([^\/.?]+)\/pages\/([^\/.?]+)\/assets\/([^\/.?]+)(?:\.([^\/.?]+))?$'>
+    /admin/editions/:edition_id/pages/:page_id/assets/:id(.:format)
+  </td>
+  <td data-route-reqs='admin/assets#update'>
+    admin/assets#update
+  </td>
+</tr>
+<tr class='route_row' data-helper='path'>
+  <td data-route-name=''>
+  </td>
+  <td data-route-verb='PUT'>
+    PUT
+  </td>
+  <td data-route-path='/admin/editions/:edition_id/pages/:page_id/assets/:id(.:format)' data-regexp='^\/admin\/editions\/([^\/.?]+)\/pages\/([^\/.?]+)\/assets\/([^\/.?]+)(?:\.([^\/.?]+))?$'>
+    /admin/editions/:edition_id/pages/:page_id/assets/:id(.:format)
+  </td>
+  <td data-route-reqs='admin/assets#update'>
+    admin/assets#update
+  </td>
+</tr>
+<tr class='route_row' data-helper='path'>
+  <td data-route-name=''>
+  </td>
+  <td data-route-verb='DELETE'>
+    DELETE
+  </td>
+  <td data-route-path='/admin/editions/:edition_id/pages/:page_id/assets/:id(.:format)' data-regexp='^\/admin\/editions\/([^\/.?]+)\/pages\/([^\/.?]+)\/assets\/([^\/.?]+)(?:\.([^\/.?]+))?$'>
+    /admin/editions/:edition_id/pages/:page_id/assets/:id(.:format)
+  </td>
+  <td data-route-reqs='admin/assets#destroy'>
+    admin/assets#destroy
+  </td>
+</tr>
+<tr class='route_row' data-helper='path'>
+  <td data-route-name='move_admin_edition_page'>
+      move_admin_edition_page<span class='helper'>_path</span>
+  </td>
+  <td data-route-verb='GET'>
+    GET
+  </td>
+  <td data-route-path='/admin/editions/:edition_id/pages/:id/move(.:format)' data-regexp='^\/admin\/editions\/([^\/.?]+)\/pages\/([^\/.?]+)\/move(?:\.([^\/.?]+))?$'>
+    /admin/editions/:edition_id/pages/:id/move(.:format)
+  </td>
+  <td data-route-reqs='admin/pages#move'>
+    admin/pages#move
+  </td>
+</tr>
+<tr class='route_row' data-helper='path'>
+  <td data-route-name='admin_edition_pages'>
+      admin_edition_pages<span class='helper'>_path</span>
+  </td>
+  <td data-route-verb='GET'>
+    GET
+  </td>
+  <td data-route-path='/admin/editions/:edition_id/pages(.:format)' data-regexp='^\/admin\/editions\/([^\/.?]+)\/pages(?:\.([^\/.?]+))?$'>
+    /admin/editions/:edition_id/pages(.:format)
+  </td>
+  <td data-route-reqs='admin/pages#index'>
+    admin/pages#index
+  </td>
+</tr>
+<tr class='route_row' data-helper='path'>
+  <td data-route-name=''>
+  </td>
+  <td data-route-verb='POST'>
+    POST
+  </td>
+  <td data-route-path='/admin/editions/:edition_id/pages(.:format)' data-regexp='^\/admin\/editions\/([^\/.?]+)\/pages(?:\.([^\/.?]+))?$'>
+    /admin/editions/:edition_id/pages(.:format)
+  </td>
+  <td data-route-reqs='admin/pages#create'>
+    admin/pages#create
+  </td>
+</tr>
+<tr class='route_row' data-helper='path'>
+  <td data-route-name='new_admin_edition_page'>
+      new_admin_edition_page<span class='helper'>_path</span>
+  </td>
+  <td data-route-verb='GET'>
+    GET
+  </td>
+  <td data-route-path='/admin/editions/:edition_id/pages/new(.:format)' data-regexp='^\/admin\/editions\/([^\/.?]+)\/pages\/new(?:\.([^\/.?]+))?$'>
+    /admin/editions/:edition_id/pages/new(.:format)
+  </td>
+  <td data-route-reqs='admin/pages#new'>
+    admin/pages#new
+  </td>
+</tr>
+<tr class='route_row' data-helper='path'>
+  <td data-route-name='edit_admin_edition_page'>
+      edit_admin_edition_page<span class='helper'>_path</span>
+  </td>
+  <td data-route-verb='GET'>
+    GET
+  </td>
+  <td data-route-path='/admin/editions/:edition_id/pages/:id/edit(.:format)' data-regexp='^\/admin\/editions\/([^\/.?]+)\/pages\/([^\/.?]+)\/edit(?:\.([^\/.?]+))?$'>
+    /admin/editions/:edition_id/pages/:id/edit(.:format)
+  </td>
+  <td data-route-reqs='admin/pages#edit'>
+    admin/pages#edit
+  </td>
+</tr>
+<tr class='route_row' data-helper='path'>
+  <td data-route-name='admin_edition_page'>
+      admin_edition_page<span class='helper'>_path</span>
+  </td>
+  <td data-route-verb='PATCH'>
+    PATCH
+  </td>
+  <td data-route-path='/admin/editions/:edition_id/pages/:id(.:format)' data-regexp='^\/admin\/editions\/([^\/.?]+)\/pages\/([^\/.?]+)(?:\.([^\/.?]+))?$'>
+    /admin/editions/:edition_id/pages/:id(.:format)
+  </td>
+  <td data-route-reqs='admin/pages#update'>
+    admin/pages#update
+  </td>
+</tr>
+<tr class='route_row' data-helper='path'>
+  <td data-route-name=''>
+  </td>
+  <td data-route-verb='PUT'>
+    PUT
+  </td>
+  <td data-route-path='/admin/editions/:edition_id/pages/:id(.:format)' data-regexp='^\/admin\/editions\/([^\/.?]+)\/pages\/([^\/.?]+)(?:\.([^\/.?]+))?$'>
+    /admin/editions/:edition_id/pages/:id(.:format)
+  </td>
+  <td data-route-reqs='admin/pages#update'>
+    admin/pages#update
+  </td>
+</tr>
+<tr class='route_row' data-helper='path'>
+  <td data-route-name=''>
+  </td>
+  <td data-route-verb='DELETE'>
+    DELETE
+  </td>
+  <td data-route-path='/admin/editions/:edition_id/pages/:id(.:format)' data-regexp='^\/admin\/editions\/([^\/.?]+)\/pages\/([^\/.?]+)(?:\.([^\/.?]+))?$'>
+    /admin/editions/:edition_id/pages/:id(.:format)
+  </td>
+  <td data-route-reqs='admin/pages#destroy'>
+    admin/pages#destroy
+  </td>
+</tr>
+<tr class='route_row' data-helper='path'>
+  <td data-route-name='admin_edition_partnerships'>
+      admin_edition_partnerships<span class='helper'>_path</span>
+  </td>
+  <td data-route-verb='GET'>
+    GET
+  </td>
+  <td data-route-path='/admin/editions/:edition_id/partnerships(.:format)' data-regexp='^\/admin\/editions\/([^\/.?]+)\/partnerships(?:\.([^\/.?]+))?$'>
+    /admin/editions/:edition_id/partnerships(.:format)
+  </td>
+  <td data-route-reqs='admin/partnerships#index'>
+    admin/partnerships#index
+  </td>
+</tr>
+<tr class='route_row' data-helper='path'>
+  <td data-route-name=''>
+  </td>
+  <td data-route-verb='POST'>
+    POST
+  </td>
+  <td data-route-path='/admin/editions/:edition_id/partnerships(.:format)' data-regexp='^\/admin\/editions\/([^\/.?]+)\/partnerships(?:\.([^\/.?]+))?$'>
+    /admin/editions/:edition_id/partnerships(.:format)
+  </td>
+  <td data-route-reqs='admin/partnerships#create'>
+    admin/partnerships#create
+  </td>
+</tr>
+<tr class='route_row' data-helper='path'>
+  <td data-route-name='new_admin_edition_partnership'>
+      new_admin_edition_partnership<span class='helper'>_path</span>
+  </td>
+  <td data-route-verb='GET'>
+    GET
+  </td>
+  <td data-route-path='/admin/editions/:edition_id/partnerships/new(.:format)' data-regexp='^\/admin\/editions\/([^\/.?]+)\/partnerships\/new(?:\.([^\/.?]+))?$'>
+    /admin/editions/:edition_id/partnerships/new(.:format)
+  </td>
+  <td data-route-reqs='admin/partnerships#new'>
+    admin/partnerships#new
+  </td>
+</tr>
+<tr class='route_row' data-helper='path'>
+  <td data-route-name='edit_admin_edition_partnership'>
+      edit_admin_edition_partnership<span class='helper'>_path</span>
+  </td>
+  <td data-route-verb='GET'>
+    GET
+  </td>
+  <td data-route-path='/admin/editions/:edition_id/partnerships/:id/edit(.:format)' data-regexp='^\/admin\/editions\/([^\/.?]+)\/partnerships\/([^\/.?]+)\/edit(?:\.([^\/.?]+))?$'>
+    /admin/editions/:edition_id/partnerships/:id/edit(.:format)
+  </td>
+  <td data-route-reqs='admin/partnerships#edit'>
+    admin/partnerships#edit
+  </td>
+</tr>
+<tr class='route_row' data-helper='path'>
+  <td data-route-name='admin_edition_partnership'>
+      admin_edition_partnership<span class='helper'>_path</span>
+  </td>
+  <td data-route-verb='GET'>
+    GET
+  </td>
+  <td data-route-path='/admin/editions/:edition_id/partnerships/:id(.:format)' data-regexp='^\/admin\/editions\/([^\/.?]+)\/partnerships\/([^\/.?]+)(?:\.([^\/.?]+))?$'>
+    /admin/editions/:edition_id/partnerships/:id(.:format)
+  </td>
+  <td data-route-reqs='admin/partnerships#show'>
+    admin/partnerships#show
+  </td>
+</tr>
+<tr class='route_row' data-helper='path'>
+  <td data-route-name=''>
+  </td>
+  <td data-route-verb='PATCH'>
+    PATCH
+  </td>
+  <td data-route-path='/admin/editions/:edition_id/partnerships/:id(.:format)' data-regexp='^\/admin\/editions\/([^\/.?]+)\/partnerships\/([^\/.?]+)(?:\.([^\/.?]+))?$'>
+    /admin/editions/:edition_id/partnerships/:id(.:format)
+  </td>
+  <td data-route-reqs='admin/partnerships#update'>
+    admin/partnerships#update
+  </td>
+</tr>
+<tr class='route_row' data-helper='path'>
+  <td data-route-name=''>
+  </td>
+  <td data-route-verb='PUT'>
+    PUT
+  </td>
+  <td data-route-path='/admin/editions/:edition_id/partnerships/:id(.:format)' data-regexp='^\/admin\/editions\/([^\/.?]+)\/partnerships\/([^\/.?]+)(?:\.([^\/.?]+))?$'>
+    /admin/editions/:edition_id/partnerships/:id(.:format)
+  </td>
+  <td data-route-reqs='admin/partnerships#update'>
+    admin/partnerships#update
+  </td>
+</tr>
+<tr class='route_row' data-helper='path'>
+  <td data-route-name=''>
+  </td>
+  <td data-route-verb='DELETE'>
+    DELETE
+  </td>
+  <td data-route-path='/admin/editions/:edition_id/partnerships/:id(.:format)' data-regexp='^\/admin\/editions\/([^\/.?]+)\/partnerships\/([^\/.?]+)(?:\.([^\/.?]+))?$'>
+    /admin/editions/:edition_id/partnerships/:id(.:format)
+  </td>
+  <td data-route-reqs='admin/partnerships#destroy'>
+    admin/partnerships#destroy
+  </td>
+</tr>
+<tr class='route_row' data-helper='path'>
+  <td data-route-name='admin_edition_venues'>
+      admin_edition_venues<span class='helper'>_path</span>
+  </td>
+  <td data-route-verb='GET'>
+    GET
+  </td>
+  <td data-route-path='/admin/editions/:edition_id/venues(.:format)' data-regexp='^\/admin\/editions\/([^\/.?]+)\/venues(?:\.([^\/.?]+))?$'>
+    /admin/editions/:edition_id/venues(.:format)
+  </td>
+  <td data-route-reqs='admin/venues#index'>
+    admin/venues#index
+  </td>
+</tr>
+<tr class='route_row' data-helper='path'>
+  <td data-route-name=''>
+  </td>
+  <td data-route-verb='POST'>
+    POST
+  </td>
+  <td data-route-path='/admin/editions/:edition_id/venues(.:format)' data-regexp='^\/admin\/editions\/([^\/.?]+)\/venues(?:\.([^\/.?]+))?$'>
+    /admin/editions/:edition_id/venues(.:format)
+  </td>
+  <td data-route-reqs='admin/venues#create'>
+    admin/venues#create
+  </td>
+</tr>
+<tr class='route_row' data-helper='path'>
+  <td data-route-name='new_admin_edition_venue'>
+      new_admin_edition_venue<span class='helper'>_path</span>
+  </td>
+  <td data-route-verb='GET'>
+    GET
+  </td>
+  <td data-route-path='/admin/editions/:edition_id/venues/new(.:format)' data-regexp='^\/admin\/editions\/([^\/.?]+)\/venues\/new(?:\.([^\/.?]+))?$'>
+    /admin/editions/:edition_id/venues/new(.:format)
+  </td>
+  <td data-route-reqs='admin/venues#new'>
+    admin/venues#new
+  </td>
+</tr>
+<tr class='route_row' data-helper='path'>
+  <td data-route-name='edit_admin_edition_venue'>
+      edit_admin_edition_venue<span class='helper'>_path</span>
+  </td>
+  <td data-route-verb='GET'>
+    GET
+  </td>
+  <td data-route-path='/admin/editions/:edition_id/venues/:id/edit(.:format)' data-regexp='^\/admin\/editions\/([^\/.?]+)\/venues\/([^\/.?]+)\/edit(?:\.([^\/.?]+))?$'>
+    /admin/editions/:edition_id/venues/:id/edit(.:format)
+  </td>
+  <td data-route-reqs='admin/venues#edit'>
+    admin/venues#edit
+  </td>
+</tr>
+<tr class='route_row' data-helper='path'>
+  <td data-route-name='admin_edition_venue'>
+      admin_edition_venue<span class='helper'>_path</span>
+  </td>
+  <td data-route-verb='GET'>
+    GET
+  </td>
+  <td data-route-path='/admin/editions/:edition_id/venues/:id(.:format)' data-regexp='^\/admin\/editions\/([^\/.?]+)\/venues\/([^\/.?]+)(?:\.([^\/.?]+))?$'>
+    /admin/editions/:edition_id/venues/:id(.:format)
+  </td>
+  <td data-route-reqs='admin/venues#show'>
+    admin/venues#show
+  </td>
+</tr>
+<tr class='route_row' data-helper='path'>
+  <td data-route-name=''>
+  </td>
+  <td data-route-verb='PATCH'>
+    PATCH
+  </td>
+  <td data-route-path='/admin/editions/:edition_id/venues/:id(.:format)' data-regexp='^\/admin\/editions\/([^\/.?]+)\/venues\/([^\/.?]+)(?:\.([^\/.?]+))?$'>
+    /admin/editions/:edition_id/venues/:id(.:format)
+  </td>
+  <td data-route-reqs='admin/venues#update'>
+    admin/venues#update
+  </td>
+</tr>
+<tr class='route_row' data-helper='path'>
+  <td data-route-name=''>
+  </td>
+  <td data-route-verb='PUT'>
+    PUT
+  </td>
+  <td data-route-path='/admin/editions/:edition_id/venues/:id(.:format)' data-regexp='^\/admin\/editions\/([^\/.?]+)\/venues\/([^\/.?]+)(?:\.([^\/.?]+))?$'>
+    /admin/editions/:edition_id/venues/:id(.:format)
+  </td>
+  <td data-route-reqs='admin/venues#update'>
+    admin/venues#update
+  </td>
+</tr>
+<tr class='route_row' data-helper='path'>
+  <td data-route-name=''>
+  </td>
+  <td data-route-verb='DELETE'>
+    DELETE
+  </td>
+  <td data-route-path='/admin/editions/:edition_id/venues/:id(.:format)' data-regexp='^\/admin\/editions\/([^\/.?]+)\/venues\/([^\/.?]+)(?:\.([^\/.?]+))?$'>
+    /admin/editions/:edition_id/venues/:id(.:format)
+  </td>
+  <td data-route-reqs='admin/venues#destroy'>
+    admin/venues#destroy
+  </td>
+</tr>
+<tr class='route_row' data-helper='path'>
+  <td data-route-name='admin_edition_assets_root'>
+      admin_edition_assets_root<span class='helper'>_path</span>
+  </td>
+  <td data-route-verb='GET'>
+    GET
+  </td>
+  <td data-route-path='/admin/editions/:edition_id/assets(.:format)' data-regexp='^\/admin\/editions\/([^\/.?]+)\/assets(?:\.([^\/.?]+))?$'>
+    /admin/editions/:edition_id/assets(.:format)
+  </td>
+  <td data-route-reqs='admin/assets/assets#index'>
+    admin/assets/assets#index
+  </td>
+</tr>
+<tr class='route_row' data-helper='path'>
+  <td data-route-name='admin_edition_assets_event_event_item'>
+      admin_edition_assets_event_event_item<span class='helper'>_path</span>
+  </td>
+  <td data-route-verb='GET'>
+    GET
+  </td>
+  <td data-route-path='/admin/editions/:edition_id/assets/events/:event_id/event_items/:id(.:format)' data-regexp='^\/admin\/editions\/([^\/.?]+)\/assets\/events\/([^\/.?]+)\/event_items\/([^\/.?]+)(?:\.([^\/.?]+))?$'>
+    /admin/editions/:edition_id/assets/events/:event_id/event_items/:id(.:format)
+  </td>
+  <td data-route-reqs='admin/assets/event_items#show'>
+    admin/assets/event_items#show
+  </td>
+</tr>
+<tr class='route_row' data-helper='path'>
+  <td data-route-name='admin_edition_assets_events'>
+      admin_edition_assets_events<span class='helper'>_path</span>
+  </td>
+  <td data-route-verb='GET'>
+    GET
+  </td>
+  <td data-route-path='/admin/editions/:edition_id/assets/events(.:format)' data-regexp='^\/admin\/editions\/([^\/.?]+)\/assets\/events(?:\.([^\/.?]+))?$'>
+    /admin/editions/:edition_id/assets/events(.:format)
+  </td>
+  <td data-route-reqs='admin/assets/events#index'>
+    admin/assets/events#index
+  </td>
+</tr>
+<tr class='route_row' data-helper='path'>
+  <td data-route-name='admin_edition_assets_event'>
+      admin_edition_assets_event<span class='helper'>_path</span>
+  </td>
+  <td data-route-verb='GET'>
+    GET
+  </td>
+  <td data-route-path='/admin/editions/:edition_id/assets/events/:id(.:format)' data-regexp='^\/admin\/editions\/([^\/.?]+)\/assets\/events\/([^\/.?]+)(?:\.([^\/.?]+))?$'>
+    /admin/editions/:edition_id/assets/events/:id(.:format)
+  </td>
+  <td data-route-reqs='admin/assets/events#show'>
+    admin/assets/events#show
+  </td>
+</tr>
+<tr class='route_row' data-helper='path'>
+  <td data-route-name='admin_edition_assets_exhibitions'>
+      admin_edition_assets_exhibitions<span class='helper'>_path</span>
+  </td>
+  <td data-route-verb='GET'>
+    GET
+  </td>
+  <td data-route-path='/admin/editions/:edition_id/assets/exhibitions(.:format)' data-regexp='^\/admin\/editions\/([^\/.?]+)\/assets\/exhibitions(?:\.([^\/.?]+))?$'>
+    /admin/editions/:edition_id/assets/exhibitions(.:format)
+  </td>
+  <td data-route-reqs='admin/assets/exhibitions#index'>
+    admin/assets/exhibitions#index
+  </td>
+</tr>
+<tr class='route_row' data-helper='path'>
+  <td data-route-name='admin_edition_assets_exhibition'>
+      admin_edition_assets_exhibition<span class='helper'>_path</span>
+  </td>
+  <td data-route-verb='GET'>
+    GET
+  </td>
+  <td data-route-path='/admin/editions/:edition_id/assets/exhibitions/:id(.:format)' data-regexp='^\/admin\/editions\/([^\/.?]+)\/assets\/exhibitions\/([^\/.?]+)(?:\.([^\/.?]+))?$'>
+    /admin/editions/:edition_id/assets/exhibitions/:id(.:format)
+  </td>
+  <td data-route-reqs='admin/assets/exhibitions#show'>
+    admin/assets/exhibitions#show
+  </td>
+</tr>
+<tr class='route_row' data-helper='path'>
+  <td data-route-name='admin_edition_assets_pages'>
+      admin_edition_assets_pages<span class='helper'>_path</span>
+  </td>
+  <td data-route-verb='GET'>
+    GET
+  </td>
+  <td data-route-path='/admin/editions/:edition_id/assets/pages(.:format)' data-regexp='^\/admin\/editions\/([^\/.?]+)\/assets\/pages(?:\.([^\/.?]+))?$'>
+    /admin/editions/:edition_id/assets/pages(.:format)
+  </td>
+  <td data-route-reqs='admin/assets/pages#index'>
+    admin/assets/pages#index
+  </td>
+</tr>
+<tr class='route_row' data-helper='path'>
+  <td data-route-name='admin_edition_assets_page'>
+      admin_edition_assets_page<span class='helper'>_path</span>
+  </td>
+  <td data-route-verb='GET'>
+    GET
+  </td>
+  <td data-route-path='/admin/editions/:edition_id/assets/pages/:id(.:format)' data-regexp='^\/admin\/editions\/([^\/.?]+)\/assets\/pages\/([^\/.?]+)(?:\.([^\/.?]+))?$'>
+    /admin/editions/:edition_id/assets/pages/:id(.:format)
+  </td>
+  <td data-route-reqs='admin/assets/pages#show'>
+    admin/assets/pages#show
+  </td>
+</tr>
+<tr class='route_row' data-helper='path'>
+  <td data-route-name='admin_editions'>
+      admin_editions<span class='helper'>_path</span>
+  </td>
+  <td data-route-verb='GET'>
+    GET
+  </td>
+  <td data-route-path='/admin/editions(.:format)' data-regexp='^\/admin\/editions(?:\.([^\/.?]+))?$'>
+    /admin/editions(.:format)
+  </td>
+  <td data-route-reqs='admin/editions#index'>
+    admin/editions#index
+  </td>
+</tr>
+<tr class='route_row' data-helper='path'>
+  <td data-route-name=''>
+  </td>
+  <td data-route-verb='POST'>
+    POST
+  </td>
+  <td data-route-path='/admin/editions(.:format)' data-regexp='^\/admin\/editions(?:\.([^\/.?]+))?$'>
+    /admin/editions(.:format)
+  </td>
+  <td data-route-reqs='admin/editions#create'>
+    admin/editions#create
+  </td>
+</tr>
+<tr class='route_row' data-helper='path'>
+  <td data-route-name='new_admin_edition'>
+      new_admin_edition<span class='helper'>_path</span>
+  </td>
+  <td data-route-verb='GET'>
+    GET
+  </td>
+  <td data-route-path='/admin/editions/new(.:format)' data-regexp='^\/admin\/editions\/new(?:\.([^\/.?]+))?$'>
+    /admin/editions/new(.:format)
+  </td>
+  <td data-route-reqs='admin/editions#new'>
+    admin/editions#new
+  </td>
+</tr>
+<tr class='route_row' data-helper='path'>
+  <td data-route-name='edit_admin_edition'>
+      edit_admin_edition<span class='helper'>_path</span>
+  </td>
+  <td data-route-verb='GET'>
+    GET
+  </td>
+  <td data-route-path='/admin/editions/:id/edit(.:format)' data-regexp='^\/admin\/editions\/([^\/.?]+)\/edit(?:\.([^\/.?]+))?$'>
+    /admin/editions/:id/edit(.:format)
+  </td>
+  <td data-route-reqs='admin/editions#edit'>
+    admin/editions#edit
+  </td>
+</tr>
+<tr class='route_row' data-helper='path'>
+  <td data-route-name='admin_edition'>
+      admin_edition<span class='helper'>_path</span>
+  </td>
+  <td data-route-verb='GET'>
+    GET
+  </td>
+  <td data-route-path='/admin/editions/:id(.:format)' data-regexp='^\/admin\/editions\/([^\/.?]+)(?:\.([^\/.?]+))?$'>
+    /admin/editions/:id(.:format)
+  </td>
+  <td data-route-reqs='admin/editions#show'>
+    admin/editions#show
+  </td>
+</tr>
+<tr class='route_row' data-helper='path'>
+  <td data-route-name=''>
+  </td>
+  <td data-route-verb='PATCH'>
+    PATCH
+  </td>
+  <td data-route-path='/admin/editions/:id(.:format)' data-regexp='^\/admin\/editions\/([^\/.?]+)(?:\.([^\/.?]+))?$'>
+    /admin/editions/:id(.:format)
+  </td>
+  <td data-route-reqs='admin/editions#update'>
+    admin/editions#update
+  </td>
+</tr>
+<tr class='route_row' data-helper='path'>
+  <td data-route-name=''>
+  </td>
+  <td data-route-verb='PUT'>
+    PUT
+  </td>
+  <td data-route-path='/admin/editions/:id(.:format)' data-regexp='^\/admin\/editions\/([^\/.?]+)(?:\.([^\/.?]+))?$'>
+    /admin/editions/:id(.:format)
+  </td>
+  <td data-route-reqs='admin/editions#update'>
+    admin/editions#update
+  </td>
+</tr>
+<tr class='route_row' data-helper='path'>
+  <td data-route-name=''>
+  </td>
+  <td data-route-verb='DELETE'>
+    DELETE
+  </td>
+  <td data-route-path='/admin/editions/:id(.:format)' data-regexp='^\/admin\/editions\/([^\/.?]+)(?:\.([^\/.?]+))?$'>
+    /admin/editions/:id(.:format)
+  </td>
+  <td data-route-reqs='admin/editions#destroy'>
+    admin/editions#destroy
+  </td>
+</tr>
+<tr class='route_row' data-helper='path'>
+  <td data-route-name='admin_invitations'>
+      admin_invitations<span class='helper'>_path</span>
+  </td>
+  <td data-route-verb='POST'>
+    POST
+  </td>
+  <td data-route-path='/admin/invitations(.:format)' data-regexp='^\/admin\/invitations(?:\.([^\/.?]+))?$'>
+    /admin/invitations(.:format)
+  </td>
+  <td data-route-reqs='admin/invitations#create'>
+    admin/invitations#create
+  </td>
+</tr>
+<tr class='route_row' data-helper='path'>
+  <td data-route-name='new_admin_invitation'>
+      new_admin_invitation<span class='helper'>_path</span>
+  </td>
+  <td data-route-verb='GET'>
+    GET
+  </td>
+  <td data-route-path='/admin/invitations/new(.:format)' data-regexp='^\/admin\/invitations\/new(?:\.([^\/.?]+))?$'>
+    /admin/invitations/new(.:format)
+  </td>
+  <td data-route-reqs='admin/invitations#new'>
+    admin/invitations#new
+  </td>
+</tr>
+<tr class='route_row' data-helper='path'>
+  <td data-route-name='move_higher_admin_menu_menu_item'>
+      move_higher_admin_menu_menu_item<span class='helper'>_path</span>
+  </td>
+  <td data-route-verb='PATCH'>
+    PATCH
+  </td>
+  <td data-route-path='/admin/menus/:menu_id/menu_items/:id/move_higher(.:format)' data-regexp='^\/admin\/menus\/([^\/.?]+)\/menu_items\/([^\/.?]+)\/move_higher(?:\.([^\/.?]+))?$'>
+    /admin/menus/:menu_id/menu_items/:id/move_higher(.:format)
+  </td>
+  <td data-route-reqs='admin/menu_items#move_higher'>
+    admin/menu_items#move_higher
+  </td>
+</tr>
+<tr class='route_row' data-helper='path'>
+  <td data-route-name='move_lower_admin_menu_menu_item'>
+      move_lower_admin_menu_menu_item<span class='helper'>_path</span>
+  </td>
+  <td data-route-verb='PATCH'>
+    PATCH
+  </td>
+  <td data-route-path='/admin/menus/:menu_id/menu_items/:id/move_lower(.:format)' data-regexp='^\/admin\/menus\/([^\/.?]+)\/menu_items\/([^\/.?]+)\/move_lower(?:\.([^\/.?]+))?$'>
+    /admin/menus/:menu_id/menu_items/:id/move_lower(.:format)
+  </td>
+  <td data-route-reqs='admin/menu_items#move_lower'>
+    admin/menu_items#move_lower
+  </td>
+</tr>
+<tr class='route_row' data-helper='path'>
+  <td data-route-name='admin_menu_menu_items'>
+      admin_menu_menu_items<span class='helper'>_path</span>
+  </td>
+  <td data-route-verb='POST'>
+    POST
+  </td>
+  <td data-route-path='/admin/menus/:menu_id/menu_items(.:format)' data-regexp='^\/admin\/menus\/([^\/.?]+)\/menu_items(?:\.([^\/.?]+))?$'>
+    /admin/menus/:menu_id/menu_items(.:format)
+  </td>
+  <td data-route-reqs='admin/menu_items#create'>
+    admin/menu_items#create
+  </td>
+</tr>
+<tr class='route_row' data-helper='path'>
+  <td data-route-name='new_admin_menu_menu_item'>
+      new_admin_menu_menu_item<span class='helper'>_path</span>
+  </td>
+  <td data-route-verb='GET'>
+    GET
+  </td>
+  <td data-route-path='/admin/menus/:menu_id/menu_items/new(.:format)' data-regexp='^\/admin\/menus\/([^\/.?]+)\/menu_items\/new(?:\.([^\/.?]+))?$'>
+    /admin/menus/:menu_id/menu_items/new(.:format)
+  </td>
+  <td data-route-reqs='admin/menu_items#new'>
+    admin/menu_items#new
+  </td>
+</tr>
+<tr class='route_row' data-helper='path'>
+  <td data-route-name='edit_admin_menu_menu_item'>
+      edit_admin_menu_menu_item<span class='helper'>_path</span>
+  </td>
+  <td data-route-verb='GET'>
+    GET
+  </td>
+  <td data-route-path='/admin/menus/:menu_id/menu_items/:id/edit(.:format)' data-regexp='^\/admin\/menus\/([^\/.?]+)\/menu_items\/([^\/.?]+)\/edit(?:\.([^\/.?]+))?$'>
+    /admin/menus/:menu_id/menu_items/:id/edit(.:format)
+  </td>
+  <td data-route-reqs='admin/menu_items#edit'>
+    admin/menu_items#edit
+  </td>
+</tr>
+<tr class='route_row' data-helper='path'>
+  <td data-route-name='admin_menu_menu_item'>
+      admin_menu_menu_item<span class='helper'>_path</span>
+  </td>
+  <td data-route-verb='PATCH'>
+    PATCH
+  </td>
+  <td data-route-path='/admin/menus/:menu_id/menu_items/:id(.:format)' data-regexp='^\/admin\/menus\/([^\/.?]+)\/menu_items\/([^\/.?]+)(?:\.([^\/.?]+))?$'>
+    /admin/menus/:menu_id/menu_items/:id(.:format)
+  </td>
+  <td data-route-reqs='admin/menu_items#update'>
+    admin/menu_items#update
+  </td>
+</tr>
+<tr class='route_row' data-helper='path'>
+  <td data-route-name=''>
+  </td>
+  <td data-route-verb='PUT'>
+    PUT
+  </td>
+  <td data-route-path='/admin/menus/:menu_id/menu_items/:id(.:format)' data-regexp='^\/admin\/menus\/([^\/.?]+)\/menu_items\/([^\/.?]+)(?:\.([^\/.?]+))?$'>
+    /admin/menus/:menu_id/menu_items/:id(.:format)
+  </td>
+  <td data-route-reqs='admin/menu_items#update'>
+    admin/menu_items#update
+  </td>
+</tr>
+<tr class='route_row' data-helper='path'>
+  <td data-route-name=''>
+  </td>
+  <td data-route-verb='DELETE'>
+    DELETE
+  </td>
+  <td data-route-path='/admin/menus/:menu_id/menu_items/:id(.:format)' data-regexp='^\/admin\/menus\/([^\/.?]+)\/menu_items\/([^\/.?]+)(?:\.([^\/.?]+))?$'>
+    /admin/menus/:menu_id/menu_items/:id(.:format)
+  </td>
+  <td data-route-reqs='admin/menu_items#destroy'>
+    admin/menu_items#destroy
+  </td>
+</tr>
+<tr class='route_row' data-helper='path'>
+  <td data-route-name='admin_menus'>
+      admin_menus<span class='helper'>_path</span>
+  </td>
+  <td data-route-verb='GET'>
+    GET
+  </td>
+  <td data-route-path='/admin/menus(.:format)' data-regexp='^\/admin\/menus(?:\.([^\/.?]+))?$'>
+    /admin/menus(.:format)
+  </td>
+  <td data-route-reqs='admin/menus#index'>
+    admin/menus#index
+  </td>
+</tr>
+<tr class='route_row' data-helper='path'>
+  <td data-route-name=''>
+  </td>
+  <td data-route-verb='POST'>
+    POST
+  </td>
+  <td data-route-path='/admin/menus(.:format)' data-regexp='^\/admin\/menus(?:\.([^\/.?]+))?$'>
+    /admin/menus(.:format)
+  </td>
+  <td data-route-reqs='admin/menus#create'>
+    admin/menus#create
+  </td>
+</tr>
+<tr class='route_row' data-helper='path'>
+  <td data-route-name='new_admin_menu'>
+      new_admin_menu<span class='helper'>_path</span>
+  </td>
+  <td data-route-verb='GET'>
+    GET
+  </td>
+  <td data-route-path='/admin/menus/new(.:format)' data-regexp='^\/admin\/menus\/new(?:\.([^\/.?]+))?$'>
+    /admin/menus/new(.:format)
+  </td>
+  <td data-route-reqs='admin/menus#new'>
+    admin/menus#new
+  </td>
+</tr>
+<tr class='route_row' data-helper='path'>
+  <td data-route-name='edit_admin_menu'>
+      edit_admin_menu<span class='helper'>_path</span>
+  </td>
+  <td data-route-verb='GET'>
+    GET
+  </td>
+  <td data-route-path='/admin/menus/:id/edit(.:format)' data-regexp='^\/admin\/menus\/([^\/.?]+)\/edit(?:\.([^\/.?]+))?$'>
+    /admin/menus/:id/edit(.:format)
+  </td>
+  <td data-route-reqs='admin/menus#edit'>
+    admin/menus#edit
+  </td>
+</tr>
+<tr class='route_row' data-helper='path'>
+  <td data-route-name='admin_menu'>
+      admin_menu<span class='helper'>_path</span>
+  </td>
+  <td data-route-verb='PATCH'>
+    PATCH
+  </td>
+  <td data-route-path='/admin/menus/:id(.:format)' data-regexp='^\/admin\/menus\/([^\/.?]+)(?:\.([^\/.?]+))?$'>
+    /admin/menus/:id(.:format)
+  </td>
+  <td data-route-reqs='admin/menus#update'>
+    admin/menus#update
+  </td>
+</tr>
+<tr class='route_row' data-helper='path'>
+  <td data-route-name=''>
+  </td>
+  <td data-route-verb='PUT'>
+    PUT
+  </td>
+  <td data-route-path='/admin/menus/:id(.:format)' data-regexp='^\/admin\/menus\/([^\/.?]+)(?:\.([^\/.?]+))?$'>
+    /admin/menus/:id(.:format)
+  </td>
+  <td data-route-reqs='admin/menus#update'>
+    admin/menus#update
+  </td>
+</tr>
+<tr class='route_row' data-helper='path'>
+  <td data-route-name=''>
+  </td>
+  <td data-route-verb='DELETE'>
+    DELETE
+  </td>
+  <td data-route-path='/admin/menus/:id(.:format)' data-regexp='^\/admin\/menus\/([^\/.?]+)(?:\.([^\/.?]+))?$'>
+    /admin/menus/:id(.:format)
+  </td>
+  <td data-route-reqs='admin/menus#destroy'>
+    admin/menus#destroy
+  </td>
+</tr>
+<tr class='route_row' data-helper='path'>
+  <td data-route-name='admin_organization_pages'>
+      admin_organization_pages<span class='helper'>_path</span>
+  </td>
+  <td data-route-verb='GET'>
+    GET
+  </td>
+  <td data-route-path='/admin/organizations/:organization_id/pages(.:format)' data-regexp='^\/admin\/organizations\/([^\/.?]+)\/pages(?:\.([^\/.?]+))?$'>
+    /admin/organizations/:organization_id/pages(.:format)
+  </td>
+  <td data-route-reqs='admin/pages#index'>
+    admin/pages#index
+  </td>
+</tr>
+<tr class='route_row' data-helper='path'>
+  <td data-route-name='edit_admin_organization_page'>
+      edit_admin_organization_page<span class='helper'>_path</span>
+  </td>
+  <td data-route-verb='GET'>
+    GET
+  </td>
+  <td data-route-path='/admin/organizations/:organization_id/pages/:id/edit(.:format)' data-regexp='^\/admin\/organizations\/([^\/.?]+)\/pages\/([^\/.?]+)\/edit(?:\.([^\/.?]+))?$'>
+    /admin/organizations/:organization_id/pages/:id/edit(.:format)
+  </td>
+  <td data-route-reqs='admin/pages#edit'>
+    admin/pages#edit
+  </td>
+</tr>
+<tr class='route_row' data-helper='path'>
+  <td data-route-name='admin_organization_page'>
+      admin_organization_page<span class='helper'>_path</span>
+  </td>
+  <td data-route-verb='PATCH'>
+    PATCH
+  </td>
+  <td data-route-path='/admin/organizations/:organization_id/pages/:id(.:format)' data-regexp='^\/admin\/organizations\/([^\/.?]+)\/pages\/([^\/.?]+)(?:\.([^\/.?]+))?$'>
+    /admin/organizations/:organization_id/pages/:id(.:format)
+  </td>
+  <td data-route-reqs='admin/pages#update'>
+    admin/pages#update
+  </td>
+</tr>
+<tr class='route_row' data-helper='path'>
+  <td data-route-name=''>
+  </td>
+  <td data-route-verb='PUT'>
+    PUT
+  </td>
+  <td data-route-path='/admin/organizations/:organization_id/pages/:id(.:format)' data-regexp='^\/admin\/organizations\/([^\/.?]+)\/pages\/([^\/.?]+)(?:\.([^\/.?]+))?$'>
+    /admin/organizations/:organization_id/pages/:id(.:format)
+  </td>
+  <td data-route-reqs='admin/pages#update'>
+    admin/pages#update
+  </td>
+</tr>
+<tr class='route_row' data-helper='path'>
+  <td data-route-name=''>
+  </td>
+  <td data-route-verb='DELETE'>
+    DELETE
+  </td>
+  <td data-route-path='/admin/organizations/:organization_id/pages/:id(.:format)' data-regexp='^\/admin\/organizations\/([^\/.?]+)\/pages\/([^\/.?]+)(?:\.([^\/.?]+))?$'>
+    /admin/organizations/:organization_id/pages/:id(.:format)
+  </td>
+  <td data-route-reqs='admin/pages#destroy'>
+    admin/pages#destroy
+  </td>
+</tr>
+<tr class='route_row' data-helper='path'>
+  <td data-route-name='edit_admin_organization'>
+      edit_admin_organization<span class='helper'>_path</span>
+  </td>
+  <td data-route-verb='GET'>
+    GET
+  </td>
+  <td data-route-path='/admin/organizations/:id/edit(.:format)' data-regexp='^\/admin\/organizations\/([^\/.?]+)\/edit(?:\.([^\/.?]+))?$'>
+    /admin/organizations/:id/edit(.:format)
+  </td>
+  <td data-route-reqs='admin/organizations#edit'>
+    admin/organizations#edit
+  </td>
+</tr>
+<tr class='route_row' data-helper='path'>
+  <td data-route-name='admin_organization'>
+      admin_organization<span class='helper'>_path</span>
+  </td>
+  <td data-route-verb='PATCH'>
+    PATCH
+  </td>
+  <td data-route-path='/admin/organizations/:id(.:format)' data-regexp='^\/admin\/organizations\/([^\/.?]+)(?:\.([^\/.?]+))?$'>
+    /admin/organizations/:id(.:format)
+  </td>
+  <td data-route-reqs='admin/organizations#update'>
+    admin/organizations#update
+  </td>
+</tr>
+<tr class='route_row' data-helper='path'>
+  <td data-route-name=''>
+  </td>
+  <td data-route-verb='PUT'>
+    PUT
+  </td>
+  <td data-route-path='/admin/organizations/:id(.:format)' data-regexp='^\/admin\/organizations\/([^\/.?]+)(?:\.([^\/.?]+))?$'>
+    /admin/organizations/:id(.:format)
+  </td>
+  <td data-route-reqs='admin/organizations#update'>
+    admin/organizations#update
+  </td>
+</tr>
+<tr class='route_row' data-helper='path'>
+  <td data-route-name='admin_page_assets'>
+      admin_page_assets<span class='helper'>_path</span>
+  </td>
+  <td data-route-verb='POST'>
+    POST
+  </td>
+  <td data-route-path='/admin/pages/:page_id/assets(.:format)' data-regexp='^\/admin\/pages\/([^\/.?]+)\/assets(?:\.([^\/.?]+))?$'>
+    /admin/pages/:page_id/assets(.:format)
+  </td>
+  <td data-route-reqs='admin/assets#create'>
+    admin/assets#create
+  </td>
+</tr>
+<tr class='route_row' data-helper='path'>
+  <td data-route-name='edit_admin_page_asset'>
+      edit_admin_page_asset<span class='helper'>_path</span>
+  </td>
+  <td data-route-verb='GET'>
+    GET
+  </td>
+  <td data-route-path='/admin/pages/:page_id/assets/:id/edit(.:format)' data-regexp='^\/admin\/pages\/([^\/.?]+)\/assets\/([^\/.?]+)\/edit(?:\.([^\/.?]+))?$'>
+    /admin/pages/:page_id/assets/:id/edit(.:format)
+  </td>
+  <td data-route-reqs='admin/assets#edit'>
+    admin/assets#edit
+  </td>
+</tr>
+<tr class='route_row' data-helper='path'>
+  <td data-route-name='admin_page_asset'>
+      admin_page_asset<span class='helper'>_path</span>
+  </td>
+  <td data-route-verb='PATCH'>
+    PATCH
+  </td>
+  <td data-route-path='/admin/pages/:page_id/assets/:id(.:format)' data-regexp='^\/admin\/pages\/([^\/.?]+)\/assets\/([^\/.?]+)(?:\.([^\/.?]+))?$'>
+    /admin/pages/:page_id/assets/:id(.:format)
+  </td>
+  <td data-route-reqs='admin/assets#update'>
+    admin/assets#update
+  </td>
+</tr>
+<tr class='route_row' data-helper='path'>
+  <td data-route-name=''>
+  </td>
+  <td data-route-verb='PUT'>
+    PUT
+  </td>
+  <td data-route-path='/admin/pages/:page_id/assets/:id(.:format)' data-regexp='^\/admin\/pages\/([^\/.?]+)\/assets\/([^\/.?]+)(?:\.([^\/.?]+))?$'>
+    /admin/pages/:page_id/assets/:id(.:format)
+  </td>
+  <td data-route-reqs='admin/assets#update'>
+    admin/assets#update
+  </td>
+</tr>
+<tr class='route_row' data-helper='path'>
+  <td data-route-name=''>
+  </td>
+  <td data-route-verb='DELETE'>
+    DELETE
+  </td>
+  <td data-route-path='/admin/pages/:page_id/assets/:id(.:format)' data-regexp='^\/admin\/pages\/([^\/.?]+)\/assets\/([^\/.?]+)(?:\.([^\/.?]+))?$'>
+    /admin/pages/:page_id/assets/:id(.:format)
+  </td>
+  <td data-route-reqs='admin/assets#destroy'>
+    admin/assets#destroy
+  </td>
+</tr>
+<tr class='route_row' data-helper='path'>
+  <td data-route-name='admin_pages'>
+      admin_pages<span class='helper'>_path</span>
+  </td>
+  <td data-route-verb='GET'>
+    GET
+  </td>
+  <td data-route-path='/admin/pages(.:format)' data-regexp='^\/admin\/pages(?:\.([^\/.?]+))?$'>
+    /admin/pages(.:format)
+  </td>
+  <td data-route-reqs='admin/pages#index'>
+    admin/pages#index
+  </td>
+</tr>
+<tr class='route_row' data-helper='path'>
+  <td data-route-name=''>
+  </td>
+  <td data-route-verb='POST'>
+    POST
+  </td>
+  <td data-route-path='/admin/pages(.:format)' data-regexp='^\/admin\/pages(?:\.([^\/.?]+))?$'>
+    /admin/pages(.:format)
+  </td>
+  <td data-route-reqs='admin/pages#create'>
+    admin/pages#create
+  </td>
+</tr>
+<tr class='route_row' data-helper='path'>
+  <td data-route-name='new_admin_page'>
+      new_admin_page<span class='helper'>_path</span>
+  </td>
+  <td data-route-verb='GET'>
+    GET
+  </td>
+  <td data-route-path='/admin/pages/new(.:format)' data-regexp='^\/admin\/pages\/new(?:\.([^\/.?]+))?$'>
+    /admin/pages/new(.:format)
+  </td>
+  <td data-route-reqs='admin/pages#new'>
+    admin/pages#new
+  </td>
+</tr>
+<tr class='route_row' data-helper='path'>
+  <td data-route-name='edit_admin_page'>
+      edit_admin_page<span class='helper'>_path</span>
+  </td>
+  <td data-route-verb='GET'>
+    GET
+  </td>
+  <td data-route-path='/admin/pages/:id/edit(.:format)' data-regexp='^\/admin\/pages\/([^\/.?]+)\/edit(?:\.([^\/.?]+))?$'>
+    /admin/pages/:id/edit(.:format)
+  </td>
+  <td data-route-reqs='admin/pages#edit'>
+    admin/pages#edit
+  </td>
+</tr>
+<tr class='route_row' data-helper='path'>
+  <td data-route-name='admin_page'>
+      admin_page<span class='helper'>_path</span>
+  </td>
+  <td data-route-verb='PATCH'>
+    PATCH
+  </td>
+  <td data-route-path='/admin/pages/:id(.:format)' data-regexp='^\/admin\/pages\/([^\/.?]+)(?:\.([^\/.?]+))?$'>
+    /admin/pages/:id(.:format)
+  </td>
+  <td data-route-reqs='admin/pages#update'>
+    admin/pages#update
+  </td>
+</tr>
+<tr class='route_row' data-helper='path'>
+  <td data-route-name=''>
+  </td>
+  <td data-route-verb='PUT'>
+    PUT
+  </td>
+  <td data-route-path='/admin/pages/:id(.:format)' data-regexp='^\/admin\/pages\/([^\/.?]+)(?:\.([^\/.?]+))?$'>
+    /admin/pages/:id(.:format)
+  </td>
+  <td data-route-reqs='admin/pages#update'>
+    admin/pages#update
+  </td>
+</tr>
+<tr class='route_row' data-helper='path'>
+  <td data-route-name=''>
+  </td>
+  <td data-route-verb='DELETE'>
+    DELETE
+  </td>
+  <td data-route-path='/admin/pages/:id(.:format)' data-regexp='^\/admin\/pages\/([^\/.?]+)(?:\.([^\/.?]+))?$'>
+    /admin/pages/:id(.:format)
+  </td>
+  <td data-route-reqs='admin/pages#destroy'>
+    admin/pages#destroy
+  </td>
+</tr>
+<tr class='route_row' data-helper='path'>
+  <td data-route-name='admin_partners'>
+      admin_partners<span class='helper'>_path</span>
+  </td>
+  <td data-route-verb='POST'>
+    POST
+  </td>
+  <td data-route-path='/admin/partners(.:format)' data-regexp='^\/admin\/partners(?:\.([^\/.?]+))?$'>
+    /admin/partners(.:format)
+  </td>
+  <td data-route-reqs='admin/partners#create'>
+    admin/partners#create
+  </td>
+</tr>
+<tr class='route_row' data-helper='path'>
+  <td data-route-name='new_admin_partner'>
+      new_admin_partner<span class='helper'>_path</span>
+  </td>
+  <td data-route-verb='GET'>
+    GET
+  </td>
+  <td data-route-path='/admin/partners/new(.:format)' data-regexp='^\/admin\/partners\/new(?:\.([^\/.?]+))?$'>
+    /admin/partners/new(.:format)
+  </td>
+  <td data-route-reqs='admin/partners#new'>
+    admin/partners#new
+  </td>
+</tr>
+<tr class='route_row' data-helper='path'>
+  <td data-route-name='edit_admin_partner'>
+      edit_admin_partner<span class='helper'>_path</span>
+  </td>
+  <td data-route-verb='GET'>
+    GET
+  </td>
+  <td data-route-path='/admin/partners/:id/edit(.:format)' data-regexp='^\/admin\/partners\/([^\/.?]+)\/edit(?:\.([^\/.?]+))?$'>
+    /admin/partners/:id/edit(.:format)
+  </td>
+  <td data-route-reqs='admin/partners#edit'>
+    admin/partners#edit
+  </td>
+</tr>
+<tr class='route_row' data-helper='path'>
+  <td data-route-name='admin_partner'>
+      admin_partner<span class='helper'>_path</span>
+  </td>
+  <td data-route-verb='PATCH'>
+    PATCH
+  </td>
+  <td data-route-path='/admin/partners/:id(.:format)' data-regexp='^\/admin\/partners\/([^\/.?]+)(?:\.([^\/.?]+))?$'>
+    /admin/partners/:id(.:format)
+  </td>
+  <td data-route-reqs='admin/partners#update'>
+    admin/partners#update
+  </td>
+</tr>
+<tr class='route_row' data-helper='path'>
+  <td data-route-name=''>
+  </td>
+  <td data-route-verb='PUT'>
+    PUT
+  </td>
+  <td data-route-path='/admin/partners/:id(.:format)' data-regexp='^\/admin\/partners\/([^\/.?]+)(?:\.([^\/.?]+))?$'>
+    /admin/partners/:id(.:format)
+  </td>
+  <td data-route-reqs='admin/partners#update'>
+    admin/partners#update
+  </td>
+</tr>
+<tr class='route_row' data-helper='path'>
+  <td data-route-name=''>
+  </td>
+  <td data-route-verb='DELETE'>
+    DELETE
+  </td>
+  <td data-route-path='/admin/partners/:id(.:format)' data-regexp='^\/admin\/partners\/([^\/.?]+)(?:\.([^\/.?]+))?$'>
+    /admin/partners/:id(.:format)
+  </td>
+  <td data-route-reqs='admin/partners#destroy'>
+    admin/partners#destroy
+  </td>
+</tr>
+<tr class='route_row' data-helper='path'>
+  <td data-route-name='move_admin_partnership'>
+      move_admin_partnership<span class='helper'>_path</span>
+  </td>
+  <td data-route-verb='GET'>
+    GET
+  </td>
+  <td data-route-path='/admin/partnerships/:id/move(.:format)' data-regexp='^\/admin\/partnerships\/([^\/.?]+)\/move(?:\.([^\/.?]+))?$'>
+    /admin/partnerships/:id/move(.:format)
+  </td>
+  <td data-route-reqs='admin/partnerships#move'>
+    admin/partnerships#move
+  </td>
+</tr>
+<tr class='route_row' data-helper='path'>
+  <td data-route-name='admin_partnership'>
+      admin_partnership<span class='helper'>_path</span>
+  </td>
+  <td data-route-verb='DELETE'>
+    DELETE
+  </td>
+  <td data-route-path='/admin/partnerships/:id(.:format)' data-regexp='^\/admin\/partnerships\/([^\/.?]+)(?:\.([^\/.?]+))?$'>
+    /admin/partnerships/:id(.:format)
+  </td>
+  <td data-route-reqs='admin/partnerships#destroy'>
+    admin/partnerships#destroy
+  </td>
+</tr>
+<tr class='route_row' data-helper='path'>
+  <td data-route-name='admin_person_assets'>
+      admin_person_assets<span class='helper'>_path</span>
+  </td>
+  <td data-route-verb='POST'>
+    POST
+  </td>
+  <td data-route-path='/admin/people/:person_id/assets(.:format)' data-regexp='^\/admin\/people\/([^\/.?]+)\/assets(?:\.([^\/.?]+))?$'>
+    /admin/people/:person_id/assets(.:format)
+  </td>
+  <td data-route-reqs='admin/assets#create'>
+    admin/assets#create
+  </td>
+</tr>
+<tr class='route_row' data-helper='path'>
+  <td data-route-name='edit_admin_person_asset'>
+      edit_admin_person_asset<span class='helper'>_path</span>
+  </td>
+  <td data-route-verb='GET'>
+    GET
+  </td>
+  <td data-route-path='/admin/people/:person_id/assets/:id/edit(.:format)' data-regexp='^\/admin\/people\/([^\/.?]+)\/assets\/([^\/.?]+)\/edit(?:\.([^\/.?]+))?$'>
+    /admin/people/:person_id/assets/:id/edit(.:format)
+  </td>
+  <td data-route-reqs='admin/assets#edit'>
+    admin/assets#edit
+  </td>
+</tr>
+<tr class='route_row' data-helper='path'>
+  <td data-route-name='admin_person_asset'>
+      admin_person_asset<span class='helper'>_path</span>
+  </td>
+  <td data-route-verb='PATCH'>
+    PATCH
+  </td>
+  <td data-route-path='/admin/people/:person_id/assets/:id(.:format)' data-regexp='^\/admin\/people\/([^\/.?]+)\/assets\/([^\/.?]+)(?:\.([^\/.?]+))?$'>
+    /admin/people/:person_id/assets/:id(.:format)
+  </td>
+  <td data-route-reqs='admin/assets#update'>
+    admin/assets#update
+  </td>
+</tr>
+<tr class='route_row' data-helper='path'>
+  <td data-route-name=''>
+  </td>
+  <td data-route-verb='PUT'>
+    PUT
+  </td>
+  <td data-route-path='/admin/people/:person_id/assets/:id(.:format)' data-regexp='^\/admin\/people\/([^\/.?]+)\/assets\/([^\/.?]+)(?:\.([^\/.?]+))?$'>
+    /admin/people/:person_id/assets/:id(.:format)
+  </td>
+  <td data-route-reqs='admin/assets#update'>
+    admin/assets#update
+  </td>
+</tr>
+<tr class='route_row' data-helper='path'>
+  <td data-route-name=''>
+  </td>
+  <td data-route-verb='DELETE'>
+    DELETE
+  </td>
+  <td data-route-path='/admin/people/:person_id/assets/:id(.:format)' data-regexp='^\/admin\/people\/([^\/.?]+)\/assets\/([^\/.?]+)(?:\.([^\/.?]+))?$'>
+    /admin/people/:person_id/assets/:id(.:format)
+  </td>
+  <td data-route-reqs='admin/assets#destroy'>
+    admin/assets#destroy
+  </td>
+</tr>
+<tr class='route_row' data-helper='path'>
+  <td data-route-name='admin_people'>
+      admin_people<span class='helper'>_path</span>
+  </td>
+  <td data-route-verb='GET'>
+    GET
+  </td>
+  <td data-route-path='/admin/people(.:format)' data-regexp='^\/admin\/people(?:\.([^\/.?]+))?$'>
+    /admin/people(.:format)
+  </td>
+  <td data-route-reqs='admin/people#index'>
+    admin/people#index
+  </td>
+</tr>
+<tr class='route_row' data-helper='path'>
+  <td data-route-name=''>
+  </td>
+  <td data-route-verb='POST'>
+    POST
+  </td>
+  <td data-route-path='/admin/people(.:format)' data-regexp='^\/admin\/people(?:\.([^\/.?]+))?$'>
+    /admin/people(.:format)
+  </td>
+  <td data-route-reqs='admin/people#create'>
+    admin/people#create
+  </td>
+</tr>
+<tr class='route_row' data-helper='path'>
+  <td data-route-name='new_admin_person'>
+      new_admin_person<span class='helper'>_path</span>
+  </td>
+  <td data-route-verb='GET'>
+    GET
+  </td>
+  <td data-route-path='/admin/people/new(.:format)' data-regexp='^\/admin\/people\/new(?:\.([^\/.?]+))?$'>
+    /admin/people/new(.:format)
+  </td>
+  <td data-route-reqs='admin/people#new'>
+    admin/people#new
+  </td>
+</tr>
+<tr class='route_row' data-helper='path'>
+  <td data-route-name='edit_admin_person'>
+      edit_admin_person<span class='helper'>_path</span>
+  </td>
+  <td data-route-verb='GET'>
+    GET
+  </td>
+  <td data-route-path='/admin/people/:id/edit(.:format)' data-regexp='^\/admin\/people\/([^\/.?]+)\/edit(?:\.([^\/.?]+))?$'>
+    /admin/people/:id/edit(.:format)
+  </td>
+  <td data-route-reqs='admin/people#edit'>
+    admin/people#edit
+  </td>
+</tr>
+<tr class='route_row' data-helper='path'>
+  <td data-route-name='admin_person'>
+      admin_person<span class='helper'>_path</span>
+  </td>
+  <td data-route-verb='PATCH'>
+    PATCH
+  </td>
+  <td data-route-path='/admin/people/:id(.:format)' data-regexp='^\/admin\/people\/([^\/.?]+)(?:\.([^\/.?]+))?$'>
+    /admin/people/:id(.:format)
+  </td>
+  <td data-route-reqs='admin/people#update'>
+    admin/people#update
+  </td>
+</tr>
+<tr class='route_row' data-helper='path'>
+  <td data-route-name=''>
+  </td>
+  <td data-route-verb='PUT'>
+    PUT
+  </td>
+  <td data-route-path='/admin/people/:id(.:format)' data-regexp='^\/admin\/people\/([^\/.?]+)(?:\.([^\/.?]+))?$'>
+    /admin/people/:id(.:format)
+  </td>
+  <td data-route-reqs='admin/people#update'>
+    admin/people#update
+  </td>
+</tr>
+<tr class='route_row' data-helper='path'>
+  <td data-route-name=''>
+  </td>
+  <td data-route-verb='DELETE'>
+    DELETE
+  </td>
+  <td data-route-path='/admin/people/:id(.:format)' data-regexp='^\/admin\/people\/([^\/.?]+)(?:\.([^\/.?]+))?$'>
+    /admin/people/:id(.:format)
+  </td>
+  <td data-route-reqs='admin/people#destroy'>
+    admin/people#destroy
+  </td>
+</tr>
+<tr class='route_row' data-helper='path'>
+  <td data-route-name='admin_project_assets'>
+      admin_project_assets<span class='helper'>_path</span>
+  </td>
+  <td data-route-verb='POST'>
+    POST
+  </td>
+  <td data-route-path='/admin/projects/:project_id/assets(.:format)' data-regexp='^\/admin\/projects\/([^\/.?]+)\/assets(?:\.([^\/.?]+))?$'>
+    /admin/projects/:project_id/assets(.:format)
+  </td>
+  <td data-route-reqs='admin/assets#create'>
+    admin/assets#create
+  </td>
+</tr>
+<tr class='route_row' data-helper='path'>
+  <td data-route-name='edit_admin_project_asset'>
+      edit_admin_project_asset<span class='helper'>_path</span>
+  </td>
+  <td data-route-verb='GET'>
+    GET
+  </td>
+  <td data-route-path='/admin/projects/:project_id/assets/:id/edit(.:format)' data-regexp='^\/admin\/projects\/([^\/.?]+)\/assets\/([^\/.?]+)\/edit(?:\.([^\/.?]+))?$'>
+    /admin/projects/:project_id/assets/:id/edit(.:format)
+  </td>
+  <td data-route-reqs='admin/assets#edit'>
+    admin/assets#edit
+  </td>
+</tr>
+<tr class='route_row' data-helper='path'>
+  <td data-route-name='admin_project_asset'>
+      admin_project_asset<span class='helper'>_path</span>
+  </td>
+  <td data-route-verb='PATCH'>
+    PATCH
+  </td>
+  <td data-route-path='/admin/projects/:project_id/assets/:id(.:format)' data-regexp='^\/admin\/projects\/([^\/.?]+)\/assets\/([^\/.?]+)(?:\.([^\/.?]+))?$'>
+    /admin/projects/:project_id/assets/:id(.:format)
+  </td>
+  <td data-route-reqs='admin/assets#update'>
+    admin/assets#update
+  </td>
+</tr>
+<tr class='route_row' data-helper='path'>
+  <td data-route-name=''>
+  </td>
+  <td data-route-verb='PUT'>
+    PUT
+  </td>
+  <td data-route-path='/admin/projects/:project_id/assets/:id(.:format)' data-regexp='^\/admin\/projects\/([^\/.?]+)\/assets\/([^\/.?]+)(?:\.([^\/.?]+))?$'>
+    /admin/projects/:project_id/assets/:id(.:format)
+  </td>
+  <td data-route-reqs='admin/assets#update'>
+    admin/assets#update
+  </td>
+</tr>
+<tr class='route_row' data-helper='path'>
+  <td data-route-name=''>
+  </td>
+  <td data-route-verb='DELETE'>
+    DELETE
+  </td>
+  <td data-route-path='/admin/projects/:project_id/assets/:id(.:format)' data-regexp='^\/admin\/projects\/([^\/.?]+)\/assets\/([^\/.?]+)(?:\.([^\/.?]+))?$'>
+    /admin/projects/:project_id/assets/:id(.:format)
+  </td>
+  <td data-route-reqs='admin/assets#destroy'>
+    admin/assets#destroy
+  </td>
+</tr>
+<tr class='route_row' data-helper='path'>
+  <td data-route-name='admin_project_external_asset'>
+      admin_project_external_asset<span class='helper'>_path</span>
+  </td>
+  <td data-route-verb='DELETE'>
+    DELETE
+  </td>
+  <td data-route-path='/admin/projects/:project_id/external_assets/:id(.:format)' data-regexp='^\/admin\/projects\/([^\/.?]+)\/external_assets\/([^\/.?]+)(?:\.([^\/.?]+))?$'>
+    /admin/projects/:project_id/external_assets/:id(.:format)
+  </td>
+  <td data-route-reqs='admin/external_assets#destroy'>
+    admin/external_assets#destroy
+  </td>
+</tr>
+<tr class='route_row' data-helper='path'>
+  <td data-route-name='move_higher_admin_project_person_project'>
+      move_higher_admin_project_person_project<span class='helper'>_path</span>
+  </td>
+  <td data-route-verb='PATCH'>
+    PATCH
+  </td>
+  <td data-route-path='/admin/projects/:project_id/person_projects/:id/move_higher(.:format)' data-regexp='^\/admin\/projects\/([^\/.?]+)\/person_projects\/([^\/.?]+)\/move_higher(?:\.([^\/.?]+))?$'>
+    /admin/projects/:project_id/person_projects/:id/move_higher(.:format)
+  </td>
+  <td data-route-reqs='admin/person_projects#move_higher'>
+    admin/person_projects#move_higher
+  </td>
+</tr>
+<tr class='route_row' data-helper='path'>
+  <td data-route-name='move_lower_admin_project_person_project'>
+      move_lower_admin_project_person_project<span class='helper'>_path</span>
+  </td>
+  <td data-route-verb='PATCH'>
+    PATCH
+  </td>
+  <td data-route-path='/admin/projects/:project_id/person_projects/:id/move_lower(.:format)' data-regexp='^\/admin\/projects\/([^\/.?]+)\/person_projects\/([^\/.?]+)\/move_lower(?:\.([^\/.?]+))?$'>
+    /admin/projects/:project_id/person_projects/:id/move_lower(.:format)
+  </td>
+  <td data-route-reqs='admin/person_projects#move_lower'>
+    admin/person_projects#move_lower
+  </td>
+</tr>
+<tr class='route_row' data-helper='path'>
+  <td data-route-name='sort_admin_project_person_projects'>
+      sort_admin_project_person_projects<span class='helper'>_path</span>
+  </td>
+  <td data-route-verb='POST'>
+    POST
+  </td>
+  <td data-route-path='/admin/projects/:project_id/person_projects/sort(.:format)' data-regexp='^\/admin\/projects\/([^\/.?]+)\/person_projects\/sort(?:\.([^\/.?]+))?$'>
+    /admin/projects/:project_id/person_projects/sort(.:format)
+  </td>
+  <td data-route-reqs='admin/person_projects#sort'>
+    admin/person_projects#sort
+  </td>
+</tr>
+<tr class='route_row' data-helper='path'>
+  <td data-route-name='admin_projects'>
+      admin_projects<span class='helper'>_path</span>
+  </td>
+  <td data-route-verb='GET'>
+    GET
+  </td>
+  <td data-route-path='/admin/projects(.:format)' data-regexp='^\/admin\/projects(?:\.([^\/.?]+))?$'>
+    /admin/projects(.:format)
+  </td>
+  <td data-route-reqs='admin/projects#index'>
+    admin/projects#index
+  </td>
+</tr>
+<tr class='route_row' data-helper='path'>
+  <td data-route-name=''>
+  </td>
+  <td data-route-verb='POST'>
+    POST
+  </td>
+  <td data-route-path='/admin/projects(.:format)' data-regexp='^\/admin\/projects(?:\.([^\/.?]+))?$'>
+    /admin/projects(.:format)
+  </td>
+  <td data-route-reqs='admin/projects#create'>
+    admin/projects#create
+  </td>
+</tr>
+<tr class='route_row' data-helper='path'>
+  <td data-route-name='new_admin_project'>
+      new_admin_project<span class='helper'>_path</span>
+  </td>
+  <td data-route-verb='GET'>
+    GET
+  </td>
+  <td data-route-path='/admin/projects/new(.:format)' data-regexp='^\/admin\/projects\/new(?:\.([^\/.?]+))?$'>
+    /admin/projects/new(.:format)
+  </td>
+  <td data-route-reqs='admin/projects#new'>
+    admin/projects#new
+  </td>
+</tr>
+<tr class='route_row' data-helper='path'>
+  <td data-route-name='edit_admin_project'>
+      edit_admin_project<span class='helper'>_path</span>
+  </td>
+  <td data-route-verb='GET'>
+    GET
+  </td>
+  <td data-route-path='/admin/projects/:id/edit(.:format)' data-regexp='^\/admin\/projects\/([^\/.?]+)\/edit(?:\.([^\/.?]+))?$'>
+    /admin/projects/:id/edit(.:format)
+  </td>
+  <td data-route-reqs='admin/projects#edit'>
+    admin/projects#edit
+  </td>
+</tr>
+<tr class='route_row' data-helper='path'>
+  <td data-route-name='admin_project'>
+      admin_project<span class='helper'>_path</span>
+  </td>
+  <td data-route-verb='PATCH'>
+    PATCH
+  </td>
+  <td data-route-path='/admin/projects/:id(.:format)' data-regexp='^\/admin\/projects\/([^\/.?]+)(?:\.([^\/.?]+))?$'>
+    /admin/projects/:id(.:format)
+  </td>
+  <td data-route-reqs='admin/projects#update'>
+    admin/projects#update
+  </td>
+</tr>
+<tr class='route_row' data-helper='path'>
+  <td data-route-name=''>
+  </td>
+  <td data-route-verb='PUT'>
+    PUT
+  </td>
+  <td data-route-path='/admin/projects/:id(.:format)' data-regexp='^\/admin\/projects\/([^\/.?]+)(?:\.([^\/.?]+))?$'>
+    /admin/projects/:id(.:format)
+  </td>
+  <td data-route-reqs='admin/projects#update'>
+    admin/projects#update
+  </td>
+</tr>
+<tr class='route_row' data-helper='path'>
+  <td data-route-name=''>
+  </td>
+  <td data-route-verb='DELETE'>
+    DELETE
+  </td>
+  <td data-route-path='/admin/projects/:id(.:format)' data-regexp='^\/admin\/projects\/([^\/.?]+)(?:\.([^\/.?]+))?$'>
+    /admin/projects/:id(.:format)
+  </td>
+  <td data-route-reqs='admin/projects#destroy'>
+    admin/projects#destroy
+  </td>
+</tr>
+<tr class='route_row' data-helper='path'>
+  <td data-route-name='admin_statistic'>
+      admin_statistic<span class='helper'>_path</span>
+  </td>
+  <td data-route-verb='GET'>
+    GET
+  </td>
+  <td data-route-path='/admin/statistics/:id(.:format)' data-regexp='^\/admin\/statistics\/([^\/.?]+)(?:\.([^\/.?]+))?$'>
+    /admin/statistics/:id(.:format)
+  </td>
+  <td data-route-reqs='admin/statistics#show'>
+    admin/statistics#show
+  </td>
+</tr>
+<tr class='route_row' data-helper='path'>
+  <td data-route-name='admin_tags'>
+      admin_tags<span class='helper'>_path</span>
+  </td>
+  <td data-route-verb='GET'>
+    GET
+  </td>
+  <td data-route-path='/admin/tags(.:format)' data-regexp='^\/admin\/tags(?:\.([^\/.?]+))?$'>
+    /admin/tags(.:format)
+  </td>
+  <td data-route-reqs='admin/tags#index'>
+    admin/tags#index
+  </td>
+</tr>
+<tr class='route_row' data-helper='path'>
+  <td data-route-name='edit_admin_tag'>
+      edit_admin_tag<span class='helper'>_path</span>
+  </td>
+  <td data-route-verb='GET'>
+    GET
+  </td>
+  <td data-route-path='/admin/tags/:id/edit(.:format)' data-regexp='^\/admin\/tags\/([^\/.?]+)\/edit(?:\.([^\/.?]+))?$'>
+    /admin/tags/:id/edit(.:format)
+  </td>
+  <td data-route-reqs='admin/tags#edit'>
+    admin/tags#edit
+  </td>
+</tr>
+<tr class='route_row' data-helper='path'>
+  <td data-route-name='admin_tag'>
+      admin_tag<span class='helper'>_path</span>
+  </td>
+  <td data-route-verb='PATCH'>
+    PATCH
+  </td>
+  <td data-route-path='/admin/tags/:id(.:format)' data-regexp='^\/admin\/tags\/([^\/.?]+)(?:\.([^\/.?]+))?$'>
+    /admin/tags/:id(.:format)
+  </td>
+  <td data-route-reqs='admin/tags#update'>
+    admin/tags#update
+  </td>
+</tr>
+<tr class='route_row' data-helper='path'>
+  <td data-route-name=''>
+  </td>
+  <td data-route-verb='PUT'>
+    PUT
+  </td>
+  <td data-route-path='/admin/tags/:id(.:format)' data-regexp='^\/admin\/tags\/([^\/.?]+)(?:\.([^\/.?]+))?$'>
+    /admin/tags/:id(.:format)
+  </td>
+  <td data-route-reqs='admin/tags#update'>
+    admin/tags#update
+  </td>
+</tr>
+<tr class='route_row' data-helper='path'>
+  <td data-route-name=''>
+  </td>
+  <td data-route-verb='DELETE'>
+    DELETE
+  </td>
+  <td data-route-path='/admin/tags/:id(.:format)' data-regexp='^\/admin\/tags\/([^\/.?]+)(?:\.([^\/.?]+))?$'>
+    /admin/tags/:id(.:format)
+  </td>
+  <td data-route-reqs='admin/tags#destroy'>
+    admin/tags#destroy
+  </td>
+</tr>
+<tr class='route_row' data-helper='path'>
+  <td data-route-name='admin_user_roles'>
+      admin_user_roles<span class='helper'>_path</span>
+  </td>
+  <td data-route-verb='POST'>
+    POST
+  </td>
+  <td data-route-path='/admin/users/:user_id/roles(.:format)' data-regexp='^\/admin\/users\/([^\/.?]+)\/roles(?:\.([^\/.?]+))?$'>
+    /admin/users/:user_id/roles(.:format)
+  </td>
+  <td data-route-reqs='admin/roles#create'>
+    admin/roles#create
+  </td>
+</tr>
+<tr class='route_row' data-helper='path'>
+  <td data-route-name='admin_user_role'>
+      admin_user_role<span class='helper'>_path</span>
+  </td>
+  <td data-route-verb='DELETE'>
+    DELETE
+  </td>
+  <td data-route-path='/admin/users/:user_id/roles/:id(.:format)' data-regexp='^\/admin\/users\/([^\/.?]+)\/roles\/([^\/.?]+)(?:\.([^\/.?]+))?$'>
+    /admin/users/:user_id/roles/:id(.:format)
+  </td>
+  <td data-route-reqs='admin/roles#destroy'>
+    admin/roles#destroy
+  </td>
+</tr>
+<tr class='route_row' data-helper='path'>
+  <td data-route-name='admin_users'>
+      admin_users<span class='helper'>_path</span>
+  </td>
+  <td data-route-verb='GET'>
+    GET
+  </td>
+  <td data-route-path='/admin/users(.:format)' data-regexp='^\/admin\/users(?:\.([^\/.?]+))?$'>
+    /admin/users(.:format)
+  </td>
+  <td data-route-reqs='admin/users#index'>
+    admin/users#index
+  </td>
+</tr>
+<tr class='route_row' data-helper='path'>
+  <td data-route-name=''>
+  </td>
+  <td data-route-verb='POST'>
+    POST
+  </td>
+  <td data-route-path='/admin/users(.:format)' data-regexp='^\/admin\/users(?:\.([^\/.?]+))?$'>
+    /admin/users(.:format)
+  </td>
+  <td data-route-reqs='admin/users#create'>
+    admin/users#create
+  </td>
+</tr>
+<tr class='route_row' data-helper='path'>
+  <td data-route-name='new_admin_user'>
+      new_admin_user<span class='helper'>_path</span>
+  </td>
+  <td data-route-verb='GET'>
+    GET
+  </td>
+  <td data-route-path='/admin/users/new(.:format)' data-regexp='^\/admin\/users\/new(?:\.([^\/.?]+))?$'>
+    /admin/users/new(.:format)
+  </td>
+  <td data-route-reqs='admin/users#new'>
+    admin/users#new
+  </td>
+</tr>
+<tr class='route_row' data-helper='path'>
+  <td data-route-name='edit_admin_user'>
+      edit_admin_user<span class='helper'>_path</span>
+  </td>
+  <td data-route-verb='GET'>
+    GET
+  </td>
+  <td data-route-path='/admin/users/:id/edit(.:format)' data-regexp='^\/admin\/users\/([^\/.?]+)\/edit(?:\.([^\/.?]+))?$'>
+    /admin/users/:id/edit(.:format)
+  </td>
+  <td data-route-reqs='admin/users#edit'>
+    admin/users#edit
+  </td>
+</tr>
+<tr class='route_row' data-helper='path'>
+  <td data-route-name='admin_user'>
+      admin_user<span class='helper'>_path</span>
+  </td>
+  <td data-route-verb='GET'>
+    GET
+  </td>
+  <td data-route-path='/admin/users/:id(.:format)' data-regexp='^\/admin\/users\/([^\/.?]+)(?:\.([^\/.?]+))?$'>
+    /admin/users/:id(.:format)
+  </td>
+  <td data-route-reqs='admin/users#show'>
+    admin/users#show
+  </td>
+</tr>
+<tr class='route_row' data-helper='path'>
+  <td data-route-name=''>
+  </td>
+  <td data-route-verb='PATCH'>
+    PATCH
+  </td>
+  <td data-route-path='/admin/users/:id(.:format)' data-regexp='^\/admin\/users\/([^\/.?]+)(?:\.([^\/.?]+))?$'>
+    /admin/users/:id(.:format)
+  </td>
+  <td data-route-reqs='admin/users#update'>
+    admin/users#update
+  </td>
+</tr>
+<tr class='route_row' data-helper='path'>
+  <td data-route-name=''>
+  </td>
+  <td data-route-verb='PUT'>
+    PUT
+  </td>
+  <td data-route-path='/admin/users/:id(.:format)' data-regexp='^\/admin\/users\/([^\/.?]+)(?:\.([^\/.?]+))?$'>
+    /admin/users/:id(.:format)
+  </td>
+  <td data-route-reqs='admin/users#update'>
+    admin/users#update
+  </td>
+</tr>
+<tr class='route_row' data-helper='path'>
+  <td data-route-name=''>
+  </td>
+  <td data-route-verb='DELETE'>
+    DELETE
+  </td>
+  <td data-route-path='/admin/users/:id(.:format)' data-regexp='^\/admin\/users\/([^\/.?]+)(?:\.([^\/.?]+))?$'>
+    /admin/users/:id(.:format)
+  </td>
+  <td data-route-reqs='admin/users#destroy'>
+    admin/users#destroy
+  </td>
+</tr>
+<tr class='route_row' data-helper='path'>
+  <td data-route-name='admin_model_custom_fields'>
+      admin_model_custom_fields<span class='helper'>_path</span>
+  </td>
+  <td data-route-verb='GET'>
+    GET
+  </td>
+  <td data-route-path='/admin/:model_id/custom_fields(.:format)' data-regexp='^\/admin\/((events|people|project_films|project_people|project_music_groups|project_organizations))\/custom_fields(?:\.([^\/.?]+))?$'>
+    /admin/:model_id/custom_fields(.:format)
+  </td>
+  <td data-route-reqs='admin/custom_fields#index {:model_id=&gt;/events|people|project_films|project_people|project_music_groups|project_organizations/}'>
+    admin/custom_fields#index {:model_id=&gt;/events|people|project_films|project_people|project_music_groups|project_organizations/}
+  </td>
+</tr>
+<tr class='route_row' data-helper='path'>
+  <td data-route-name=''>
+  </td>
+  <td data-route-verb='POST'>
+    POST
+  </td>
+  <td data-route-path='/admin/:model_id/custom_fields(.:format)' data-regexp='^\/admin\/((events|people|project_films|project_people|project_music_groups|project_organizations))\/custom_fields(?:\.([^\/.?]+))?$'>
+    /admin/:model_id/custom_fields(.:format)
+  </td>
+  <td data-route-reqs='admin/custom_fields#create {:model_id=&gt;/events|people|project_films|project_people|project_music_groups|project_organizations/}'>
+    admin/custom_fields#create {:model_id=&gt;/events|people|project_films|project_people|project_music_groups|project_organizations/}
+  </td>
+</tr>
+<tr class='route_row' data-helper='path'>
+  <td data-route-name='new_admin_model_custom_field'>
+      new_admin_model_custom_field<span class='helper'>_path</span>
+  </td>
+  <td data-route-verb='GET'>
+    GET
+  </td>
+  <td data-route-path='/admin/:model_id/custom_fields/new(.:format)' data-regexp='^\/admin\/((events|people|project_films|project_people|project_music_groups|project_organizations))\/custom_fields\/new(?:\.([^\/.?]+))?$'>
+    /admin/:model_id/custom_fields/new(.:format)
+  </td>
+  <td data-route-reqs='admin/custom_fields#new {:model_id=&gt;/events|people|project_films|project_people|project_music_groups|project_organizations/}'>
+    admin/custom_fields#new {:model_id=&gt;/events|people|project_films|project_people|project_music_groups|project_organizations/}
+  </td>
+</tr>
+<tr class='route_row' data-helper='path'>
+  <td data-route-name='edit_admin_model_custom_field'>
+      edit_admin_model_custom_field<span class='helper'>_path</span>
+  </td>
+  <td data-route-verb='GET'>
+    GET
+  </td>
+  <td data-route-path='/admin/:model_id/custom_fields/:id/edit(.:format)' data-regexp='^\/admin\/((events|people|project_films|project_people|project_music_groups|project_organizations))\/custom_fields\/([^\/.?]+)\/edit(?:\.([^\/.?]+))?$'>
+    /admin/:model_id/custom_fields/:id/edit(.:format)
+  </td>
+  <td data-route-reqs='admin/custom_fields#edit {:model_id=&gt;/events|people|project_films|project_people|project_music_groups|project_organizations/}'>
+    admin/custom_fields#edit {:model_id=&gt;/events|people|project_films|project_people|project_music_groups|project_organizations/}
+  </td>
+</tr>
+<tr class='route_row' data-helper='path'>
+  <td data-route-name='admin_model_custom_field'>
+      admin_model_custom_field<span class='helper'>_path</span>
+  </td>
+  <td data-route-verb='PATCH'>
+    PATCH
+  </td>
+  <td data-route-path='/admin/:model_id/custom_fields/:id(.:format)' data-regexp='^\/admin\/((events|people|project_films|project_people|project_music_groups|project_organizations))\/custom_fields\/([^\/.?]+)(?:\.([^\/.?]+))?$'>
+    /admin/:model_id/custom_fields/:id(.:format)
+  </td>
+  <td data-route-reqs='admin/custom_fields#update {:model_id=&gt;/events|people|project_films|project_people|project_music_groups|project_organizations/}'>
+    admin/custom_fields#update {:model_id=&gt;/events|people|project_films|project_people|project_music_groups|project_organizations/}
+  </td>
+</tr>
+<tr class='route_row' data-helper='path'>
+  <td data-route-name=''>
+  </td>
+  <td data-route-verb='PUT'>
+    PUT
+  </td>
+  <td data-route-path='/admin/:model_id/custom_fields/:id(.:format)' data-regexp='^\/admin\/((events|people|project_films|project_people|project_music_groups|project_organizations))\/custom_fields\/([^\/.?]+)(?:\.([^\/.?]+))?$'>
+    /admin/:model_id/custom_fields/:id(.:format)
+  </td>
+  <td data-route-reqs='admin/custom_fields#update {:model_id=&gt;/events|people|project_films|project_people|project_music_groups|project_organizations/}'>
+    admin/custom_fields#update {:model_id=&gt;/events|people|project_films|project_people|project_music_groups|project_organizations/}
+  </td>
+</tr>
+<tr class='route_row' data-helper='path'>
+  <td data-route-name='press'>
+      press<span class='helper'>_path</span>
+  </td>
+  <td data-route-verb='GET'>
+    GET
+  </td>
+  <td data-route-path='/:organization_token(.:format)' data-regexp='^\/((5Ye4Iw5GpQ|SE3eFct2ow|92QncJk_rQ|llFh63hKOg|yq3Lx8-pgw|gYp-2O03SA|ZXjY1Pu5XQ|10phSHSIGQ))(?:\.([^\/.?]+))?$'>
+    /:organization_token(.:format)
+  </td>
+  <td data-route-reqs='press/editions#index {:organization_token=&gt;/5Ye4Iw5GpQ|SE3eFct2ow|92QncJk_rQ|llFh63hKOg|yq3Lx8-pgw|gYp-2O03SA|ZXjY1Pu5XQ|10phSHSIGQ/}'>
+    press/editions#index {:organization_token=&gt;/5Ye4Iw5GpQ|SE3eFct2ow|92QncJk_rQ|llFh63hKOg|yq3Lx8-pgw|gYp-2O03SA|ZXjY1Pu5XQ|10phSHSIGQ/}
+  </td>
+</tr>
+<tr class='route_row' data-helper='path'>
+  <td data-route-name='press_edition'>
+      press_edition<span class='helper'>_path</span>
+  </td>
+  <td data-route-verb='GET'>
+    GET
+  </td>
+  <td data-route-path='/:organization_token/:edition_id(.:format)' data-regexp='^\/((5Ye4Iw5GpQ|SE3eFct2ow|92QncJk_rQ|llFh63hKOg|yq3Lx8-pgw|gYp-2O03SA|ZXjY1Pu5XQ|10phSHSIGQ))\/([^\/.?]+)(?:\.([^\/.?]+))?$'>
+    /:organization_token/:edition_id(.:format)
+  </td>
+  <td data-route-reqs='press/editions#show {:organization_token=&gt;/5Ye4Iw5GpQ|SE3eFct2ow|92QncJk_rQ|llFh63hKOg|yq3Lx8-pgw|gYp-2O03SA|ZXjY1Pu5XQ|10phSHSIGQ/}'>
+    press/editions#show {:organization_token=&gt;/5Ye4Iw5GpQ|SE3eFct2ow|92QncJk_rQ|llFh63hKOg|yq3Lx8-pgw|gYp-2O03SA|ZXjY1Pu5XQ|10phSHSIGQ/}
+  </td>
+</tr>
+<tr class='route_row' data-helper='path'>
+  <td data-route-name='press_edition_events'>
+      press_edition_events<span class='helper'>_path</span>
+  </td>
+  <td data-route-verb='GET'>
+    GET
+  </td>
+  <td data-route-path='/:organization_token/:edition_id/events(.:format)' data-regexp='^\/((5Ye4Iw5GpQ|SE3eFct2ow|92QncJk_rQ|llFh63hKOg|yq3Lx8-pgw|gYp-2O03SA|ZXjY1Pu5XQ|10phSHSIGQ))\/([^\/.?]+)\/events(?:\.([^\/.?]+))?$'>
+    /:organization_token/:edition_id/events(.:format)
+  </td>
+  <td data-route-reqs='press/events#index {:organization_token=&gt;/5Ye4Iw5GpQ|SE3eFct2ow|92QncJk_rQ|llFh63hKOg|yq3Lx8-pgw|gYp-2O03SA|ZXjY1Pu5XQ|10phSHSIGQ/}'>
+    press/events#index {:organization_token=&gt;/5Ye4Iw5GpQ|SE3eFct2ow|92QncJk_rQ|llFh63hKOg|yq3Lx8-pgw|gYp-2O03SA|ZXjY1Pu5XQ|10phSHSIGQ/}
+  </td>
+</tr>
+<tr class='route_row' data-helper='path'>
+  <td data-route-name='press_edition_exhibitions'>
+      press_edition_exhibitions<span class='helper'>_path</span>
+  </td>
+  <td data-route-verb='GET'>
+    GET
+  </td>
+  <td data-route-path='/:organization_token/:edition_id/exhibitions(.:format)' data-regexp='^\/((5Ye4Iw5GpQ|SE3eFct2ow|92QncJk_rQ|llFh63hKOg|yq3Lx8-pgw|gYp-2O03SA|ZXjY1Pu5XQ|10phSHSIGQ))\/([^\/.?]+)\/exhibitions(?:\.([^\/.?]+))?$'>
+    /:organization_token/:edition_id/exhibitions(.:format)
+  </td>
+  <td data-route-reqs='press/exhibitions#index {:organization_token=&gt;/5Ye4Iw5GpQ|SE3eFct2ow|92QncJk_rQ|llFh63hKOg|yq3Lx8-pgw|gYp-2O03SA|ZXjY1Pu5XQ|10phSHSIGQ/}'>
+    press/exhibitions#index {:organization_token=&gt;/5Ye4Iw5GpQ|SE3eFct2ow|92QncJk_rQ|llFh63hKOg|yq3Lx8-pgw|gYp-2O03SA|ZXjY1Pu5XQ|10phSHSIGQ/}
+  </td>
+</tr>
+<tr class='route_row' data-helper='path'>
+  <td data-route-name='press_edition_pages'>
+      press_edition_pages<span class='helper'>_path</span>
+  </td>
+  <td data-route-verb='GET'>
+    GET
+  </td>
+  <td data-route-path='/:organization_token/:edition_id/pages(.:format)' data-regexp='^\/((5Ye4Iw5GpQ|SE3eFct2ow|92QncJk_rQ|llFh63hKOg|yq3Lx8-pgw|gYp-2O03SA|ZXjY1Pu5XQ|10phSHSIGQ))\/([^\/.?]+)\/pages(?:\.([^\/.?]+))?$'>
+    /:organization_token/:edition_id/pages(.:format)
+  </td>
+  <td data-route-reqs='press/pages#index {:organization_token=&gt;/5Ye4Iw5GpQ|SE3eFct2ow|92QncJk_rQ|llFh63hKOg|yq3Lx8-pgw|gYp-2O03SA|ZXjY1Pu5XQ|10phSHSIGQ/}'>
+    press/pages#index {:organization_token=&gt;/5Ye4Iw5GpQ|SE3eFct2ow|92QncJk_rQ|llFh63hKOg|yq3Lx8-pgw|gYp-2O03SA|ZXjY1Pu5XQ|10phSHSIGQ/}
+  </td>
+</tr>
+<tr class='route_row' data-helper='path'>
+  <td data-route-name='press_edition_artists'>
+      press_edition_artists<span class='helper'>_path</span>
+  </td>
+  <td data-route-verb='GET'>
+    GET
+  </td>
+  <td data-route-path='/:organization_token/:edition_id/artists(.:format)' data-regexp='^\/((5Ye4Iw5GpQ|SE3eFct2ow|92QncJk_rQ|llFh63hKOg|yq3Lx8-pgw|gYp-2O03SA|ZXjY1Pu5XQ|10phSHSIGQ))\/([^\/.?]+)\/artists(?:\.([^\/.?]+))?$'>
+    /:organization_token/:edition_id/artists(.:format)
+  </td>
+  <td data-route-reqs='press/artists#index {:organization_token=&gt;/5Ye4Iw5GpQ|SE3eFct2ow|92QncJk_rQ|llFh63hKOg|yq3Lx8-pgw|gYp-2O03SA|ZXjY1Pu5XQ|10phSHSIGQ/}'>
+    press/artists#index {:organization_token=&gt;/5Ye4Iw5GpQ|SE3eFct2ow|92QncJk_rQ|llFh63hKOg|yq3Lx8-pgw|gYp-2O03SA|ZXjY1Pu5XQ|10phSHSIGQ/}
+  </td>
+</tr>
+<tr class='route_row' data-helper='path'>
+  <td data-route-name='press_edition_event'>
+      press_edition_event<span class='helper'>_path</span>
+  </td>
+  <td data-route-verb='GET'>
+    GET
+  </td>
+  <td data-route-path='/:organization_token/:edition_id/events/:event_id(.:format)' data-regexp='^\/((5Ye4Iw5GpQ|SE3eFct2ow|92QncJk_rQ|llFh63hKOg|yq3Lx8-pgw|gYp-2O03SA|ZXjY1Pu5XQ|10phSHSIGQ))\/([^\/.?]+)\/events\/([^\/.?]+)(?:\.([^\/.?]+))?$'>
+    /:organization_token/:edition_id/events/:event_id(.:format)
+  </td>
+  <td data-route-reqs='press/events#show {:organization_token=&gt;/5Ye4Iw5GpQ|SE3eFct2ow|92QncJk_rQ|llFh63hKOg|yq3Lx8-pgw|gYp-2O03SA|ZXjY1Pu5XQ|10phSHSIGQ/}'>
+    press/events#show {:organization_token=&gt;/5Ye4Iw5GpQ|SE3eFct2ow|92QncJk_rQ|llFh63hKOg|yq3Lx8-pgw|gYp-2O03SA|ZXjY1Pu5XQ|10phSHSIGQ/}
+  </td>
+</tr>
+<tr class='route_row' data-helper='path'>
+  <td data-route-name=''>
+  </td>
+  <td data-route-verb='PATCH'>
+    PATCH
+  </td>
+  <td data-route-path='/:organization_token/:edition_id/events/:event_id(.:format)' data-regexp='^\/((5Ye4Iw5GpQ|SE3eFct2ow|92QncJk_rQ|llFh63hKOg|yq3Lx8-pgw|gYp-2O03SA|ZXjY1Pu5XQ|10phSHSIGQ))\/([^\/.?]+)\/events\/([^\/.?]+)(?:\.([^\/.?]+))?$'>
+    /:organization_token/:edition_id/events/:event_id(.:format)
+  </td>
+  <td data-route-reqs='press/events#update {:organization_token=&gt;/5Ye4Iw5GpQ|SE3eFct2ow|92QncJk_rQ|llFh63hKOg|yq3Lx8-pgw|gYp-2O03SA|ZXjY1Pu5XQ|10phSHSIGQ/}'>
+    press/events#update {:organization_token=&gt;/5Ye4Iw5GpQ|SE3eFct2ow|92QncJk_rQ|llFh63hKOg|yq3Lx8-pgw|gYp-2O03SA|ZXjY1Pu5XQ|10phSHSIGQ/}
+  </td>
+</tr>
+<tr class='route_row' data-helper='path'>
+  <td data-route-name='press_edition_exhibition'>
+      press_edition_exhibition<span class='helper'>_path</span>
+  </td>
+  <td data-route-verb='GET'>
+    GET
+  </td>
+  <td data-route-path='/:organization_token/:edition_id/exhibitions/:exhibition_id(.:format)' data-regexp='^\/((5Ye4Iw5GpQ|SE3eFct2ow|92QncJk_rQ|llFh63hKOg|yq3Lx8-pgw|gYp-2O03SA|ZXjY1Pu5XQ|10phSHSIGQ))\/([^\/.?]+)\/exhibitions\/([^\/.?]+)(?:\.([^\/.?]+))?$'>
+    /:organization_token/:edition_id/exhibitions/:exhibition_id(.:format)
+  </td>
+  <td data-route-reqs='press/exhibitions#show {:organization_token=&gt;/5Ye4Iw5GpQ|SE3eFct2ow|92QncJk_rQ|llFh63hKOg|yq3Lx8-pgw|gYp-2O03SA|ZXjY1Pu5XQ|10phSHSIGQ/}'>
+    press/exhibitions#show {:organization_token=&gt;/5Ye4Iw5GpQ|SE3eFct2ow|92QncJk_rQ|llFh63hKOg|yq3Lx8-pgw|gYp-2O03SA|ZXjY1Pu5XQ|10phSHSIGQ/}
+  </td>
+</tr>
+<tr class='route_row' data-helper='path'>
+  <td data-route-name=''>
+  </td>
+  <td data-route-verb='PATCH'>
+    PATCH
+  </td>
+  <td data-route-path='/:organization_token/:edition_id/exhibitions/:exhibition_id(.:format)' data-regexp='^\/((5Ye4Iw5GpQ|SE3eFct2ow|92QncJk_rQ|llFh63hKOg|yq3Lx8-pgw|gYp-2O03SA|ZXjY1Pu5XQ|10phSHSIGQ))\/([^\/.?]+)\/exhibitions\/([^\/.?]+)(?:\.([^\/.?]+))?$'>
+    /:organization_token/:edition_id/exhibitions/:exhibition_id(.:format)
+  </td>
+  <td data-route-reqs='press/exhibitions#update {:organization_token=&gt;/5Ye4Iw5GpQ|SE3eFct2ow|92QncJk_rQ|llFh63hKOg|yq3Lx8-pgw|gYp-2O03SA|ZXjY1Pu5XQ|10phSHSIGQ/}'>
+    press/exhibitions#update {:organization_token=&gt;/5Ye4Iw5GpQ|SE3eFct2ow|92QncJk_rQ|llFh63hKOg|yq3Lx8-pgw|gYp-2O03SA|ZXjY1Pu5XQ|10phSHSIGQ/}
+  </td>
+</tr>
+<tr class='route_row' data-helper='path'>
+  <td data-route-name='press_edition_artist'>
+      press_edition_artist<span class='helper'>_path</span>
+  </td>
+  <td data-route-verb='GET'>
+    GET
+  </td>
+  <td data-route-path='/:organization_token/:edition_id/artists/:artist_id(.:format)' data-regexp='^\/((5Ye4Iw5GpQ|SE3eFct2ow|92QncJk_rQ|llFh63hKOg|yq3Lx8-pgw|gYp-2O03SA|ZXjY1Pu5XQ|10phSHSIGQ))\/([^\/.?]+)\/artists\/([^\/.?]+)(?:\.([^\/.?]+))?$'>
+    /:organization_token/:edition_id/artists/:artist_id(.:format)
+  </td>
+  <td data-route-reqs='press/artists#show {:organization_token=&gt;/5Ye4Iw5GpQ|SE3eFct2ow|92QncJk_rQ|llFh63hKOg|yq3Lx8-pgw|gYp-2O03SA|ZXjY1Pu5XQ|10phSHSIGQ/}'>
+    press/artists#show {:organization_token=&gt;/5Ye4Iw5GpQ|SE3eFct2ow|92QncJk_rQ|llFh63hKOg|yq3Lx8-pgw|gYp-2O03SA|ZXjY1Pu5XQ|10phSHSIGQ/}
+  </td>
+</tr>
+<tr class='route_row' data-helper='path'>
+  <td data-route-name='press_edition_event_event_item'>
+      press_edition_event_event_item<span class='helper'>_path</span>
+  </td>
+  <td data-route-verb='GET'>
+    GET
+  </td>
+  <td data-route-path='/:organization_token/:edition_id/events/:event_id/:event_item_id(.:format)' data-regexp='^\/((5Ye4Iw5GpQ|SE3eFct2ow|92QncJk_rQ|llFh63hKOg|yq3Lx8-pgw|gYp-2O03SA|ZXjY1Pu5XQ|10phSHSIGQ))\/([^\/.?]+)\/events\/([^\/.?]+)\/([^\/.?]+)(?:\.([^\/.?]+))?$'>
+    /:organization_token/:edition_id/events/:event_id/:event_item_id(.:format)
+  </td>
+  <td data-route-reqs='press/event_items#show {:organization_token=&gt;/5Ye4Iw5GpQ|SE3eFct2ow|92QncJk_rQ|llFh63hKOg|yq3Lx8-pgw|gYp-2O03SA|ZXjY1Pu5XQ|10phSHSIGQ/}'>
+    press/event_items#show {:organization_token=&gt;/5Ye4Iw5GpQ|SE3eFct2ow|92QncJk_rQ|llFh63hKOg|yq3Lx8-pgw|gYp-2O03SA|ZXjY1Pu5XQ|10phSHSIGQ/}
+  </td>
+</tr>
+<tr class='route_row' data-helper='path'>
+  <td data-route-name=''>
+  </td>
+  <td data-route-verb='PATCH'>
+    PATCH
+  </td>
+  <td data-route-path='/:organization_token/:edition_id/events/:event_id/:event_item_id(.:format)' data-regexp='^\/((5Ye4Iw5GpQ|SE3eFct2ow|92QncJk_rQ|llFh63hKOg|yq3Lx8-pgw|gYp-2O03SA|ZXjY1Pu5XQ|10phSHSIGQ))\/([^\/.?]+)\/events\/([^\/.?]+)\/([^\/.?]+)(?:\.([^\/.?]+))?$'>
+    /:organization_token/:edition_id/events/:event_id/:event_item_id(.:format)
+  </td>
+  <td data-route-reqs='press/event_items#update {:organization_token=&gt;/5Ye4Iw5GpQ|SE3eFct2ow|92QncJk_rQ|llFh63hKOg|yq3Lx8-pgw|gYp-2O03SA|ZXjY1Pu5XQ|10phSHSIGQ/}'>
+    press/event_items#update {:organization_token=&gt;/5Ye4Iw5GpQ|SE3eFct2ow|92QncJk_rQ|llFh63hKOg|yq3Lx8-pgw|gYp-2O03SA|ZXjY1Pu5XQ|10phSHSIGQ/}
+  </td>
+</tr>
+<tr class='route_row' data-helper='path'>
+  <td data-route-name='press_search'>
+      press_search<span class='helper'>_path</span>
+  </td>
+  <td data-route-verb='GET'>
+    GET
+  </td>
+  <td data-route-path='/search(.:format)' data-regexp='^\/search(?:\.([^\/.?]+))?$'>
+    /search(.:format)
+  </td>
+  <td data-route-reqs='press/searches#new'>
+    press/searches#new
+  </td>
+</tr>
+<tr class='route_row' data-helper='path'>
+  <td data-route-name='press_destroy_asset'>
+      press_destroy_asset<span class='helper'>_path</span>
+  </td>
+  <td data-route-verb='DELETE'>
+    DELETE
+  </td>
+  <td data-route-path='/:assetable_type/:assetable_id/assets/:id(.:format)' data-regexp='^\/([^\/.?]+)\/([^\/.?]+)\/assets\/([^\/.?]+)(?:\.([^\/.?]+))?$'>
+    /:assetable_type/:assetable_id/assets/:id(.:format)
+  </td>
+  <td data-route-reqs='press/assets#destroy'>
+    press/assets#destroy
+  </td>
+</tr>
+<tr class='route_row' data-helper='path'>
+  <td data-route-name='press_root'>
+      press_root<span class='helper'>_path</span>
+  </td>
+  <td data-route-verb='GET'>
+    GET
+  </td>
+  <td data-route-path='/' data-regexp='^\/$'>
+    /
+  </td>
+  <td data-route-reqs='press/editions#index'>
+    press/editions#index
+  </td>
+</tr>
+<tr class='route_row' data-helper='path'>
+  <td data-route-name='ahoy_engine'>
+      ahoy_engine<span class='helper'>_path</span>
+  </td>
+  <td data-route-verb=''>
+    
+  </td>
+  <td data-route-path='/ahoy' data-regexp='^\/ahoy'>
+    /ahoy
+  </td>
+  <td data-route-reqs='Ahoy::Engine'>
+    Ahoy::Engine
+  </td>
+</tr>
+<tr class='route_row' data-helper='path'>
+  <td data-route-name='refile_app'>
+      refile_app<span class='helper'>_path</span>
+  </td>
+  <td data-route-verb=''>
+    
+  </td>
+  <td data-route-path='/attachments' data-regexp='^\/attachments'>
+    /attachments
+  </td>
+  <td data-route-reqs='#&lt;Refile::App app_file=&quot;/Users/holden/.rvm/gems/ruby-2.2.1@festiment/gems/refile-0.6.2/lib/refile/app.rb&quot;&gt;'>
+    #&lt;Refile::App app_file=&quot;/Users/holden/.rvm/gems/ruby-2.2.1@festiment/gems/refile-0.6.2/lib/refile/app.rb&quot;&gt;
+  </td>
+</tr>
+
+<tr><th colspan="4">Routes for Blazer::Engine</th></tr>
+<tr class='route_row' data-helper='path'>
+  <td data-route-name='run_queries'>
+      run_queries<span class='helper'>_path</span>
+  </td>
+  <td data-route-verb='POST'>
+    POST
+  </td>
+  <td data-route-path='/queries/run(.:format)' data-regexp='^\/queries\/run(?:\.([^\/.?]+))?$'>
+    /queries/run(.:format)
+  </td>
+  <td data-route-reqs='blazer/queries#run'>
+    blazer/queries#run
+  </td>
+</tr>
+<tr class='route_row' data-helper='path'>
+  <td data-route-name='refresh_query'>
+      refresh_query<span class='helper'>_path</span>
+  </td>
+  <td data-route-verb='POST'>
+    POST
+  </td>
+  <td data-route-path='/queries/:id/refresh(.:format)' data-regexp='^\/queries\/([^\/.?]+)\/refresh(?:\.([^\/.?]+))?$'>
+    /queries/:id/refresh(.:format)
+  </td>
+  <td data-route-reqs='blazer/queries#refresh'>
+    blazer/queries#refresh
+  </td>
+</tr>
+<tr class='route_row' data-helper='path'>
+  <td data-route-name='tables_queries'>
+      tables_queries<span class='helper'>_path</span>
+  </td>
+  <td data-route-verb='GET'>
+    GET
+  </td>
+  <td data-route-path='/queries/tables(.:format)' data-regexp='^\/queries\/tables(?:\.([^\/.?]+))?$'>
+    /queries/tables(.:format)
+  </td>
+  <td data-route-reqs='blazer/queries#tables'>
+    blazer/queries#tables
+  </td>
+</tr>
+<tr class='route_row' data-helper='path'>
+  <td data-route-name='queries'>
+      queries<span class='helper'>_path</span>
+  </td>
+  <td data-route-verb='GET'>
+    GET
+  </td>
+  <td data-route-path='/queries(.:format)' data-regexp='^\/queries(?:\.([^\/.?]+))?$'>
+    /queries(.:format)
+  </td>
+  <td data-route-reqs='blazer/queries#index'>
+    blazer/queries#index
+  </td>
+</tr>
+<tr class='route_row' data-helper='path'>
+  <td data-route-name=''>
+  </td>
+  <td data-route-verb='POST'>
+    POST
+  </td>
+  <td data-route-path='/queries(.:format)' data-regexp='^\/queries(?:\.([^\/.?]+))?$'>
+    /queries(.:format)
+  </td>
+  <td data-route-reqs='blazer/queries#create'>
+    blazer/queries#create
+  </td>
+</tr>
+<tr class='route_row' data-helper='path'>
+  <td data-route-name='new_query'>
+      new_query<span class='helper'>_path</span>
+  </td>
+  <td data-route-verb='GET'>
+    GET
+  </td>
+  <td data-route-path='/queries/new(.:format)' data-regexp='^\/queries\/new(?:\.([^\/.?]+))?$'>
+    /queries/new(.:format)
+  </td>
+  <td data-route-reqs='blazer/queries#new'>
+    blazer/queries#new
+  </td>
+</tr>
+<tr class='route_row' data-helper='path'>
+  <td data-route-name='edit_query'>
+      edit_query<span class='helper'>_path</span>
+  </td>
+  <td data-route-verb='GET'>
+    GET
+  </td>
+  <td data-route-path='/queries/:id/edit(.:format)' data-regexp='^\/queries\/([^\/.?]+)\/edit(?:\.([^\/.?]+))?$'>
+    /queries/:id/edit(.:format)
+  </td>
+  <td data-route-reqs='blazer/queries#edit'>
+    blazer/queries#edit
+  </td>
+</tr>
+<tr class='route_row' data-helper='path'>
+  <td data-route-name='query'>
+      query<span class='helper'>_path</span>
+  </td>
+  <td data-route-verb='GET'>
+    GET
+  </td>
+  <td data-route-path='/queries/:id(.:format)' data-regexp='^\/queries\/([^\/.?]+)(?:\.([^\/.?]+))?$'>
+    /queries/:id(.:format)
+  </td>
+  <td data-route-reqs='blazer/queries#show'>
+    blazer/queries#show
+  </td>
+</tr>
+<tr class='route_row' data-helper='path'>
+  <td data-route-name=''>
+  </td>
+  <td data-route-verb='PATCH'>
+    PATCH
+  </td>
+  <td data-route-path='/queries/:id(.:format)' data-regexp='^\/queries\/([^\/.?]+)(?:\.([^\/.?]+))?$'>
+    /queries/:id(.:format)
+  </td>
+  <td data-route-reqs='blazer/queries#update'>
+    blazer/queries#update
+  </td>
+</tr>
+<tr class='route_row' data-helper='path'>
+  <td data-route-name=''>
+  </td>
+  <td data-route-verb='PUT'>
+    PUT
+  </td>
+  <td data-route-path='/queries/:id(.:format)' data-regexp='^\/queries\/([^\/.?]+)(?:\.([^\/.?]+))?$'>
+    /queries/:id(.:format)
+  </td>
+  <td data-route-reqs='blazer/queries#update'>
+    blazer/queries#update
+  </td>
+</tr>
+<tr class='route_row' data-helper='path'>
+  <td data-route-name=''>
+  </td>
+  <td data-route-verb='DELETE'>
+    DELETE
+  </td>
+  <td data-route-path='/queries/:id(.:format)' data-regexp='^\/queries\/([^\/.?]+)(?:\.([^\/.?]+))?$'>
+    /queries/:id(.:format)
+  </td>
+  <td data-route-reqs='blazer/queries#destroy'>
+    blazer/queries#destroy
+  </td>
+</tr>
+<tr class='route_row' data-helper='path'>
+  <td data-route-name='run_check'>
+      run_check<span class='helper'>_path</span>
+  </td>
+  <td data-route-verb='GET'>
+    GET
+  </td>
+  <td data-route-path='/checks/:id/run(.:format)' data-regexp='^\/checks\/([^\/.?]+)\/run(?:\.([^\/.?]+))?$'>
+    /checks/:id/run(.:format)
+  </td>
+  <td data-route-reqs='blazer/checks#run'>
+    blazer/checks#run
+  </td>
+</tr>
+<tr class='route_row' data-helper='path'>
+  <td data-route-name='checks'>
+      checks<span class='helper'>_path</span>
+  </td>
+  <td data-route-verb='GET'>
+    GET
+  </td>
+  <td data-route-path='/checks(.:format)' data-regexp='^\/checks(?:\.([^\/.?]+))?$'>
+    /checks(.:format)
+  </td>
+  <td data-route-reqs='blazer/checks#index'>
+    blazer/checks#index
+  </td>
+</tr>
+<tr class='route_row' data-helper='path'>
+  <td data-route-name=''>
+  </td>
+  <td data-route-verb='POST'>
+    POST
+  </td>
+  <td data-route-path='/checks(.:format)' data-regexp='^\/checks(?:\.([^\/.?]+))?$'>
+    /checks(.:format)
+  </td>
+  <td data-route-reqs='blazer/checks#create'>
+    blazer/checks#create
+  </td>
+</tr>
+<tr class='route_row' data-helper='path'>
+  <td data-route-name='new_check'>
+      new_check<span class='helper'>_path</span>
+  </td>
+  <td data-route-verb='GET'>
+    GET
+  </td>
+  <td data-route-path='/checks/new(.:format)' data-regexp='^\/checks\/new(?:\.([^\/.?]+))?$'>
+    /checks/new(.:format)
+  </td>
+  <td data-route-reqs='blazer/checks#new'>
+    blazer/checks#new
+  </td>
+</tr>
+<tr class='route_row' data-helper='path'>
+  <td data-route-name='edit_check'>
+      edit_check<span class='helper'>_path</span>
+  </td>
+  <td data-route-verb='GET'>
+    GET
+  </td>
+  <td data-route-path='/checks/:id/edit(.:format)' data-regexp='^\/checks\/([^\/.?]+)\/edit(?:\.([^\/.?]+))?$'>
+    /checks/:id/edit(.:format)
+  </td>
+  <td data-route-reqs='blazer/checks#edit'>
+    blazer/checks#edit
+  </td>
+</tr>
+<tr class='route_row' data-helper='path'>
+  <td data-route-name='check'>
+      check<span class='helper'>_path</span>
+  </td>
+  <td data-route-verb='PATCH'>
+    PATCH
+  </td>
+  <td data-route-path='/checks/:id(.:format)' data-regexp='^\/checks\/([^\/.?]+)(?:\.([^\/.?]+))?$'>
+    /checks/:id(.:format)
+  </td>
+  <td data-route-reqs='blazer/checks#update'>
+    blazer/checks#update
+  </td>
+</tr>
+<tr class='route_row' data-helper='path'>
+  <td data-route-name=''>
+  </td>
+  <td data-route-verb='PUT'>
+    PUT
+  </td>
+  <td data-route-path='/checks/:id(.:format)' data-regexp='^\/checks\/([^\/.?]+)(?:\.([^\/.?]+))?$'>
+    /checks/:id(.:format)
+  </td>
+  <td data-route-reqs='blazer/checks#update'>
+    blazer/checks#update
+  </td>
+</tr>
+<tr class='route_row' data-helper='path'>
+  <td data-route-name=''>
+  </td>
+  <td data-route-verb='DELETE'>
+    DELETE
+  </td>
+  <td data-route-path='/checks/:id(.:format)' data-regexp='^\/checks\/([^\/.?]+)(?:\.([^\/.?]+))?$'>
+    /checks/:id(.:format)
+  </td>
+  <td data-route-reqs='blazer/checks#destroy'>
+    blazer/checks#destroy
+  </td>
+</tr>
+<tr class='route_row' data-helper='path'>
+  <td data-route-name='refresh_dashboard'>
+      refresh_dashboard<span class='helper'>_path</span>
+  </td>
+  <td data-route-verb='POST'>
+    POST
+  </td>
+  <td data-route-path='/dashboards/:id/refresh(.:format)' data-regexp='^\/dashboards\/([^\/.?]+)\/refresh(?:\.([^\/.?]+))?$'>
+    /dashboards/:id/refresh(.:format)
+  </td>
+  <td data-route-reqs='blazer/dashboards#refresh'>
+    blazer/dashboards#refresh
+  </td>
+</tr>
+<tr class='route_row' data-helper='path'>
+  <td data-route-name='dashboards'>
+      dashboards<span class='helper'>_path</span>
+  </td>
+  <td data-route-verb='GET'>
+    GET
+  </td>
+  <td data-route-path='/dashboards(.:format)' data-regexp='^\/dashboards(?:\.([^\/.?]+))?$'>
+    /dashboards(.:format)
+  </td>
+  <td data-route-reqs='blazer/dashboards#index'>
+    blazer/dashboards#index
+  </td>
+</tr>
+<tr class='route_row' data-helper='path'>
+  <td data-route-name=''>
+  </td>
+  <td data-route-verb='POST'>
+    POST
+  </td>
+  <td data-route-path='/dashboards(.:format)' data-regexp='^\/dashboards(?:\.([^\/.?]+))?$'>
+    /dashboards(.:format)
+  </td>
+  <td data-route-reqs='blazer/dashboards#create'>
+    blazer/dashboards#create
+  </td>
+</tr>
+<tr class='route_row' data-helper='path'>
+  <td data-route-name='new_dashboard'>
+      new_dashboard<span class='helper'>_path</span>
+  </td>
+  <td data-route-verb='GET'>
+    GET
+  </td>
+  <td data-route-path='/dashboards/new(.:format)' data-regexp='^\/dashboards\/new(?:\.([^\/.?]+))?$'>
+    /dashboards/new(.:format)
+  </td>
+  <td data-route-reqs='blazer/dashboards#new'>
+    blazer/dashboards#new
+  </td>
+</tr>
+<tr class='route_row' data-helper='path'>
+  <td data-route-name='edit_dashboard'>
+      edit_dashboard<span class='helper'>_path</span>
+  </td>
+  <td data-route-verb='GET'>
+    GET
+  </td>
+  <td data-route-path='/dashboards/:id/edit(.:format)' data-regexp='^\/dashboards\/([^\/.?]+)\/edit(?:\.([^\/.?]+))?$'>
+    /dashboards/:id/edit(.:format)
+  </td>
+  <td data-route-reqs='blazer/dashboards#edit'>
+    blazer/dashboards#edit
+  </td>
+</tr>
+<tr class='route_row' data-helper='path'>
+  <td data-route-name='dashboard'>
+      dashboard<span class='helper'>_path</span>
+  </td>
+  <td data-route-verb='GET'>
+    GET
+  </td>
+  <td data-route-path='/dashboards/:id(.:format)' data-regexp='^\/dashboards\/([^\/.?]+)(?:\.([^\/.?]+))?$'>
+    /dashboards/:id(.:format)
+  </td>
+  <td data-route-reqs='blazer/dashboards#show'>
+    blazer/dashboards#show
+  </td>
+</tr>
+<tr class='route_row' data-helper='path'>
+  <td data-route-name=''>
+  </td>
+  <td data-route-verb='PATCH'>
+    PATCH
+  </td>
+  <td data-route-path='/dashboards/:id(.:format)' data-regexp='^\/dashboards\/([^\/.?]+)(?:\.([^\/.?]+))?$'>
+    /dashboards/:id(.:format)
+  </td>
+  <td data-route-reqs='blazer/dashboards#update'>
+    blazer/dashboards#update
+  </td>
+</tr>
+<tr class='route_row' data-helper='path'>
+  <td data-route-name=''>
+  </td>
+  <td data-route-verb='PUT'>
+    PUT
+  </td>
+  <td data-route-path='/dashboards/:id(.:format)' data-regexp='^\/dashboards\/([^\/.?]+)(?:\.([^\/.?]+))?$'>
+    /dashboards/:id(.:format)
+  </td>
+  <td data-route-reqs='blazer/dashboards#update'>
+    blazer/dashboards#update
+  </td>
+</tr>
+<tr class='route_row' data-helper='path'>
+  <td data-route-name=''>
+  </td>
+  <td data-route-verb='DELETE'>
+    DELETE
+  </td>
+  <td data-route-path='/dashboards/:id(.:format)' data-regexp='^\/dashboards\/([^\/.?]+)(?:\.([^\/.?]+))?$'>
+    /dashboards/:id(.:format)
+  </td>
+  <td data-route-reqs='blazer/dashboards#destroy'>
+    blazer/dashboards#destroy
+  </td>
+</tr>
+<tr class='route_row' data-helper='path'>
+  <td data-route-name='root'>
+      root<span class='helper'>_path</span>
+  </td>
+  <td data-route-verb='GET'>
+    GET
+  </td>
+  <td data-route-path='/' data-regexp='^\/$'>
+    /
+  </td>
+  <td data-route-reqs='blazer/queries#home'>
+    blazer/queries#home
+  </td>
+</tr>
+
+<tr><th colspan="4">Routes for Ahoy::Engine</th></tr>
+<tr class='route_row' data-helper='path'>
+  <td data-route-name='visits'>
+      visits<span class='helper'>_path</span>
+  </td>
+  <td data-route-verb='POST'>
+    POST
+  </td>
+  <td data-route-path='/visits(.:format)' data-regexp='^\/visits(?:\.([^\/.?]+))?$'>
+    /visits(.:format)
+  </td>
+  <td data-route-reqs='ahoy/visits#create'>
+    ahoy/visits#create
+  </td>
+</tr>
+<tr class='route_row' data-helper='path'>
+  <td data-route-name='events'>
+      events<span class='helper'>_path</span>
+  </td>
+  <td data-route-verb='POST'>
+    POST
+  </td>
+  <td data-route-path='/events(.:format)' data-regexp='^\/events(?:\.([^\/.?]+))?$'>
+    /events(.:format)
+  </td>
+  <td data-route-reqs='ahoy/events#create'>
+    ahoy/events#create
+  </td>
+</tr>
+
+  </tbody>
+</table>
+
+<script type='text/javascript'>
+  // Iterates each element through a function
+  function each(elems, func) {
+    if (!elems instanceof Array) { elems = [elems]; }
+    for (var i = 0, len = elems.length; i < len; i++) {
+      func(elems[i]);
+    }
+  }
+
+  // Sets innerHTML for an element
+  function setContent(elem, text) {
+    elem.innerHTML = text;
+  }
+
+  // Enables path search functionality
+  function setupMatchPaths() {
+    // Check if the user input (sanitized as a path) matches the regexp data attribute
+    function checkExactMatch(section, elem, value) {
+      var string = sanitizePath(value),
+          regexp = elem.getAttribute("data-regexp");
+
+      showMatch(string, regexp, section, elem);
+    }
+
+    // Check if the route path data attribute contains the user input
+    function checkFuzzyMatch(section, elem, value) {
+      var string = elem.getAttribute("data-route-path"),
+          regexp = value;
+
+      showMatch(string, regexp, section, elem);
+    }
+
+    // Display the parent <tr> element in the appropriate section when there's a match
+    function showMatch(string, regexp, section, elem) {
+      if(string.match(RegExp(regexp))) {
+        section.appendChild(elem.parentNode.cloneNode(true));
+      }
+    }
+
+    // Check if there are any matched results in a section
+    function checkNoMatch(section, defaultText, noMatchText) {
+      if (section.innerHTML === defaultText) {
+        setContent(section, defaultText + noMatchText);
+      }
+    }
+
+    // Ensure path always starts with a slash "/" and remove params or fragments
+    function sanitizePath(path) {
+      var path = path.charAt(0) == '/' ? path : "/" + path;
+      return path.replace(/\#.*|\?.*/, '');
+    }
+
+    var regexpElems     = document.querySelectorAll('#route_table [data-regexp]'),
+        searchElem      = document.querySelector('#search'),
+        exactMatches    = document.querySelector('#exact_matches'),
+        fuzzyMatches    = document.querySelector('#fuzzy_matches');
+
+    // Remove matches when no search value is present
+    searchElem.onblur = function(e) {
+      if (searchElem.value === "") {
+        setContent(exactMatches, "");
+        setContent(fuzzyMatches, "");
+      }
+    }
+
+    // On key press perform a search for matching paths
+    searchElem.onkeyup = function(e){
+      var userInput         = searchElem.value,
+          defaultExactMatch = '<tr><th colspan="4">Paths Matching (' + escape(sanitizePath(userInput)) +'):</th></tr>',
+          defaultFuzzyMatch = '<tr><th colspan="4">Paths Containing (' + escape(userInput) +'):</th></tr>',
+          noExactMatch      = '<tr><th colspan="4">No Exact Matches Found</th></tr>',
+          noFuzzyMatch      = '<tr><th colspan="4">No Fuzzy Matches Found</th></tr>';
+
+      // Clear out results section
+      setContent(exactMatches, defaultExactMatch);
+      setContent(fuzzyMatches, defaultFuzzyMatch);
+
+      // Display exact matches and fuzzy matches
+      each(regexpElems, function(elem) {
+        checkExactMatch(exactMatches, elem, userInput);
+        checkFuzzyMatch(fuzzyMatches, elem, userInput);
+      })
+
+      // Display 'No Matches' message when no matches are found
+      checkNoMatch(exactMatches, defaultExactMatch, noExactMatch);
+      checkNoMatch(fuzzyMatches, defaultFuzzyMatch, noFuzzyMatch);
+    }
+  }
+
+  // Enables functionality to toggle between `_path` and `_url` helper suffixes
+  function setupRouteToggleHelperLinks() {
+
+    // Sets content for each element
+    function setValOn(elems, val) {
+      each(elems, function(elem) {
+        setContent(elem, val);
+      });
+    }
+
+    // Sets onClick event for each element
+    function onClick(elems, func) {
+      each(elems, function(elem) {
+        elem.onclick = func;
+      });
+    }
+
+    var toggleLinks = document.querySelectorAll('#route_table [data-route-helper]');
+    onClick(toggleLinks, function(){
+      var helperTxt   = this.getAttribute("data-route-helper"),
+          helperElems = document.querySelectorAll('[data-route-name] span.helper');
+
+      setValOn(helperElems, helperTxt);
+    });
+  }
+
+  setupMatchPaths();
+  setupRouteToggleHelperLinks();
+</script>
+
+
+  
+
+<h2 style="margin-top: 30px">Request</h2>
+<p><b>Parameters</b>:</p> <pre>None</pre>
+
+<div class="details">
+  <div class="summary"><a href="#" onclick="return toggleSessionDump()">Toggle session dump</a></div>
+  <div id="session_dump" style="display:none"><pre>_csrf_token: &quot;dahGxFCNhKdWU/LgHF6Cuum/QihQ1lclwBfFGRmWd2g=&quot;
+session_id: &quot;0adaa799e0884791e81e9cc8595ee437&quot;</pre></div>
+</div>
+
+<div class="details">
+  <div class="summary"><a href="#" onclick="return toggleEnvDump()">Toggle env dump</a></div>
+  <div id="env_dump" style="display:none"><pre>HTTP_ACCEPT: &quot;text/html,*/*;q=0.8&quot;
+HTTP_ACCEPT_ENCODING: &quot;gzip, deflate&quot;
+HTTP_ACCEPT_LANGUAGE: &quot;en-us&quot;
+REMOTE_ADDR: &quot;127.0.0.1&quot;
+SERVER_NAME: &quot;endless-city.festcamp.dev&quot;</pre></div>
+</div>
+
+<h2 style="margin-top: 30px">Response</h2>
+<p><b>Headers</b>:</p> <pre>None</pre>
+
+</div>
+
+
+</body>
+</html>
+<div id="console"
+  data-remote-path='console/repl_sessions/1dccdbbcea726f951f5875fbd2d5426a'
+  data-initial-prompt='>> '>
+</div>
+
+
+<script type="text/javascript">
+(function() {
+  /**
+ * Constructor for command storage.
+ * It uses localStorage if available. Otherwise fallback to normal JS array.
+ */
+function CommandStorage() {
+  this.previousCommands = [];
+  var previousCommandOffset = 0;
+  var hasLocalStorage = typeof window.localStorage !== 'undefined';
+  var STORAGE_KEY = "web_console_previous_commands";
+  var MAX_STORAGE = 100;
+
+  if (hasLocalStorage) {
+    this.previousCommands = JSON.parse(localStorage.getItem(STORAGE_KEY)) || [];
+    previousCommandOffset = this.previousCommands.length;
+  }
+
+  this.addCommand = function(command) {
+    previousCommandOffset = this.previousCommands.push(command);
+
+    if (previousCommandOffset > MAX_STORAGE) {
+      this.previousCommands.splice(0, 1);
+      previousCommandOffset = MAX_STORAGE;
+    }
+
+    if (hasLocalStorage) {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(this.previousCommands));
+    }
+  };
+
+  this.navigate = function(offset) {
+    previousCommandOffset += offset;
+
+    if (previousCommandOffset < 0) {
+      previousCommandOffset = -1;
+      return null;
+    }
+
+    if (previousCommandOffset >= this.previousCommands.length) {
+      previousCommandOffset = this.previousCommands.length;
+      return null;
+    }
+
+    return this.previousCommands[previousCommandOffset];
+  }
+}
+
+// HTML strings for dynamic elements.
+var consoleInnerHtml = "<div class=\'resizer layer\'><\/div>\n<div class=\'console-outer layer\'>\n  <div class=\'console-actions\'>\n    <div class=\'close-button button\' title=\'close\'>x<\/div>\n  <\/div>\n  <div class=\'console-inner\'><\/div>\n<\/div>\n<input class=\'clipboard\' type=\'text\'>\n"
+;
+var promptBoxHtml = "<span class=\'console-prompt-label\'><\/span>\n<pre class=\'console-prompt-display\'><\/pre>\n"
+;
+// CSS
+var consoleStyleCss = ".console .pos-absolute { position: absolute; }\n.console .pos-fixed { position: fixed; }\n.console .pos-right { right: 0; }\n.console .border-box { box-sizing: border-box; }\n.console .layer { width: 100%; height: 100%; }\n.console .layer.console-outer { z-index: 1; }\n.console .layer.resizer { z-index: 2; }\n.console { position: fixed; left: 0; bottom: 0; width: 100%; height: 148px; padding: 0; margin: 0; background: none repeat scroll 0% 0% #333; z-index: 9999; }\n.console .console-outer { overflow: auto; padding-top: 4px; }\n.console .console-inner { font-family: monospace; font-size: 11px; width: 100%; height: 100%; overflow: none; background: #333; }\n.console .console-prompt-box { color: #FFF; }\n.console .console-message { color: #1AD027; margin: 0; border: 0; white-space: pre-wrap; background-color: #333; padding: 0; }\n.console .console-focus .console-cursor { background: #FEFEFE; color: #333; font-weight: bold; }\n.console .resizer { background: #333; width: 100%; height: 4px; cursor: ns-resize; }\n.console .console-actions { padding-right: 3px; }\n.console .console-actions .button { float: left; }\n.console .button { cursor: pointer; border-radius: 1px; font-family: monospace; font-size: 13px; width: 14px; height: 14px; line-height: 14px; text-align: center; color: #ccc; }\n.console .button:hover { background: #666; color: #fff; }\n.console .button.close-button:hover { background: #966; }\n.console .clipboard { height: 0px; padding: 0px; margin: 0px; width: 0px; margin-left: -1000px; }\n.console .console-prompt-label { display: inline; color: #FFF; background: none repeat scroll 0% 0% #333; border: 0; padding: 0; }\n.console .console-prompt-display { display: inline; color: #FFF; background: none repeat scroll 0% 0% #333; border: 0; padding: 0; }\n"
+;
+// Insert a style element with the unique ID
+var styleElementId = 'sr02459pvbvrmhco';
+
+// REPLConsole Constructor
+function REPLConsole(config) {
+  this.commandStorage = new CommandStorage();
+  this.prompt = config && config.promptLabel ? config.promptLabel : ' >>';
+  this.commandHandle = config && config.commandHandle ? config.commandHandle : function() { return this; }
+}
+
+
+REPLConsole.prototype.install = function(container) {
+  var _this = this;
+
+  document.onkeydown = function(ev) {
+    if (_this.focused) { _this.onKeyDown(ev); }
+  };
+
+  document.onkeypress = function(ev) {
+    if (_this.focused) { _this.onKeyPress(ev); }
+  };
+
+  document.addEventListener('mousedown', function(ev) {
+    var el = ev.target || ev.srcElement;
+
+    if (el) {
+      do {
+        if (el === container) {
+          _this.focus();
+          return;
+        }
+      } while (el = el.parentNode);
+
+      _this.blur();
+    }
+  });
+
+  // Render the console.
+  container.innerHTML = consoleInnerHtml;
+
+  var consoleOuter = findChild(container, 'console-outer');
+  var consoleActions = findChild(consoleOuter, 'console-actions');
+
+  addClass(container, 'console');
+  addClass(container.getElementsByClassName('layer'), 'pos-absolute border-box');
+  addClass(container.getElementsByClassName('button'), 'border-box');
+  addClass(consoleActions, 'pos-fixed pos-right');
+
+  // Make the console resizable.
+  function resizeContainer(ev) {
+    var startY                   = ev.clientY;
+    var startHeight              = parseInt(document.defaultView.getComputedStyle(container).height, 10);
+    var scrollTopStart      = consoleOuter.scrollTop;
+    var clientHeightStart   = consoleOuter.clientHeight;
+
+    var doDrag = function(e) {
+      container.style.height = (startHeight + startY - e.clientY) + 'px';
+      consoleOuter.scrollTop = scrollTopStart + (clientHeightStart - consoleOuter.clientHeight);
+      shiftConsoleActions();
+    };
+
+    var stopDrag = function(e) {
+      document.documentElement.removeEventListener('mousemove', doDrag, false);
+      document.documentElement.removeEventListener('mouseup', stopDrag, false);
+    };
+
+    document.documentElement.addEventListener('mousemove', doDrag, false);
+    document.documentElement.addEventListener('mouseup', stopDrag, false);
+  }
+
+  function closeContainer(ev) {
+    container.parentNode.removeChild(container);
+  }
+
+  var shifted = false;
+  function shiftConsoleActions() {
+    if (consoleOuter.scrollHeight > consoleOuter.clientHeight) {
+      var widthDiff = document.documentElement.clientWidth - consoleOuter.clientWidth;
+      if (shifted || ! widthDiff) return;
+      shifted = true;
+      consoleActions.style.marginRight = widthDiff + 'px';
+    } else if (shifted) {
+      shifted = false;
+      consoleActions.style.marginRight = '0px';
+    }
+  }
+
+  // Initialize
+  this.outer = consoleOuter;
+  this.inner = findChild(this.outer, 'console-inner');
+  this.clipboard = findChild(container, 'clipboard');
+  this.remotePath = container.dataset.remotePath;
+  this.newPromptBox();
+  this.insertCss();
+
+  findChild(container, 'resizer').addEventListener('mousedown', resizeContainer);
+  findChild(consoleActions, 'close-button').addEventListener('click', closeContainer);
+  consoleOuter.addEventListener('DOMNodeInserted', shiftConsoleActions);
+
+  REPLConsole.currentSession = this;
+};
+
+// Add CSS styles dynamically. This probably doesnt work for IE <8.
+REPLConsole.prototype.insertCss = function() {
+  if (document.getElementById(styleElementId)) {
+    return; // already inserted
+  }
+  var style = document.createElement('style');
+  style.type = 'text/css';
+  style.innerHTML = consoleStyleCss;
+  style.id = styleElementId;
+  document.getElementsByTagName('head')[0].appendChild(style);
+};
+
+REPLConsole.prototype.focus = function() {
+  if (! this.focused) {
+    this.focused = true;
+    if (! hasClass(this.inner, "console-focus")) {
+      addClass(this.inner, "console-focus");
+    }
+    this.scrollToBottom();
+  }
+};
+
+REPLConsole.prototype.blur = function() {
+  this.focused = false;
+  removeClass(this.inner, "console-focus");
+};
+
+/**
+ * Add a new empty prompt box to the console.
+ */
+REPLConsole.prototype.newPromptBox = function() {
+  // Remove the caret from previous prompt display if any.
+  if (this.promptDisplay) {
+    this.removeCaretFromPrompt();
+  }
+
+  var promptBox = document.createElement('div');
+  promptBox.className = "console-prompt-box";
+  promptBox.innerHTML = promptBoxHtml;
+  this.promptLabel = promptBox.getElementsByClassName('console-prompt-label')[0];
+  this.promptDisplay = promptBox.getElementsByClassName('console-prompt-display')[0];
+  // Render the prompt box
+  this.setInput("");
+  this.promptLabel.innerHTML = this.prompt;
+  this.inner.appendChild(promptBox);
+  this.scrollToBottom();
+};
+
+/**
+ * Remove the caret from the prompt box,
+ * mainly before adding a new prompt box.
+ * For simplicity, just re-render the prompt box
+ * with caret position -1.
+ */
+REPLConsole.prototype.removeCaretFromPrompt = function() {
+  this.setInput(this._input, -1);
+};
+
+REPLConsole.prototype.setInput = function(input, caretPos) {
+  this._caretPos = caretPos === undefined ? input.length : caretPos;
+  this._input = input;
+  this.renderInput();
+};
+
+/**
+ * Add some text to the existing input.
+ */
+REPLConsole.prototype.addToInput = function(val, caretPos) {
+  caretPos = caretPos || this._caretPos;
+  var before = this._input.substring(0, caretPos);
+  var after = this._input.substring(caretPos, this._input.length);
+  var newInput =  before + val + after;
+  this.setInput(newInput, caretPos + val.length);
+};
+
+/**
+ * Render the input prompt. This is called whenever
+ * the user input changes, sometimes not very efficient.
+ */
+REPLConsole.prototype.renderInput = function() {
+  // Clear the current input.
+  removeAllChildren(this.promptDisplay);
+
+  var promptCursor = document.createElement('span');
+  promptCursor.className = "console-cursor";
+  var before, current, after;
+
+  if (this._caretPos < 0) {
+    before = this._input;
+    current = after = "";
+  } else if (this._caretPos === this._input.length) {
+    before = this._input;
+    current = "\u00A0";
+    after = "";
+  } else {
+    before = this._input.substring(0, this._caretPos);
+    current = this._input.charAt(this._caretPos);
+    after = this._input.substring(this._caretPos + 1, this._input.length);
+  }
+
+  this.promptDisplay.appendChild(document.createTextNode(before));
+  promptCursor.appendChild(document.createTextNode(current));
+  this.promptDisplay.appendChild(promptCursor);
+  this.promptDisplay.appendChild(document.createTextNode(after));
+};
+
+REPLConsole.prototype.writeOutput = function(output) {
+  var consoleMessage = document.createElement('pre');
+  consoleMessage.className = "console-message";
+  consoleMessage.innerHTML = escapeHTML(output);
+  this.inner.appendChild(consoleMessage);
+  this.newPromptBox();
+};
+
+REPLConsole.prototype.onEnterKey = function() {
+  var input = this._input;
+
+  if(input != "" && input !== undefined) {
+    this.commandStorage.addCommand(input);
+  }
+
+  this.commandHandle(input);
+};
+
+REPLConsole.prototype.onNavigateHistory = function(offset) {
+  var command = this.commandStorage.navigate(offset) || "";
+  this.setInput(command);
+};
+
+/**
+ * Handle control keys like up, down, left, right.
+ */
+REPLConsole.prototype.onKeyDown = function(ev) {
+  switch (ev.keyCode) {
+    case 13:
+      // Enter key
+      this.onEnterKey();
+      ev.preventDefault();
+      break;
+    case 80:
+      // Ctrl-P
+      if (! ev.ctrlKey) break;
+    case 38:
+      // Up arrow
+      this.onNavigateHistory(-1);
+      ev.preventDefault();
+      break;
+    case 78:
+      // Ctrl-N
+      if (! ev.ctrlKey) break;
+    case 40:
+      // Down arrow
+      this.onNavigateHistory(1);
+      ev.preventDefault();
+      break;
+    case 37:
+      // Left arrow
+      var caretPos = this._caretPos > 0 ? this._caretPos - 1 : this._caretPos;
+      this.setInput(this._input, caretPos);
+      ev.preventDefault();
+      break;
+    case 39:
+      // Right arrow
+      var length = this._input.length;
+      var caretPos = this._caretPos < length ? this._caretPos + 1 : this._caretPos;
+      this.setInput(this._input, caretPos);
+      ev.preventDefault();
+      break;
+    case 8:
+      // Delete
+      this.deleteAtCurrent();
+      ev.preventDefault();
+      break;
+    default:
+      break;
+  }
+
+  if (ev.ctrlKey || ev.metaKey) {
+    // Set focus to our clipboard in case they hit the "v" key
+    this.clipboard.focus();
+    if (ev.keyCode == 86) {
+      // Pasting to clipboard doesn't happen immediately,
+      // so we have to wait for a while to get the pasted text.
+      var _this = this;
+      setTimeout(function() {
+        _this.addToInput(_this.clipboard.value);
+        _this.clipboard.value = "";
+        _this.clipboard.blur();
+      }, 10);
+    }
+  }
+
+  ev.stopPropagation();
+};
+
+/**
+ * Handle input key press.
+ */
+REPLConsole.prototype.onKeyPress = function(ev) {
+  // Only write to the console if it's a single key press.
+  if (ev.ctrlKey || ev.metaKey) { return; }
+  var keyCode = ev.keyCode || ev.which;
+  this.insertAtCurrent(String.fromCharCode(keyCode));
+  ev.stopPropagation();
+  ev.preventDefault();
+};
+
+/**
+ * Delete a character at the current position.
+ */
+REPLConsole.prototype.deleteAtCurrent = function() {
+  if (this._caretPos > 0) {
+    var caretPos = this._caretPos - 1;
+    var before = this._input.substring(0, caretPos);
+    var after = this._input.substring(this._caretPos, this._input.length);
+    this.setInput(before + after, caretPos);
+  }
+};
+
+/**
+ * Insert a character at the current position.
+ */
+REPLConsole.prototype.insertAtCurrent = function(char) {
+  var before = this._input.substring(0, this._caretPos);
+  var after = this._input.substring(this._caretPos, this._input.length);
+  this.setInput(before + char + after, this._caretPos + 1);
+};
+
+REPLConsole.prototype.scrollToBottom = function() {
+  this.outer.scrollTop = this.outer.scrollHeight;
+};
+
+// Change the binding of the console
+REPLConsole.prototype.switchBindingTo = function(frameId, callback) {
+  var url = this.remotePath + "/trace";
+  var params = "frame_id=" + encodeURIComponent(frameId);
+  postRequest(url, params, callback);
+};
+
+/**
+ * Install the console into the element with a specific ID.
+ * Example: REPLConsole.installInto("target-id")
+ */
+REPLConsole.installInto = function(id) {
+  var consoleElement = document.getElementById(id);
+  var remotePath = consoleElement.dataset.remotePath;
+  var replConsole = new REPLConsole({
+    promptLabel: consoleElement.dataset.initialPrompt,
+    commandHandle: function(line) {
+      var _this = this;
+      var url = remotePath;
+      var params = "input=" + encodeURIComponent(line);
+      putRequest(url, params, function(xhr) {
+        var response = JSON.parse(xhr.responseText);
+        _this.writeOutput(response.output);
+      });
+    }
+  });
+
+  replConsole.install(consoleElement);
+  return replConsole;
+};
+
+// This is to store the latest single session, and the stored session
+// is updated by the REPLConsole#install() method.
+// It allows to operate the current session from the other scripts.
+REPLConsole.currentSession = null;
+
+// DOM helpers
+function hasClass(el, className) {
+  var regex = new RegExp('(?:^|\\s)' + className + '(?!\\S)', 'g');
+  return el.className && el.className.match(regex);
+}
+
+function isNodeList(el) {
+  return typeof el.length === 'number' &&
+    typeof el.item === 'function';
+}
+
+function addClass(el, className) {
+  if (isNodeList(el)) {
+    for (var i = 0; i < el.length; ++ i) {
+      addClass(el[i], className);
+    }
+  } else {
+    el.className += " " + className;
+  }
+}
+
+function removeClass(el, className) {
+  var regex = new RegExp('(?:^|\\s)' + className + '(?!\\S)', 'g');
+  el.className = el.className.replace(regex, '');
+}
+
+function removeAllChildren(el) {
+  while (el.firstChild) {
+    el.removeChild(el.firstChild);
+  }
+}
+
+function findChild(el, className) {
+  for (var i = 0; i < el.childNodes.length; ++ i) {
+    if (hasClass(el.childNodes[i], className)) {
+      return el.childNodes[i];
+    }
+  }
+}
+
+function escapeHTML(html) {
+  return html
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#x27;')
+    .replace(/`/g, '&#x60;');
+}
+
+// XHR helpers
+function request(method, url, params, callback) {
+  var xhr = new XMLHttpRequest();
+
+  xhr.open(method, url, true);
+  xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+  xhr.setRequestHeader("X-Requested-With", "XMLHttpRequest");
+  xhr.setRequestHeader("Accept", "application/vnd.web-console.v2");
+  xhr.send(params);
+
+  xhr.onreadystatechange = function() {
+    if (xhr.readyState === 4) {
+      callback(xhr);
+    }
+  }
+}
+
+function postRequest(url, params, callback) {
+  request("POST", url, params, callback);
+}
+
+function putRequest(url, params, callback) {
+  request("PUT", url, params, callback);
+}
+
+window.REPLConsole = REPLConsole;
+
+}).call(this);
+</script>
+
+<script type="text/javascript">
+(function() {
+  REPLConsole.installInto('console');
+
+}).call(this);
+</script>
+
+
+  <script type="text/javascript">
+(function() {
+  // Try intercept traces links in Rails 4.2.
+var traceFrames = document.getElementsByClassName('trace-frames');
+var selectedFrame, currentSource = document.getElementById('frame-source-0');
+
+// Add click listeners for all stack frames
+for (var i = 0; i < traceFrames.length; i++) {
+  traceFrames[i].addEventListener('click', function(e) {
+    e.preventDefault();
+    var target = e.target;
+    var frameId = target.dataset.frameId;
+
+    // Change the binding of the console.
+    changeBinding(frameId, function() {
+      if (selectedFrame) {
+        selectedFrame.className = selectedFrame.className.replace("selected", "");
+      }
+
+      target.className += " selected";
+      selectedFrame = target;
+    });
+
+    // Change the extracted source code
+    changeSourceExtract(frameId);
+  });
+}
+
+function changeBinding(frameId, callback) {
+  REPLConsole.currentSession.switchBindingTo(frameId, callback);
+}
+
+function changeSourceExtract(frameId) {
+  var el = document.getElementById('frame-source-' + frameId);
+  if (currentSource && el) {
+    currentSource.className += " hidden";
+    el.className = el.className.replace(" hidden", "");
+    currentSource = el;
+  }
+}
+
+// Push the error page body upwards the size of the console.
+//
+// While, I wouldn't like to do that on every custom page (so I don't screw
+// user's layouts), I think a lot of developers want to see all of the content
+// on the default Rails error page.
+//
+// Since it's quite special as is now, being a bit more special in the name of
+// better user experience, won't hurt.
+document.addEventListener('DOMContentLoaded', function() {
+  var consoleElement = document.getElementById('console');
+  var resizerElement = consoleElement.getElementsByClassName('resizer')[0];
+  var containerElement = document.getElementById('container');
+
+  function setContainerElementBottomMargin(pixels) {
+    containerElement.style.marginBottom = pixels + 'px';
+  }
+
+  var currentConsoleElementHeight = consoleElement.offsetHeight;
+  setContainerElementBottomMargin(currentConsoleElementHeight);
+
+  resizerElement.addEventListener('mousedown', function(event) {
+    function recordConsoleElementHeight(event) {
+      resizerElement.removeEventListener('mouseup', recordConsoleElementHeight);
+
+      var currentConsoleElementHeight = consoleElement.offsetHeight;
+      setContainerElementBottomMargin(currentConsoleElementHeight);
+    }
+
+    resizerElement.addEventListener('mouseup', recordConsoleElementHeight);
+  });
+});
+
+}).call(this);
+</script>
+

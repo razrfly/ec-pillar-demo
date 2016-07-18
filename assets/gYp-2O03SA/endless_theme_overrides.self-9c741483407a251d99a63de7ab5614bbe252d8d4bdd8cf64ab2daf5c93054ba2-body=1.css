@@ -37,6 +37,7 @@
 /**!**************/
 /**! 1. Reset **/
 
+
 *,
 h1,
 h2,
@@ -101,6 +102,27 @@ h6,
   margin-top: 0;
   margin-bottom: 0;
 }
+h6{
+  background-color:#00ffff;
+	padding:5px;
+	color:#000;
+}
+.item__description h6 {
+	background-color:#00ffff;
+	padding:5px;
+	color:#000;
+}
+.item__title h6{
+	background-color:#00ffff;
+	padding:5px;
+	color:#000;
+}
+.item__title h6:hover{
+	background-color:#fff;
+	padding:5px;
+	color:#00fff;
+	text-decoration:none;
+}
 h1,
 .h1 {
   font-size: 4em;
@@ -120,6 +142,10 @@ h4,
 .h4 {
   font-size: 1.4375em;
   line-height: 1.41304348em;
+}
+.item__title h4{
+	font-size:3em;
+	line-height:1em;
 }
 h5,
 .h5 {
@@ -195,7 +221,7 @@ hr {
 }
 a:hover,
 a:focus,
-a:active {
+a.active {
   text-decoration: none;
   outline: none;
 }
@@ -2217,6 +2243,16 @@ section.bg--dark .slider.slider--controlsoutside[data-paging="true"] .owl-theme 
 }
 .masonry .masonry__filters li.active {
   cursor: default;
+  color:#fff;
+  text-decoration:none;
+  background-color:#00ffff;
+  padding:0 3px 0 3px;
+}
+  .masonry .masonry__filters li:hover{
+  color:#fff;
+  text-decoration:none;
+  background-color:#00ffff;
+  padding:0 3px 0 3px;
 }
 /**! 22. Modals **/
 .modal-instance .modal-body {
@@ -3120,7 +3156,7 @@ body.theme--boxed section:not(.bg--white):not(.bg--dark):not(.bg--secondary):not
 }
 @font-face {
   font-family: 'Montserrat';
-  src: url('Montserrat-SemiBold-ad0617cb22365ddd0932316860b0e8630a7b926389e65a42c4256e858a58c072.otf') format('opentype');
+  src: url('Montserrat-SemiBold-ad0617cb22365ddd0932316860b0e8630a7b926389e65a42c4256e858a58c072.otf.html') format('opentype');
   font-weight: 600;
   font-style: normal;
 }
@@ -5852,6 +5888,12 @@ section.features .feature-2 {
 .card--horizontal {
   overflow: hidden;
   position: relative;
+}
+
+.card .card__title h5:hover{
+	color:#fff;
+	text-decoration:none;
+	background-color:#00ffff;
 }
 .card--horizontal .card__image {
   position: absolute;

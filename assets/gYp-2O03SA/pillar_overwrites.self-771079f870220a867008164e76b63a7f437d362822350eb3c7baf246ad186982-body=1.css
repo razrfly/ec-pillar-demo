@@ -23,3 +23,9 @@ footer .footer__navigation {
 .imagebg {
   min-height: 300px;
 }
+
+/* line 23, /Users/holden/Code/paid-projects/festcamp/app/assets/stylesheets/gYp-2O03SA/pillar_overwrites.scss */
+.nav-bar .logo {
+  max-height: 60%;
+  margin: 0;
+}
