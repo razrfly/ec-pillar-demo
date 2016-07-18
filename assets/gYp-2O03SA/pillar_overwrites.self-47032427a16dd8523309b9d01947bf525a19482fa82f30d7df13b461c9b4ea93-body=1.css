@@ -23,3 +23,20 @@ footer .footer__navigation {
 .imagebg {
   min-height: 300px;
 }
+
+/* line 27, /Users/holden/Code/paid-projects/festcamp/app/assets/stylesheets/gYp-2O03SA/pillar_overwrites.scss */
+footer .footer__navigation li a:hover{
+  text-decoration:none;
+  color:#fff;
+  background-color:#00ffff;
+  padding:3px;
+  }
+
+/* line 35, /Users/holden/Code/paid-projects/festcamp/app/assets/stylesheets/gYp-2O03SA/pillar_overwrites.scss */
+
+footer .footer__navigation li a.active{
+  text-decoration:none;
+  color:#fff;
+  background-color:#00ffff;
+  padding:3px;
+}
