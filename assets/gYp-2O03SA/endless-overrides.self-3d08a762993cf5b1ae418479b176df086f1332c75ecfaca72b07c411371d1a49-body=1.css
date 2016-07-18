@@ -35,7 +35,7 @@ a:active {
 }
 
 /* line 29, /Users/holden/Code/paid-projects/festcamp/app/assets/stylesheets/gYp-2O03SA/endless-overrides.scss */
-.menu > li {
+.menu > li a {
   color: #fff !important;
   opacity: 1;
 }

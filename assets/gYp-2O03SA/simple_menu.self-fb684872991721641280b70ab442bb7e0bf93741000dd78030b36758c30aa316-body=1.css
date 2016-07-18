@@ -5,7 +5,8 @@
 
 /* line 5, /Users/holden/Code/paid-projects/festcamp/app/assets/stylesheets/gYp-2O03SA/simple_menu.scss */
 .simple-menu li a {
-  padding: 0 1.3em;
+  margin: 0 1.1em;
+  padding: 0 3px;
   line-height: 62px;
   font-family: "Montserrat", "Helvetica", "Arial", sans-serif;
   font-weight: 500;
@@ -14,7 +15,7 @@
   text-transform: uppercase;
 }
 
-/* line 15, /Users/holden/Code/paid-projects/festcamp/app/assets/stylesheets/gYp-2O03SA/simple_menu.scss */
+/* line 16, /Users/holden/Code/paid-projects/festcamp/app/assets/stylesheets/gYp-2O03SA/simple_menu.scss */
 .simple-menu li a:hover {
   text-decoration: none;
   color: #fff;
@@ -22,7 +23,7 @@
   padding: 3px;
 }
 
-/* line 22, /Users/holden/Code/paid-projects/festcamp/app/assets/stylesheets/gYp-2O03SA/simple_menu.scss */
+/* line 23, /Users/holden/Code/paid-projects/festcamp/app/assets/stylesheets/gYp-2O03SA/simple_menu.scss */
 .simple-menu li a.active {
   text-decoration: none;
   color: #fff;
