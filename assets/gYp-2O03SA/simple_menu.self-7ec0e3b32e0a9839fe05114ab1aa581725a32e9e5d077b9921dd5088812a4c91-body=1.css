@@ -12,3 +12,20 @@
   letter-spacing: 1px;
   text-transform: uppercase;
 }
+
+/* line 16, /Users/holden/Code/paid-projects/festcamp/app/assets/stylesheets/gYp-2O03SA/simple_menu.scss */
+.simple-menu li a:hover{
+  text-decoration:none;
+  color:#fff;
+  background-color:#00ffff;
+  padding:3px;
+}
+
+/* line 24, /Users/holden/Code/paid-projects/festcamp/app/assets/stylesheets/gYp-2O03SA/simple_menu.scss */
+.simple-menu li a.active{
+  text-decoration:none;
+  color:#fff;
+  background-color:#00ffff;
+  padding:3px;
+}
+
