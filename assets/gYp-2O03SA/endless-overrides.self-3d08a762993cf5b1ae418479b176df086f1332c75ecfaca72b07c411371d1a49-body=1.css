@@ -1,6 +1,6 @@
 /* line 1, /Users/holden/Code/paid-projects/festcamp/app/assets/stylesheets/gYp-2O03SA/endless-overrides.scss */
 a:active {
-  text-decoration: underline;
+  text-decoration: none;
 }
 
 /* line 5, /Users/holden/Code/paid-projects/festcamp/app/assets/stylesheets/gYp-2O03SA/endless-overrides.scss */
@@ -65,14 +65,18 @@ footer .footer__navigation li a {
 
 /* line 54, /Users/holden/Code/paid-projects/festcamp/app/assets/stylesheets/gYp-2O03SA/endless-overrides.scss */
 footer .footer__navigation li a:hover {
-  text-decoration: underline;
-  color: #00ffff;
+  text-decoration: none;
+  color: #000;
+  background-color: #00ffff;
+  padding: 3px;
 }
 
 /* line 59, /Users/holden/Code/paid-projects/festcamp/app/assets/stylesheets/gYp-2O03SA/endless-overrides.scss */
 footer .footer__navigation li a.active {
-  text-decoration: underline;
-  color: #00ffff;
+  text-decoration: none;
+  color: #000;
+  background-color: #00ffff;
+  padding: 3px;
 }
 
 /* line 64, /Users/holden/Code/paid-projects/festcamp/app/assets/stylesheets/gYp-2O03SA/endless-overrides.scss */
