@@ -80,8 +80,11 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   font-family: 'Lora', 'Helvetica', 'Arial', sans-serif;
-  color: #767676;
+  color: #000;
   font-weight: 400;
+}
+p{
+	font-size:16px;
 }
 h1,
 h2,
@@ -112,6 +115,11 @@ h6{
 	padding:5px;
 	color:#000;
 }
+.item__description h6:hover {
+	background-color:#fff;
+	padding:5px;
+	color:#00ffff;
+}
 .item__title h6{
 	background-color:#00ffff;
 	padding:5px;
@@ -120,8 +128,11 @@ h6{
 .item__title h6:hover{
 	background-color:#fff;
 	padding:5px;
-	color:#00fff;
+	color:#00ffff;
 	text-decoration:none;
+}
+a:link{
+	cursor:pointer;
 }
 h1,
 .h1 {
@@ -261,6 +272,9 @@ body {
 .pos-absolute.container {
   left: 0;
   right: 0;
+}
+.pos-absolute.container h4:hover{
+	color:#00ffff;
 }
 .pos-top {
   top: 0;
@@ -820,7 +834,7 @@ div[data-overlay] ul {
 }
 /**! 7. Colors **/
 body {
-  background: #f8f8f8;
+  background: #fff;
 }
 .color--primary {
   color: #425cbb !important;
@@ -883,7 +897,7 @@ a {
 .bg--white span,
 .bg--white ul,
 .bg--white a:not(.btn) {
-  color: #767676;
+  color: #000;
 }
 .bg--white h1,
 .bg--white h2,
@@ -1178,6 +1192,7 @@ a {
 }
 .icon--sm {
   font-size: 2em;
+  color:#fff;
 }
 .icon--lg {
   font-size: 4em;
@@ -1927,6 +1942,7 @@ button:focus {
   overflow: hidden;
   padding: 2.4375em;
   margin-bottom: 30px;
+  text-align:center;
 }
 .boxed.boxed--lg {
   padding: 3.65625em;
@@ -2240,16 +2256,17 @@ section.bg--dark .slider.slider--controlsoutside[data-paging="true"] .owl-theme 
   -moz-user-select: none;
   -ms-user-select: none;
   user-select: none;
+  color:#000;
 }
 .masonry .masonry__filters li.active {
   cursor: default;
-  color:#fff;
+  color:#000;
   text-decoration:none;
   background-color:#00ffff;
   padding:0 3px 0 3px;
 }
   .masonry .masonry__filters li:hover{
-  color:#fff;
+  color:#000;
   text-decoration:none;
   background-color:#00ffff;
   padding:0 3px 0 3px;
@@ -3137,7 +3154,7 @@ body.theme--boxed section:not(.bg--white):not(.bg--dark):not(.bg--secondary):not
   left: -25%;
   width: 25%;
   height: 3px;
-  background-color: #425cbb;
+  background-color: #00ffff;
   animation: loading 5s linear infinite;
 }
 @keyframes loading {
@@ -3216,10 +3233,10 @@ h6,
   margin-bottom: 0;
 }
 a {
-  color: #232323;
+  color: #000;
 }
 a:hover {
-  color: #232323;
+  color: #00ffff;
 }
 span a,
 p a {
@@ -3227,8 +3244,11 @@ p a {
 }
 span a:hover,
 p a:hover {
-  text-decoration: underline;
-  opacity: .9;
+  text-decoration: none;
+  background-color:#00ffff;
+  color:#000;
+  opacity: 1;
+  padding:3px;
 }
 h1 em,
 h2 em,
@@ -3265,7 +3285,7 @@ h6 em {
 }
 hr,
 .boxed.boxed--border {
-  border-color: #ebebeb;
+  border-color: #00ffff;
 }
 .bg--secondary hr {
   border-color: #e7e7e7;
@@ -3559,9 +3579,10 @@ span.label {
   transition: 0.3s linear;
   -webkit-transition: 0.3s linear;
   -moz-transition: 0.3s linear;
+  font-size:12px;
 }
 .menu > li:hover > a {
-  opacity: .6;
+  opacity: 1;
 }
 .menu > li a {
   color: #232323;
@@ -5869,7 +5890,7 @@ section.features .feature-2 {
   font-size: 0.625em;
   font-style: italic;
   display: inline-block;
-  color: #767676;
+  color: #000;
 }
 .slider[data-items] .card {
   margin: 0 15px;
@@ -5891,7 +5912,7 @@ section.features .feature-2 {
 }
 
 .card .card__title h5:hover{
-	color:#fff;
+	color:#000;
 	text-decoration:none;
 	background-color:#00ffff;
 }
@@ -5924,15 +5945,11 @@ a .card {
 }
 a .card p,
 a .card span {
-  color: #767676;
+  color: #000;
 }
 a .card:hover {
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
-  box-shadow: 0px 0px 30px 0px rgba(0, 0, 0, 0.05);
 }
 a .card.card-6:hover {
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
-  box-shadow: 0px 0px 30px 0px rgba(0, 0, 0, 0.05);
 }
 a:active .card {
   transform: scale(0.99);
@@ -6548,7 +6565,7 @@ iframe {
   opacity: 0.1;
 }
 .masonry__filters ul li:not(.active) {
-  opacity: .5;
+  opacity: 1;
 }
 .masonry__filters ul li:not(.active):after {
   opacity: 0.2;
@@ -6884,6 +6901,10 @@ section:first-of-type.imagebg + .masonry-contained {
 }
 .tag-cloud .btn--sm {
   padding: 0 0.8125em 1px 0.8125em;
+}
+.blog-item-1 {
+  background-color:#EEEEEE;
+  padding: 10px;
 }
 .blog-item-1 h4 {
   margin-bottom: 0.56521739130435em;
@@ -7575,13 +7596,14 @@ footer .logo {
   display: inline-block;
   font-family: 'Montserrat', 'Helvetica', 'Arial', sans-serif;
   color: #343434;
-  font-weight: 600;
+  font-weight: 500;
   font-variant-ligatures: common-ligatures;
   font-size: 1em;
   line-height: 1.625em;
   margin-top: 0;
   margin-bottom: 1.625em;
   margin-bottom: 0;
+  letter-spacing: 1px;
 }
 .footer-2 .footer__navigation li:not(:last-child) {
   margin-right: 1.625em;
